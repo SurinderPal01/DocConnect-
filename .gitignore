@@ -43,3 +43,5 @@ dump/
 # Misc
 *.pem
 *.key
+.vercel
+.env*.local
