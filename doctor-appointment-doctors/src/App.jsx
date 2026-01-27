@@ -11,7 +11,7 @@ import Login from "./pages/login";
 import Notifications from "./pages/Notifications";
 
 import Dashboard from "./dashboard/Dashboard";
-import Profile from "./dashboard/profile";
+import Profile from "./dashboard/Profile";
 import Appointments from "./dashboard/Appointments";
 import Chat from "./pages/Chat";
 import DoctorSearch from "./dashboard/search/DoctorSearch";
