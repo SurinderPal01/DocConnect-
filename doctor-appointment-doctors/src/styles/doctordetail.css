@@ -1,0 +1,164 @@
+.doctor-detail-page {
+  padding: 24px;
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Doctor Info */
+.doctor-info {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.doctor-info img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e5e7eb;
+}
+
+.doctor-info h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.doctor-info p {
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* Day selector wrapper */
+.date-selector {
+  margin: 20px 0;
+  width: 100%;
+}
+
+/* Dropdown */
+.date-selector select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  background-color: #ffffff;
+  color: #111827;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.date-selector select:hover {
+  border-color: #2563eb;
+}
+
+/* Focus */
+.date-selector select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* Disabled (if ever used) */
+.date-selector select:disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+}
+
+/* Mobile spacing */
+@media (max-width: 600px) {
+  .date-selector {
+    margin: 16px 0;
+  }
+}
+
+/* Slots */
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.slot {
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.slot.available {
+  background: #ecfdf5;
+  border: 1px solid #10b981;
+  color: #065f46;
+}
+
+.slot.available:hover {
+  background: #d1fae5;
+}
+
+.slot.booked {
+  background: #fee2e2;
+  border: 1px solid #ef4444;
+  color: #991b1b;
+  cursor: not-allowed;
+}
+
+/* Availability section */
+.availability-section {
+  margin-top: 28px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.availability-section h4 {
+  margin-bottom: 16px;
+  font-size: 18px;
+  color: #111827;
+}
+
+/* Slots grid */
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+/* Slot button (BookAppointment component root) */
+.slot-btn {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #10b981;
+  background: #ecfdf5;
+  color: #065f46;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slot-btn:hover {
+  background: #d1fae5;
+  transform: translateY(-2px);
+}
+
+/* Disabled / booked */
+.slot-btn.disabled {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+  cursor: not-allowed;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

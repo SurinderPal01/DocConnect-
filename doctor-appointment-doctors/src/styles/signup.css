@@ -1,0 +1,132 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* Page background */
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  padding: 20px;
+}
+
+/* Signup card */
+.signup-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading */
+.signup-card h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1f2937;
+}
+
+/* Form */
+.signup-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Inputs & Select */
+.signup-card input,
+.signup-card select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+/* Focus state */
+.signup-card input:focus,
+.signup-card select:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* Select dropdown (scroll) */
+.signup-card select {
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Button */
+.signup-card button {
+  margin-top: 10px;
+  padding: 12px;
+  background: #4f46e5;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.signup-card button:hover {
+  background: #4338ca;
+}
+
+.signup-card button:active {
+  transform: scale(0.98);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .signup-card {
+    padding: 20px;
+  }
+}
+
+/* Login redirect text */
+.login-text {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+/* Login link */
+.login-link {
+  color: #4f46e5;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+.signup-text {
+  margin-top: 1rem;
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+}
+
+.signup-link {
+  margin-left: 6px;
+  color: #5b4bff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+  color: #4338ca;
+}

@@ -1,0 +1,98 @@
+.my-bookings-page {
+  padding: 20px;
+}
+
+.my-bookings-page h2 {
+  margin-bottom: 16px;
+}
+
+/* ---------------- CARD ---------------- */
+
+.booking-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.status {
+  position: static;   /* absolute hatao */
+  margin-top: 6px;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+/* ---------------- STATUS COLORS ---------------- */
+
+.booking-card.pending {
+  border-left: 4px solid orange;
+}
+
+.booking-card.accepted {
+  border-left: 4px solid green;
+}
+
+.booking-card.rejected,
+.booking-card.cancelled {
+  opacity: 0.6;
+}
+
+/* ---------------- INFO ---------------- */
+
+.booking-info h4 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.booking-info p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.booking-info .status {
+  font-size: 12px;
+  text-transform: capitalize;
+  color: #777;
+}
+
+/* ---------------- ACTIONS ---------------- */
+
+.booking-actions button {
+  margin-left: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* Accept */
+.booking-actions button:first-child {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+}
+
+/* Reject */
+.booking-actions button:nth-child(2) {
+  background: #f44336;
+  color: #fff;
+  border: none;
+}
+
+/* Cancel */
+.booking-actions button {
+  background: #ff9800;
+  color: #fff;
+  border: none;
+}
+
+/* Disabled */
+.booking-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -1,0 +1,30 @@
+.ai-suggested-doctor {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-top: 2rem;
+  border-radius: 8px;
+}
+
+.ai-suggested-doctor input {
+  width: 60%;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.ai-suggested-doctor button {
+  padding: 0.5rem 1rem;
+}
+
+.doctor-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.doctor-card {
+  border: 1px solid #eee;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 200px;
+}

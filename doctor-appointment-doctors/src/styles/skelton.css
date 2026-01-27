@@ -1,0 +1,67 @@
+.skeleton-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.sk-line {
+  height: 14px;
+  background: #e5e7eb;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.sk-btn {
+  width: 80px;
+  height: 32px;
+  background: #e5e7eb;
+  border-radius: 8px;
+  margin-top: 10px;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.sk-badge {
+  width: 70px;
+  height: 20px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.sk-dot {
+  width: 12px;
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 50%;
+  margin-right: 10px;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.sk-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 16px 0;
+}
+
+.sk-timeline-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* widths */
+.w-30 { width: 30%; }
+.w-40 { width: 40%; }
+.w-50 { width: 50%; }
+.w-60 { width: 60%; }
+.w-70 { width: 70%; }
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}

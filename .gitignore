@@ -1,0 +1,45 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.development
+.env.production
+
+# Build outputs
+dist/
+build/
+
+# Vite
+.vite/
+
+# React
+coverage/
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Mongo
+data/
+dump/
+
+# Uploads (if storing locally)
+uploads/
+
+# Misc
+*.pem
+*.key

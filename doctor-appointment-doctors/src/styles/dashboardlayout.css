@@ -1,0 +1,39 @@
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f6f8;
+  position: relative;
+}
+
+/* content */
+.dashboard-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* hamburger */
+.menu-btn {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 200;
+  background: #111827;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 20px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .menu-btn {
+    display: block;
+  }
+
+  .dashboard-content {
+    padding-top: 70px;
+  }
+}
