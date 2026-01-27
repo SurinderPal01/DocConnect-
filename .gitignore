@@ -34,11 +34,11 @@ Thumbs.db
 .idea/
 
 # Mongo
-data/
+
 dump/
 
 # Uploads (if storing locally)
-uploads/
+
 
 # Misc
 *.pem

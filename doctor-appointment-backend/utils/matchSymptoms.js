@@ -1,4 +1,4 @@
-const symptoms = require("../data/symptoms");
+const symptoms = require("../data/symptoms.json");
 
 function matchSymptomsToDoctor(text){
     if (!text || typeof text !== "string") {
