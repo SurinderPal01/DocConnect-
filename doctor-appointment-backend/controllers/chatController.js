@@ -4,15 +4,12 @@ const { listeners } = require("../models/User");
 
 exports.getChatAccess = async (req,res)=>{
     try{
-        console.log("trying to get the chatStatus")
 const id = req.params.id;
 // const role = req.user.role;
-console.log("id",id);
 if(!id){
     return res.sattus(400).json({msg:"Id missing"})
 }
 const appointment = await Appointment.findById(id)
-// console.log("appointment",appointment);
 if (!appointment) {
   return res.status(404).json({ msg: "Appointment not found" });
 }
@@ -36,24 +33,19 @@ const today = new Date();
 const sameDay =
   normalize(appointment.date) === normalize(today);
 
-console.log(normalize(appointment.date),normalize(today));
 if (!sameDay) {
     return res.json({enabledStatus:"hidden",msg:"Day doenst matchs"});
-//   console.log("day doesnt match");
   // hide chat button
 }
 const timeToMinutes = (t)=>{
     const [h,m] = t.split(":").map(Number);
     return h*60+m;
 }   
-// console.log("time start",timeToMinutes(appointment.start));
-// console.log("time end",timeToMinutes(appointment.end));
 
 const now = new Date();
 const hours = now.getHours().toString().padStart(2,"0");
 const minutes = now.getMinutes().toString().padStart(2,"0");
 const currentTime = `${hours}:${minutes}`;
-// console.log("current time",timeToMinutes(currentTime));
 
 let enabledStatus ="";
 if (timeToMinutes(currentTime) < timeToMinutes(appointment.start) - 15) {
@@ -79,7 +71,6 @@ const expiredStatus = timeExpired || appointment.status === "completed";
 
   await appointment.save();
 
-// console.log("status",appointment.status);
 res.json({enabledStatus , expiredStatus});
 
     }catch(err){
@@ -91,7 +82,6 @@ res.json({enabledStatus , expiredStatus});
 exports.sendMessage = async (req, res) => {
   try {
     const { appointmentId, receiver, message } = req.body;
-    // console.log("req body",appointmentId, receiver);
     const sender = req.user._id;
     const senderModel = req.user.role === "doctor" ? "Doctor" : "User";
 
@@ -146,18 +136,12 @@ exports.getMessages = async (req,res)=>{
 }
 
 exports.uploadChatFile = async (req,res)=>{
-  console.log("Upload");
   try{
-    console.log("trying to upload");
     const {appointmentId , receiver} = req.body;
-    // console.log("req data",appointmentId,receiver);
     const user = req.user;
-    console.log("req file",req.file);
     if(!req.file) return res.status(400).json({msg:"No file"});
     const fileUrl = req.file.path;// cloudinary path
-    console.log("file url",fileUrl);
     const fileType = req.file.mimetype.startsWith("image")?"image":"file";
-    console.log("file type",fileType);
     const chat = await Chat.create({
       appointment:appointmentId,
       sender:user._id,
@@ -166,7 +150,6 @@ exports.uploadChatFile = async (req,res)=>{
       message:fileUrl,
       type:fileType,
     })
-    console.log("chaat created",chat);
       const io = req.app.get("io");
     // console.log("req app",req.app);
 

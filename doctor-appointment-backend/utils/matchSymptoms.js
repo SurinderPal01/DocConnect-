@@ -8,7 +8,6 @@ function matchSymptomsToDoctor(text){
     for(let item of symptoms){
         for(let keyword of item.keywords) {
             if(input.includes(keyword)){
-                console.log("specilization",item.specialization);
                 return item.specialization;  // first matched specialization
             }
         }

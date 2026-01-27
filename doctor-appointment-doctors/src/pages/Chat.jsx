@@ -32,7 +32,7 @@ function Chat() {
         const app = res.data;
         const receiver = 
         user.role==="user" ?app.doctor : app.user;
-        console.log(user.role);
+        // console.log(user.role);
         setReceiverId(receiver._id);
       }catch(err){
         console.error("appointment fetch error",err);
@@ -45,7 +45,6 @@ function Chat() {
   const checkAccess = useCallback(async ()=>{
     try{
       const res = await api.get(`/api/chat/access/${appointmentId}`);
-      console.log("res data",res.data);
       if(res.data.expiredStatus){
         navigate(`/dashboard/appointment/${appointmentId}`);
       }
@@ -67,7 +66,6 @@ function Chat() {
       try{
         const res =await api.get(`/api/chat/messages/${appointmentId}`);
         setMessages(res.data);
-        // console.log("chat is ",res.data);
         isInitialLoad.current = true;
       }catch(err){
         console.error(err);
@@ -79,13 +77,10 @@ function Chat() {
   //init socket and join
   useEffect(()=>{
     if(!user?._id){
-      console.log("user not present");
       return;
     } 
-  // console.log("socketRef",socketRef.current);
 
     if(!socketRef.current){
-      // console.log("trying to create socket");
       socketRef.current = io("http://localhost:4000",{
         withCredentials:true,
         transports:["websocket","polling"]
@@ -93,13 +88,11 @@ function Chat() {
       // console.log("socket",socketRef?.current);
        socketRef.current.emit("join-room", {appointmentId});
        socketRef.current.on("receive-message",(msg)=>{
-        console.log("recieve message called",msg);
         setMessages((prev)=>[...prev ,msg])
        })
       // socketRef?.emit()
       // 5 minutes waring listner 
       socketRef.current.on("chat-warning",(data)=>{
-        console.log("Chat warning called");
         setWarning(data);
         setCountdown(data.minutesLeft *60); // seconds
       });
@@ -142,7 +135,6 @@ const formatTime = (sec) => {
 
   //send message and emit
  const sendMessage = async () => {
-  console.log("try to send message");
   if (!chatEnabled || timeOver) return;
   if (!text.trim() || !socketRef.current) return;
   checkAccess();
@@ -165,7 +157,6 @@ const formatTime = (sec) => {
 // to scroll to bottom 
 useEffect(()=>{
   if(!messageEndRef?.current) return;
-  // console.log("messageendref",messageEndRef.current);
 
   //initial load => scroll to bottom
   if(isInitialLoad.current){
@@ -176,14 +167,11 @@ useEffect(()=>{
 
   // for subsequent updates only update if user was near bottm 
   const parent = messageEndRef.current.parentElement;
-  // console.log("parent",parent);
 
   if(!parent) return;
   const distanceFromBottom =  parent.scrollHeight -(parent.scrollTop + parent.clientHeight);
-  // console.log("heights",parent.scrollHeight,parent.clientHeight,distanceFromBottom);
   if(distanceFromBottom <150){
     // scroll to bottom
-    // console.log("should scroll");
     messageEndRef.current.scrollIntoView({behaviour:"smooth"});
   }
 },[messages]);
@@ -194,15 +182,13 @@ const sendFile = async (file) => {
     formData.append("file", file);              // must match upload.single("file")
     formData.append("appointmentId", appointmentId);
     formData.append("receiver", receiverId);
-    console.log("form data is ",formData);
     try{
-    const res = await api.post("/api/chat/upload", formData,{
+    await api.post("/api/chat/upload", formData,{
        headers: {
       "Content-Type": "multipart/form-data",
     },
     });
 
-    console.log("UPLOAD RES:", res.data);
     }catch(err){
       console.log("error",err);
     }
@@ -292,7 +278,7 @@ return (
     id="fileInput"
     style={{ display: "none" }}
     onChange={(e) => {
-    console.log("FILE SELECTED:", e.target.files[0]); // 🔥 must log file
+    // console.log("FILE SELECTED:", e.target.files[0]); // 🔥 must log file
     sendFile(e.target.files[0]);
   }}
   />

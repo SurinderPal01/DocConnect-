@@ -23,7 +23,6 @@ function AppointmentDetailBase({role , actions}) {
   // !expired &&
   // chatStatus !== "hidden";
   // // const isChatDisabled = chatStatus !== "expired";
-  // console.log("show or not",shouldShowChatButton)
 
   // const lastIndex = history.length - 1;
   const statusIcon = {
@@ -36,9 +35,7 @@ function AppointmentDetailBase({role , actions}) {
 
    const getData = useCallback(async ()=>{
       try{
-        console.log(id)
         const res = await api.get(`/api/appointment/${id}`);
-        // console.log("data",res.data);
         setAppointment(res.data);
       }catch(err){
         console.error(err);
@@ -59,10 +56,7 @@ function AppointmentDetailBase({role , actions}) {
     const res = await api.get(`/api/chat/access/${appointment._id}`);
     setChatStatus(res.data.enabledStatus);
     setChatExpired(res.data.expiredStatus)
-    console.log(res.data.expiredStatus)
-    console.log(res.data.enabledStatus)
     if( res.data.enabledStatus==="enabled" ||(res.data.enabledStatus ==="disabled" && !res.data.expiredStatus)){
-      console.log("change show");
       setShouldShowChatButton(true);
     }
   } catch (err) {

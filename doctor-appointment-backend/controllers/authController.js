@@ -4,7 +4,6 @@ const Doctor = require("../models/Doctor");
 const User = require("../models/User");
 exports.checkUser = async(req , res)=>{
     try{
-      console.log("checking the user");
         let user;
         if(req.user.role=="doctor"){
             user = await Doctor.findById(req.user.id).select("-password");
@@ -28,7 +27,6 @@ exports.checkUser = async(req , res)=>{
 
 exports.login = async (req, res) => {
   try {
-    console.log("trying to login");
     const { email, password } = req.body;
     const doctor = await Doctor.findOne({ email });
     if(doctor){
@@ -40,7 +38,6 @@ exports.login = async (req, res) => {
   { expiresIn: "7d" });
 
     // Send token in cookies
-    // console.log("doctor is", doctor);
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
@@ -68,7 +65,6 @@ if(user){
       role: user.role
     }, process.env.JWT_SECRET,
   { expiresIn: "7d" });
-  // console.log("user is ",user);
       res.cookie("token", token, {
       httpOnly: true,
       secure: false,
@@ -90,7 +86,6 @@ if(user){
 
 exports.logoutUser = async (req, res) => {
   try {
-    // console.log("trying to logout ");
     res.clearCookie("token", {
       httpOnly: true,
       secure: true,        // only HTTPS

@@ -13,12 +13,10 @@ function Login(){
 
     const handlelogin = async (e)=>{
         e.preventDefault();
-        console.log("trying to login");
         try{
             const res = await api.post("/api/auth/login",{
                 email , password
             });
-            console.log(res.data.user);
            if (res.data.user) {
             login(res.data.user);
             navigate("/dashboard");

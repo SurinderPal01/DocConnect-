@@ -6,13 +6,11 @@ const notificationService = require("../services/notoficationService");
 exports.createAppointment = async (req, res) => {
   try {
     const { doctorId, date, slotId } = req.body;
-    // console.log("req body",date);
     const doctor = await Doctor.findById(doctorId);
     if (!doctor) {
       return res.status(404).json({ msg: "Doctor not found" });
     }
     const bookingDate =  new Date(date);
-    // console.log("bookng date",bookingDate);
     const normalize = (d)=>{
       const x = new Date(d);
       x.setHours(0,0,0,0);
@@ -22,7 +20,6 @@ exports.createAppointment = async (req, res) => {
       // a=> new Date(a.date).getTime()=== new Date(bookingDate).getTime());
       a=> normalize(a.date)=== normalize(bookingDate));
 
-    // console.log("date availability and date",dateAvailability,bookingDate);
     if (!dateAvailability) {
       return res.status(400).json({ msg: "Doctor not available on this day" });
     }
@@ -42,26 +39,19 @@ exports.createAppointment = async (req, res) => {
       status:"accepted"
       // normalize(date): normalize(date)
     })
-    console.log("appointments",checkAppointment);
     const checkDate = checkAppointment.map(m=>
       normalize(m.date) === normalize(date) ? m :null
     )
     const ifFalse = checkDate.some(d=>d===true);
-    console.log("check user",ifFalse );
-    console.log("check",checkDate);
     if(ifFalse){
       return res.status(400).json({msg:"Slot already booked for this date"})
     }
-    console.log("check success");
 
 
 
     // book slot
     slot.isAvailable = false;
     doctor.markModified("availability");
-    // console.log(
-    // JSON.stringify(doctor.availability, null, 2)
-    // );
 
     await doctor.save();
     const appointment = await Appointment.create({
@@ -84,7 +74,6 @@ exports.createAppointment = async (req, res) => {
       message:"A user has requested an appointment",
       link:`/doctor/appointment/${appointment._id}`
     })
-    // console.log("app.",appointment.statusHistory);
     res.status(201).json({ success: true, appointment });
 
   } catch (err) {
@@ -100,7 +89,6 @@ exports.getUserAppointment = async (req,res)=>{
             user:req.user._id
         }).populate("doctor","firstName lastName specialization")
         .sort({createdAt:-1});
-        // console.log("User appointments",appointment);
         res.json(appointment)
     }catch(err){
         return res.status(500).json({message:"Server Error"})
@@ -109,12 +97,10 @@ exports.getUserAppointment = async (req,res)=>{
 
 exports.getDoctorAppointment = async (req,res)=>{
     try{
-      // console.log("trying to get appointment");
         const appointment = await Appointment.find({
             doctor:req.user._id
         }).populate("user" , "firstName lastName email")
         .sort({createdAt:-1});
-        // console.log("appoinatment ->",appointment);
         res.json(appointment)
     }catch(err){
         res.status(500).json({msg:"Server Error"});

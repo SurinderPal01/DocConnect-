@@ -12,7 +12,6 @@ function SignupUser(){
     const signup = async (e)=>{
         e.preventDefault();
         try{
-            console.log("trying to signup user");
             const res =await api.post("/api/users/signup",{
                 firstName , lastName ,email , password
             });

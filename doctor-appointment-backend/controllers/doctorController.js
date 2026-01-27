@@ -5,7 +5,6 @@ const Appointment = require("../models/Appointment");
 
 exports.signupDoctor = async (req, res) => {
   try {
-    // console.log("trying to signup doctor");
     const { firstName, lastName, age, phone, password, email, specialization } =
       req.body;
 
@@ -14,7 +13,6 @@ exports.signupDoctor = async (req, res) => {
       return res.status(400).json({ msg: "User Alraeady exists" });
     }
     const hashed = await bcrypt.hash(password, 10);
-    // console.log("hashed password", hashed);
     const doctor = await Doctor.create({
       firstName,
       lastName,
@@ -25,7 +23,6 @@ exports.signupDoctor = async (req, res) => {
       profilePhoto: null,
       specialization,
     });
-    // console.log("doctor", doctor);
     res.json({ success: true });
   } catch (err) {
     return res.status(500).json({ msg: "Server Error", err });
@@ -34,7 +31,6 @@ exports.signupDoctor = async (req, res) => {
 
 exports.loginDoctor = async (req, res) => {
   try {
-    console.log("trying to login");
     const { email, password } = req.body;
     const doctor = await Doctor.findOne({ email });
     if (!doctor) return res.json({ message: "Invalid email" });
@@ -46,7 +42,6 @@ exports.loginDoctor = async (req, res) => {
   { expiresIn: "7d" });
 
     // Send token in cookies
-    // console.log("doctor is", doctor);
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
@@ -70,7 +65,6 @@ exports.loginDoctor = async (req, res) => {
 
 exports.searchDoctors = async (req, res) =>{
   try{
-    console.log("trying to search doctors");
     const {category} = req.query;
     // console.log("category",category);
     if(!category){
@@ -82,7 +76,6 @@ exports.searchDoctors = async (req, res) =>{
     const doctors = await Doctor.find({
       specialization: category,
   }).select("-password");
-  // console.log("doctors",doctors)
   res.json(doctors);
   }catch (error) {
     res.status(500).json({
@@ -93,7 +86,6 @@ exports.searchDoctors = async (req, res) =>{
 }
 exports.getProfile = async (req, res) => {
   try {
-    // console.log("trying to get profile");
 
     // req.user already contains doctor
     const doctorId = req.user._id;
@@ -129,7 +121,6 @@ exports.getDoctor = async (req,res)=>{
     if(!doctor){
       return res.status(400).json({msg:"Doctor Not Found"})
     }
-    // console.log("doctor",doctor);
     res.json(doctor)
   }catch(err){
     return res.status(500).json({msg:"Server Error",error:err.message})
@@ -138,13 +129,10 @@ exports.getDoctor = async (req,res)=>{
 
 exports.getAvailability = async(req , res)=>{
   try{
-    console.log("trying to get availability");
     const doctor = await Doctor.findById(req.user._id).select("availability");
-    // console.log("doctor",doctor);
     if(!doctor){
       return res.status(400).json({msg:"Doctor not found"});
     }
-    // console.log("availability",doctor.availability);
     res.json(doctor.availability || []);
   }catch(err){
     res.status(500).json({msg:"Server Error"});
@@ -153,7 +141,6 @@ exports.getAvailability = async(req , res)=>{
 
 exports.updateAvailability= async (req,res)=>{
   try{
-    console.log("trying to update availability");
     const { availability} = req.body;
      if (!Array.isArray(availability)) {
       return res.status(400).json({ message: "Invalid availability data" });
@@ -181,13 +168,11 @@ exports.updateAvailability= async (req,res)=>{
     }
   }
 
-    // console.log("avail..",availability);
     const doctor =await Doctor.findByIdAndUpdate(
       req.user._id,
       {availability},
       {new:true}
     );
-    // console.log("doctor",doctor);
     if(!doctor){
       return res.status(400).json({msg:"Doctor not found"})
     }
@@ -207,7 +192,6 @@ exports.getTodayAppointments = async(req,res)=>{
       doctor:doctorId,
       date:today
     }).populate("user","firstName lastName");
-    console.log("appointments",appointments);
     res.json(appointments);
   }catch(err){
     return res.status(500).json({msg:"Server Error"});

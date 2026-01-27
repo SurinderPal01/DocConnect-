@@ -37,7 +37,6 @@ const seedDoctors = async () => {
 
     await Doctor.insertMany(doctors);
 
-    console.log("100 Doctors seeded successfully");
     process.exit();
   } catch (err) {
     console.error(" Seeding error:", err);

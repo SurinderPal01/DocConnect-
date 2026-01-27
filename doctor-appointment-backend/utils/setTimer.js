@@ -14,7 +14,6 @@ const normalize = (d) => {
 const warned = new Set();
 
 function startChatTimer(io) {
-    console.log("start timer called");
   setInterval(async () => {
     const now = new Date();
     const today = normalize(now);

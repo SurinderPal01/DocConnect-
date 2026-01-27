@@ -7,18 +7,14 @@ function DoctorProfile(){
     const [doctor , setDoctor] = useState();
     const [loading , setLoading] = useState(true);
     const [edit , setEdit] = useState(false);
-    console.log("doctor profile visited");
 
 
     useEffect(()=>{
-        console.log("doctor profile called");
         fetchProfile();
     },[]);
      const fetchProfile = async ()=>{
-        console.log("get the profile");
             try{
                 const res = await api.get("/api/doctor/profile");
-                console.log("data is ",res.data);
                 setDoctor(res.data);
             }catch(err){
                 console.error(err)

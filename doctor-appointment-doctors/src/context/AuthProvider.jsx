@@ -7,13 +7,11 @@ export default function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const login = (doctorData) => {
-    console.log("LOGIN CALLED", doctorData);
     setUser(doctorData);
   };
   useEffect (()=>{
         const check = async () => {
       try {
-        console.log("user check called");
         const res = await api.get("/api/auth/check");
         setUser(res.data.user);
       } catch {

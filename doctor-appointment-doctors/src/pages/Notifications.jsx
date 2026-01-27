@@ -22,7 +22,6 @@ function Notifications() {
     },[]);
     const markRead = async(id)=>{
         try{
-            console.log("trying to mark read");
             await api.put(`/api/notifications/${id}`);
             setNotifications(prev =>
         prev.map(n =>

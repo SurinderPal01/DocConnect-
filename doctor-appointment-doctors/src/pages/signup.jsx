@@ -29,7 +29,6 @@ function Signup(){
     const signup = async (e)=>{
         e.preventDefault();
         try{
-            console.log("trying to signup");
             const res = api.post("/api/doctor/signup",{
                 firstName , lastName , age , email ,password, phone , specialization
             });

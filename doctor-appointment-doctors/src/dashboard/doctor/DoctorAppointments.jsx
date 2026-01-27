@@ -15,7 +15,6 @@ function DoctorAppointment(){
       api.get("/api/appointment/doctor")
       .then(res=>setBookings(res.data))
       .finally(()=>setLoading(false));
-      console.log("booking");
    },[]);
 
 

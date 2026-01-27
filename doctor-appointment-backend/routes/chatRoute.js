@@ -21,14 +21,12 @@ router.post("/message",auth,sendMessage);
 // router.post("/upload", auth, (req, res, next) => {
 //     upload.single("file")(req, res, function (err) {
 //       if (err) {
-//         console.log("❌ Multer Error:", err);
 //         return res.status(400).json({ error: err.message });
 //       }
 //       next();
 //     });
 //   }, uploadChatFile);
 router.post("/upload", auth, (req, res, next) => {
-  console.log("🧾 RAW HEADERS:", req.headers["content-type"]);
   next();
 }, upload.single("file"), uploadChatFile);
 

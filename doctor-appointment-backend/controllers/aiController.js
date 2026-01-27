@@ -4,7 +4,6 @@ const Doctor = require("../models/Doctor");
 exports.suggestDoctor = async (req, res) => {
   try {
     const { symptoms } = req.body;
-    console.log("REQ BODY:", req.body); // debug
     if (!symptoms) {
       return res.status(400).json({ msg: "Symptoms required" });
     }

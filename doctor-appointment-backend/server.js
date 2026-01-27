@@ -46,7 +46,7 @@ app.use("/api/chat",chatRoute);
 app.use("/api/ai", aiRoutes);
 
 app.use((req,res,next)=>{
-  console.log("Incoming request:", req.method, req.path);
+  // console.log("Incoming request:", req.method, req.path);
   next();
 })
 
@@ -60,17 +60,13 @@ const io = new Server(server,{
 //socket auth  middleware 
 io.use((socket,next)=>{
   try{
-    // console.log("socket checking");
     // const token = socket.handshake.auth?.token;
     const cookies = cookie.parse(socket.handshake.headers.cookie || "");
     const token = cookies.token;
-    // console.log("handshake",socket.handshake);
-    // console.log("token",token);
     if(!token) return next(new Error("Unauthorized"));
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
     socket.user = decoded; // { id, role }
-    // console.log("socket user checking",socket.user);
     next();
   }catch(err){
     console.error("Socket Auth Failed:",err.message);
@@ -81,7 +77,7 @@ app.set("io",io);
 startChatTimer(io);
 
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id, socket.user);
+  // console.log("User connected:", socket.id, socket.user);
 
   // Join appointment room
   socket.on("join-room", async ({ appointmentId }) => {
