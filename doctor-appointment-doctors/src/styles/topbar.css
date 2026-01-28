@@ -33,6 +33,7 @@
 .topbar-links {
   display: flex;
   align-items: center;
+  margin-left: 10px;
   gap: 1.5rem;
 }
 
@@ -41,6 +42,7 @@
   color: #333;
   font-weight: 500;
   padding: 0.5rem 1rem;
+  /* margin-left: 10px; */
   border-radius: 8px;
   transition: all 0.3s ease;
   font-size: 0.95rem;
