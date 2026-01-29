@@ -1,26 +1,34 @@
 import { useAuth } from "../../context/useAuth";
-import { useCallback, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import api from "../../utils/api";
 import "../../styles/userprofile.css";
 
 function UserProfile() {
-  const { user } = useAuth();
+  const { user ,loading} = useAuth();
+    // const [loading , setLoading] = useState(true);
   const [appointments, setAppointments] = useState([]);
 
 
 const fetchAppointments = async () => {
   try {
+    if(loading){
+      return
+    }
     const res = await api.get("/api/appointment/user");
+    console.log("res",res.cookies);
     setAppointments(res.data);
   } catch (err) {
     console.error(err);
   }
+  // finally{
+  //   setLoading(false);
+  // }
 };
  useEffect(() => {
     fetchAppointments();
 }, []);
 
-
+  if(loading) return <Loader />
   if (!user) return <p>No Profile Data</p>;
 
 return (

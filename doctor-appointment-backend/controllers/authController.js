@@ -5,6 +5,7 @@ const User = require("../models/User");
 exports.checkUser = async(req , res)=>{
     try{
         let user;
+        console.log("trying to check user");
         if(req.user.role=="doctor"){
             user = await Doctor.findById(req.user.id).select("-password");
         }
@@ -28,6 +29,7 @@ exports.checkUser = async(req , res)=>{
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    const isProduction = process.env.NODE_ENV === "production";
     const doctor = await Doctor.findOne({ email });
     if(doctor){
         const match = await bcrypt.compare(password, doctor.password);
@@ -40,8 +42,9 @@ exports.login = async (req, res) => {
     // Send token in cookies
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
     const doctor_data = {
         firstName : doctor.firstName,
@@ -67,8 +70,8 @@ if(user){
   { expiresIn: "7d" });
       res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax", 
     });
    return res.json({
         msg:"Login Success",
@@ -85,6 +88,7 @@ if(user){
 };
 
 exports.logoutUser = async (req, res) => {
+  console.log("callled")
   try {
     res.clearCookie("token", {
       httpOnly: true,

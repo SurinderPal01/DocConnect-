@@ -141,6 +141,58 @@
   background: #1e40af;
 }
 
+.appointment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.appointment-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.appointment-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #374151;
+}
+
+.appointment-card strong {
+  color: #111827;
+}
+
+.status {
+  align-self: flex-start;
+  margin-top: 6px;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 14px;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.accepted {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.rejected,
+.status.cancelled {
+  background: #e5e7eb;
+  color: #6b7280;
+}
+
 /* =========================
    Mobile Responsive
 ========================= */
@@ -193,5 +245,12 @@
 
   .appointment-list {
     grid-template-columns: 1fr;
+  }
+   .appointment-card {
+    padding: 12px;
+  }
+
+  .appointment-card p {
+    font-size: 13px;
   }
 }
