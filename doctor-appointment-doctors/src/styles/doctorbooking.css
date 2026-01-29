@@ -42,6 +42,10 @@
   opacity: 0.6;
 }
 
+.booking-card.completed {
+  border-left: 4px solid #2563eb;
+}
+
 /* ---------------- INFO ---------------- */
 
 .booking-info h4 {
@@ -59,6 +63,11 @@
   font-size: 12px;
   text-transform: capitalize;
   color: #777;
+}
+
+.status.completed {
+  background: #d1ecf1;
+  color: #0c5460;
 }
 
 /* ---------------- ACTIONS ---------------- */
@@ -95,4 +104,12 @@
 .booking-actions button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+@media (max-width:768px){
+  .my-bookings-page{
+    width:360px;
+   
+  }
+
 }

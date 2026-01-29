@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
     console.log("trying to check user in middleware");
     const token = req.cookies.token||req.header("Authorization")?.replace("Bearer ", "");
     // const token = req.header("Authorization")?.replace("Bearer ", "");
-    console.log("token is-",token);
+    // console.log("token is-",token);
     if (!token) return res.status(401).json({ message: "No token" });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

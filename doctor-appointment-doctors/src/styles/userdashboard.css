@@ -4,13 +4,11 @@ body, html {
 
 .user-dashboard {
   padding: 2rem;
-  width: 100%;
-  max-width: none;
-   box-sizing: border-box;
-  margin: 0 ;
+  max-width: 1200px;   
+  margin: 0 auto;      
   background: #f5f7fa;
   min-height: 100vh;
-  overflow-x: hidden;
+  width: 100%;
 }
 
 .dashboard-header {
@@ -32,14 +30,13 @@ body, html {
   font-size: 1.1rem;
 }
 
-.stats-grid {
+.user-stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2.5rem;
 }
-
-.stat-card {
+.user-stat-card {
   background: #fff;
   padding: 1.4rem;
   border-radius: 14px;
@@ -50,12 +47,12 @@ body, html {
 }
 
 
-.stat-card:hover {
+.user-stat-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.stat-icon {
+.user-stat-icon {
   width: 56px;
   height: 56px;
   border-radius: 12px;
@@ -66,14 +63,14 @@ body, html {
   background: linear-gradient(135deg, #5b4bff, #764ba2);
 }
 
-.stat-info h3 {
+.user-stat-info h3 {
   font-size: 2rem;
   color: #333;
   margin: 0;
   font-weight: 700;
 }
 
-.stat-info p {
+.user-stat-info p {
   color: #666;
   margin: 0.3rem 0 0 0;
   font-size: 0.9rem;
@@ -329,7 +326,7 @@ body, html {
 }
 
 @media (max-width: 1024px) {
-  .stats-grid {
+  .user-stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -341,7 +338,10 @@ body, html {
    .dashboard-content {
     display: flex;
     flex-direction: column;
+      /* width:100%; */
+      max-width: 100%;
     gap: 16px;
+    padding: 16px;
   }
 
   .left-section,
@@ -357,35 +357,41 @@ body, html {
   }
 
   /* Stats */
-  .stats-grid {
+  .user-stats-grid {
     grid-template-columns: 1fr; /* ONE card per row */
     gap: 12px;
   }
 
-  .stat-card {
+  .user-stat-card {
     width: 100%;
     padding: 12px;
   }
-   .stat-card:hover {
+   .user-stat-card:hover {
     transform: none;
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
   }
 
-  .stat-icon {
+  .user-stat-icon {
     width: 44px;
     height: 44px;
     font-size: 1.6rem;
   }
 
-  .stat-info h3 {
+  .user-stat-info h3 {
    font-size: 1.4rem;
+  }
+
+  .quick-actions{
+      width:100%;
+      max-width: 600px;
   }
 
   /* Cards padding reduce */
   .search-card,
   .quick-actions,
   .upcoming-appointments {
-    padding: 1.2rem;
+    border-radius: 16px;
+    padding: 1.25rem;
   }
 
   /* Actions */

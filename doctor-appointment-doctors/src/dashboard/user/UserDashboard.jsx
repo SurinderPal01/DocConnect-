@@ -58,26 +58,26 @@ function UserDashboard({ user }) {
                 </div>
             </div>
 
-            <div className="stats-grid">
-                <div className="stat-card">
-                    <div className="stat-icon">📅</div>
-                    <div className="stat-info">
+            <div className="user-stats-grid">
+                <div className="user-stat-card">
+                    <div className="user-stat-icon">📅</div>
+                    <div className="user-stat-info">
                         <h3>{totalAppointments}</h3>
                         <p>Total Appointments</p>
                     </div>
                 </div>
 
-                <div className="stat-card">
-                    <div className="stat-icon">⏰</div>
-                    <div className="stat-info">
+                <div className="user-stat-card">
+                    <div className="user-stat-icon">⏰</div>
+                    <div className="user-stat-info">
                         <h3>{upcomingAppointments.length}</h3>
                         <p>Upcoming</p>
                     </div>
                 </div>
 
-                <div className="stat-card">
-                    <div className="stat-icon">✅</div>
-                    <div className="stat-info">
+                <div className="user-stat-card">
+                    <div className="user-stat-icon">✅</div>
+                    <div className="user-stat-info">
                         <h3>{completedAppointments}</h3>
                         <p>Completed</p>
                     </div>

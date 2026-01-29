@@ -1,16 +1,14 @@
-.dashboard-layout {
-  display: flex;
-  min-height: 100vh;
-  background-color: #f4f6f8;
-  position: relative;
+.dashboard-content {
+  margin-left: 240px;
+  padding: 24px;
+  padding-bottom: 80px;
+  /* Inner scroll removed so that only window scrolls */
+  overflow-y: visible;
+  overflow-x: hidden;         /* prevent horizontal scroll */
+  height: auto;
 }
 
-/* content */
-.dashboard-content {
-  flex: 1;
-  padding: 24px;
-  overflow-y: auto;
-}
+
 
 /* hamburger */
 .menu-btn {
@@ -26,14 +24,30 @@
   border-radius: 6px;
   font-size: 20px;
 }
-
+/* desktop */
+@media (min-width: 769px) {
+  .dashboard-content {
+    margin-left: 240px; /* sidebar width */
+  }
+}
 /* MOBILE */
 @media (max-width: 768px) {
   .menu-btn {
     display: block;
   }
 
-  .dashboard-content {
+  /* .dashboard-content {
     padding-top: 70px;
+  } */
+   .sidebar {
+    left: -260px;
+  }
+
+  .dashboard-content {
+    margin-left: 0;
+    padding-top: 70px;
+    padding-bottom: 120px;
+    overflow-y: visible;
+    height: auto;
   }
 }

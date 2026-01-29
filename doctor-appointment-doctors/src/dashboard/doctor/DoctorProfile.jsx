@@ -1,6 +1,7 @@
 import { useEffect,useState } from "react";
 import api from "../../utils/api";
 import Loader from "../../components/Loader";
+import DoctorProfileSkeleton from "../../components/DoctorProfileSkeleton";
 import UpdateDoctorProfile from "./UpdateDoctorProfile";
 import "../../styles/doctorprofile.css";
 function DoctorProfile(){
@@ -24,7 +25,7 @@ function DoctorProfile(){
         }
 
    
-    if(loading) return <Loader />
+    if(loading) return <DoctorProfileSkeleton />
     if(!doctor) return <p>No Profile Data</p>
 
     if (edit) {
