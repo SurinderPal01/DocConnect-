@@ -335,13 +335,16 @@ body, html {
   }
 }
 @media (max-width: 768px) {
+  .user-dashboard {
+    padding: 1rem;
+  }
    .dashboard-content {
     display: flex;
     flex-direction: column;
       /* width:100%; */
       max-width: 100%;
     gap: 16px;
-    padding: 16px;
+    padding: 8px;
   }
 
   .left-section,

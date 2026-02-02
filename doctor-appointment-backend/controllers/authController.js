@@ -9,7 +9,7 @@ exports.checkUser = async(req , res)=>{
         if(req.user.role=="doctor"){
             user = await Doctor.findById(req.user.id).select("-password");
         }
-        else if(req.user.role=="user"){
+        if(req.user.role=="user"){
             user = await User.findById(req.user.id).select("-password");
         }
         if(!user){
@@ -30,7 +30,7 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const isProduction = process.env.NODE_ENV === "production";
-    const doctor = await Doctor.findOne({ email });
+    const doctor = await Doctor.findOne({ email:email.toLowerCase() });
     if(doctor){
         const match = await bcrypt.compare(password, doctor.password);
     if (!match) return res.json({ message: "Invalid password" });
@@ -60,7 +60,7 @@ exports.login = async (req, res) => {
   );
 }
 
-const user = await User.findOne({email});
+const user = await User.findOne({email:email.toLowerCase()});
 if(user){
     const match = await bcrypt.compare(password, user.password);
     if(!match) return res.json({msg:"Invalid Password"});

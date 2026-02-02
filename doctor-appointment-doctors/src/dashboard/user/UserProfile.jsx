@@ -15,7 +15,7 @@ const fetchAppointments = async () => {
       return
     }
     const res = await api.get("/api/appointment/user");
-    console.log("res",res.cookies);
+    // console.log("res",res.data);
     setAppointments(res.data);
   } catch (err) {
     console.error(err);

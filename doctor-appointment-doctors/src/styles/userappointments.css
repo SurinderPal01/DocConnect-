@@ -24,12 +24,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
+
+  width: 100%;
+  max-width: 900px;
+
   border: 1px solid #ddd;
-  padding: 14px;
-  border-radius: 6px;
+  padding: 18px 20px;
+  border-radius: 10px;
   background: #fff;
 }
-
 /* ---------------- STATUS BORDER ---------------- */
 
 .appointment-card.pending {
@@ -51,37 +55,43 @@
 
 /* ---------------- DOCTOR INFO ---------------- */
 .doctor-info {
-  width:90%;
+  flex: 1;
 }
+
 .doctor-info h3 {
   margin: 0;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .specialization {
-  font-size: 13px;
+  font-size: 14px;
   color: #666;
-  margin-top: 4px;
+  margin: 6px 0;
+}
+
+.doctor-info button {
+  margin-top: 8px;
 }
 
 /* ---------------- APPOINTMENT INFO ---------------- */
 
 .appointment-info {
-  width:90%;
   text-align: right;
 }
 
 .slot {
-  font-size: 13px;
-  margin-bottom: 6px;
+  font-size: 14px;
+  margin-bottom: 8px;
 }
+
 
 /* ---------------- STATUS BADGE ---------------- */
 
 .status {
+  display: inline-block;
   font-size: 12px;
-  padding: 3px 8px;
-  border-radius: 12px;
+  padding: 5px 12px;
+  border-radius: 20px;
   text-transform: capitalize;
 }
 
@@ -124,16 +134,27 @@
 
 @media (min-width:769px) {
 
-  .user-appointments-page{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: 20px;
-    padding:20px;
+   .user-appointments-page {
+    max-width: 1100px;
+    margin: 0 auto;
   }
-  .appointments-list{
-        justify-content: center;
+
+  .appointments-list {
     align-items: center;
+  }
+}
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width: 768px) {
+  .appointment-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .appointment-info {
+    width: 100%;
+    text-align: left;
+    margin-top: 10px;
   }
 }

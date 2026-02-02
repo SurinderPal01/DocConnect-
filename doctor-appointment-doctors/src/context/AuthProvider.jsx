@@ -5,12 +5,21 @@ import api from "../utils/api";
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const AUTH_INTENT_KEY = "hasLoggedIn";
 
   const login = (doctorData) => {
+    localStorage.setItem(AUTH_INTENT_KEY, "true");
     setUser(doctorData);
   };
   useEffect (()=>{
+     const hasIntent = localStorage.getItem("hasLoggedIn");
+    // console.log("hasIntent value",hasIntent);
+     if (!hasIntent) {
+    setLoading(false);
+    return;
+  }
         const check = async () => {
+    // console.log("check called");
       try {
         const res = await api.get("/api/auth/check");
         setUser(res.data.user);
@@ -28,10 +37,12 @@ export default function AuthProvider({ children }) {
     try {
       await api.post("/api/auth/logout");
       setUser(null);
+      localStorage.removeItem("hasLoggedIn");
       window.location.href = "/";
     } catch (err) {
       console.error("Logout error:", err);
       setUser(null);
+      localStorage.removeItem("hasLoggedIn");
       window.location.href = "/";
     }
   };
