@@ -298,3 +298,49 @@ exports.getSpecializations = async (req, res) => {
     res.status(500).json({ msg: "Server Error", error: err.message });
   }
 };
+
+exports.updateDoctorProfile = async (req,res)=>{
+  try{
+    const doctorId = req.user.id;
+
+    const allowedFields =[
+      "firstName",
+      "lastName",
+      "phone",
+      "specialization",
+      "experience",
+      "consultationFee",
+    ]
+
+    const updates = {};
+
+    allowedFields.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        updates[field] = req.body[field];
+      }
+    });
+    //  kuch bhi update karne ko nahi mila
+    if (Object.keys(updates).length === 0) {
+      return res.status(400).json({ msg: "No valid fields to update" });
+    }
+
+    const updatedDoctor = await Doctor.findByIdAndUpdate(
+      doctorId,
+      updates,
+      { new: true, runValidators: true }
+    ).select("-password");
+
+    if (!updatedDoctor) {
+      return res.status(404).json({ msg: "Doctor not found" });
+    }
+
+    res.json({
+      success: true,
+      doctor: updatedDoctor,
+    });
+
+  }catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Server error" });
+  }
+}

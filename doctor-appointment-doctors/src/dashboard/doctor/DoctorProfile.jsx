@@ -2,7 +2,7 @@ import { useEffect,useState } from "react";
 import api from "../../utils/api";
 import Loader from "../../components/Loader";
 import DoctorProfileSkeleton from "../../components/DoctorProfileSkeleton";
-import UpdateDoctorProfile from "./UpdateDoctorProfile";
+import UpdateDoctorProfile from "../../components/UpdateDoctorProfile";
 import "../../styles/doctorprofile.css";
 function DoctorProfile(){
     const [doctor , setDoctor] = useState();
@@ -28,26 +28,24 @@ function DoctorProfile(){
     if(loading) return <DoctorProfileSkeleton />
     if(!doctor) return <p>No Profile Data</p>
 
-    if (edit) {
-    return (
-      <UpdateDoctorProfile
-        doctor={doctor}
-        onCancel={() => setEdit(false)}
-        onUpdate={() => {
-          setEdit(false);
-          fetchProfile();
-        }}
-      />
-    );
-  }
+  //   if (edit) {
+  //   return (
+  //     <UpdateDoctorProfile
+  //       doctor={doctor}
+  //       onCancel={() => setEdit(false)}
+  //       onUpdate={() => {
+  //         setEdit(false);
+  //         fetchProfile();
+  //       }}
+  //     />
+  //   );
+  // }
 
    return (
   <div className="doctor-profile">
     <div className="profile-header">
       <h1>Doctor Profile</h1>
-      <button className="edit-btn" onClick={() => setEdit(true)}>
-        ✏️ Edit Profile
-      </button>
+     
     </div>
 
     <div className="profile-card">
@@ -61,7 +59,25 @@ function DoctorProfile(){
         </div>
 
         <h2>Dr. {doctor.firstName} {doctor.lastName}</h2>
-        <span className="badge">{doctor.specialization}</span>
+        <span className="doctor-badge">{doctor.specialization}</span>
+
+          {!edit && (
+  <button className="edit-btn" onClick={() => setEdit(true)}>
+        ✏️ Edit Profile
+      </button>
+          )}
+       
+
+      {edit && (
+        <UpdateDoctorProfile
+        doctor={doctor}
+        onCancel={() => setEdit(false)}
+        onUpdate={() => {
+          setEdit(false);
+          fetchProfile();
+        }}
+      />
+      )}
       </div>
 
       <div className="profile-right">
@@ -80,10 +96,12 @@ function DoctorProfile(){
           <p>{doctor.phone}</p>
         </div>
 
-        <div className="info-row full">
-          <label>About</label>
-          <p>{doctor.about || "No description added"}</p>
-        </div>
+        {doctor.consultationFee!==0 && (
+    <div className="info-row">
+      <label>Consultation Fee</label>
+      <p>₹ {doctor.consultationFee}</p>
+    </div>
+  )}
       </div>
     </div>
   </div>

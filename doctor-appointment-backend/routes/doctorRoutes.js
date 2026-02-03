@@ -14,6 +14,7 @@ const {
     getPublicDoctor,
     getFeaturedDoctors,
     getSpecializations,
+    updateDoctorProfile,
 } = require("../controllers/doctorController");
 const router = express.Router();
 
@@ -29,5 +30,6 @@ router.get("/today-appointments",auth,getTodayAppointments);
 router.get("/stats", auth, getDoctorStats);
 router.get("/availability", auth, isDoctor, getAvailability);
 router.put("/availability", auth, isDoctor, updateAvailability);
+router.put("/profile",auth,isDoctor,updateDoctorProfile);
 router.get("/:id",auth,getDoctor)
 module.exports = router;

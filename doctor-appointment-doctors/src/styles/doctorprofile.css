@@ -1,7 +1,10 @@
+/* Doctor Profile CSS */
 .doctor-profile {
   padding: 10px;
   max-width: 900px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header */
@@ -65,7 +68,7 @@
   font-size: 20px;
 }
 
-.badge {
+.doctor-badge {
   display: inline-block;
   margin-top: 6px;
   padding: 6px 12px;
@@ -108,6 +111,8 @@
 /* Edit Button */
 .edit-btn {
   padding: 8px 16px;
+  margin-top: 30px;
+  margin-left:10px;
   background: #2563eb;
   color: white;
   border: none;
@@ -118,4 +123,34 @@
 
 .edit-btn:hover {
   background: #1e40af;
+}
+
+@media (max-width: 768px) {
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .profile-left {
+    text-align: center;
+    border-right: none;
+    padding-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .profile-right {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-row {
+    margin-bottom: 15px;
+  }
+
+  .edit-btn {
+    width: 100%;
+    padding: 12px 20px;
+    margin-left: 10px;
+  }
 }

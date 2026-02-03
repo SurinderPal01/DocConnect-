@@ -1,0 +1,148 @@
+/* Update Doctor Profile CSS */
+
+/* PAGE WRAPPER */
+.update-doctor-profile {
+  width: 100%;
+  max-width: 1000px; /* Adjusted width */
+  margin: 0 auto;
+  padding: 16px;  /* Reduced padding */
+}
+
+.update-doctor-profile h2 {
+  margin-bottom: 15px;  /* Reduced space */
+  font-size: 24px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+/* CARD */
+.update-profile-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;  /* Reduced padding */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+}
+
+/* FORM GRID */
+.update-profile-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;  /* Reduced gap */
+}
+
+/* LABEL + INPUT */
+.update-profile-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.update-profile-form input,
+.update-profile-form textarea,
+.update-profile-form select {
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+}
+
+.update-profile-form textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.update-profile-form input:focus,
+.update-profile-form textarea:focus {
+  border-color: #2563eb;
+}
+
+/* ACTION BUTTONS */
+.profile-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.profile-actions button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.profile-actions button:first-child {
+  background: #2563eb;
+  color: #fff;
+}
+
+.profile-actions button.cancel {
+  background: #e5e7eb;
+  color: #111;
+}
+
+.update-profile-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  background-color: #fff;
+  color: #111827;
+  outline: none;
+  cursor: pointer;
+}
+
+.update-profile-form select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.update-profile-form select option {
+  font-size: 14px;
+}
+/* TABLET & DESKTOP */
+@media (min-width: 768px) {
+  .update-profile-form {
+    grid-template-columns: repeat(2, 1fr); /* 2-column layout for larger screens */
+  }
+
+  /* About textarea full width */
+  .update-profile-form label:nth-child(5) {
+    grid-column: span 2;
+  }
+
+  .profile-actions {
+    grid-column: span 2;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Make sure there's no extra margin or padding on mobile */
+  .update-doctor-profile {
+    padding: 10px;
+  }
+
+  .update-profile-card {
+    padding: 10px;
+  }
+
+  .update-profile-form {
+    gap: 8px;
+  }
+
+  .profile-actions {
+    margin-top: 8px;
+    gap: 12px;
+  }
+}
