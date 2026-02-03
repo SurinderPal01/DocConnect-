@@ -8,6 +8,7 @@ import "../styles/login.css";
 function Login(){
     const [email , setEmail] = useState("");
     const [password , setPassword] = useState("");
+    const [role, setRole] = useState("patient");
     const {login} = useAuth();
     const navigate = useNavigate();
 
@@ -15,9 +16,9 @@ function Login(){
         e.preventDefault();
         try{
             const res = await api.post("/api/auth/login",{
-                email , password
+                email , password, role
             });
-            console.log("login called", res);
+            console.log("login called", res.data.user);
            if (res.data.user) {
             login(res.data.user);
             navigate("/dashboard");
@@ -36,6 +37,29 @@ function Login(){
         <div className="login-container">
             <div className="login-card">
                 <h1>Login</h1>
+                <div className="role-select">
+                <label>
+                    <input
+                    type="radio"
+                    name="role"
+                    value="patient"
+                    checked={role === "patient"}
+                    onChange={(e) => setRole(e.target.value)}
+                    />
+                    Patient
+                </label>
+
+                <label>
+                    <input
+                    type="radio"
+                    name="role"
+                    value="doctor"
+                    checked={role === "doctor"}
+                    onChange={(e) => setRole(e.target.value)}
+                    />
+                    Doctor
+                </label>
+                </div>
                 <form onSubmit={handlelogin}>
                     <input 
                     placeholder="Enter Your Email" 

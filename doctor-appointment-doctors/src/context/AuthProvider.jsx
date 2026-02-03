@@ -7,9 +7,9 @@ export default function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const AUTH_INTENT_KEY = "hasLoggedIn";
 
-  const login = (doctorData) => {
+  const login = (userdata) => {
     localStorage.setItem(AUTH_INTENT_KEY, "true");
-    setUser(doctorData);
+    setUser(userdata);
   };
   useEffect (()=>{
      const hasIntent = localStorage.getItem("hasLoggedIn");

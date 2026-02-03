@@ -28,3 +28,34 @@ exports.signupUser = async (req, res) => {
     return res.status(500).json({ msg: "Server Error", err });
   }
 };
+
+exports.UpdateUserProfile = async (req,res)=>{
+  try{
+       const userId = req.user.id;
+
+    const { firstName, lastName } = req.body.data;
+
+    // only allowed fields
+    const updateData = {};
+    if (firstName) updateData.firstName = firstName;
+    if (lastName) updateData.lastName = lastName;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updateData },
+      { new: true, runValidators: true }
+    ).select("-password");
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json({
+      message: "Profile updated successfully",
+      user: updatedUser,
+    });
+  } catch (err) {
+    console.error("Update profile error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+  
+}

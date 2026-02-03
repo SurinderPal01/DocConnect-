@@ -1,22 +1,19 @@
-body, html {
-  overflow-x: hidden;
-}
-
 .user-dashboard {
-  padding: 2rem;
-  max-width: 1200px;   
-  margin: 0 auto;      
+  padding: 1.5rem; /* Adjusted padding */
+  max-width: 1200px; /* Make sure it doesn't stretch too wide */
+  margin: 0 auto; /* Centers the content horizontally */
   background: #f5f7fa;
   min-height: 100vh;
   width: 100%;
+  overflow: hidden;
 }
 
 .dashboard-header {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem; /* Reduced margin */
 }
 
 .dashboard-header h1 {
-  font-size: 2.5rem;
+  font-size: 2.2rem; /* Reduced font size */
   color: #333;
   margin-bottom: 0.5rem;
   background: linear-gradient(135deg, #5b4bff, #764ba2);
@@ -27,7 +24,7 @@ body, html {
 
 .welcome-subtitle {
   color: #666;
-  font-size: 1.1rem;
+  font-size: 1.0rem; /* Reduced font size */
 }
 
 .user-stats-grid {
@@ -36,7 +33,8 @@ body, html {
   gap: 1.5rem;
   margin-bottom: 2.5rem;
 }
-.user-stat-card {
+
+.user-stat-card { 
   background: #fff;
   padding: 1.4rem;
   border-radius: 14px;
@@ -45,7 +43,6 @@ body, html {
   gap: 1rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
-
 
 .user-stat-card:hover {
   transform: translateY(-5px);
@@ -76,84 +73,38 @@ body, html {
   font-size: 0.9rem;
 }
 
-.dashboard-content {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-.left-section {
+/* Single column layout for dashboard content */
+.user-dashboard-content {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  flex-direction: column; /* Stack everything vertically */
+  gap: 2rem; /* Add space between sections */
+  width: 100%; /* Ensures the content takes the full width */
+  align-items: flex-start; /* Align items to the left */
+  padding: 0 1rem; /* Add some padding */
 }
 
-.search-card {
-  background: white;
+/* Quick Actions and Search Cards */
+.search-card,
+.quick-actions {
+  width: 100%;
+  max-width: 600px; /* Set a maximum width for the cards */
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.search-card h3 {
+.search-card h3,
+.quick-actions h3 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 0.5rem;
 }
 
-.search-card > p {
+.search-card > p,
+.quick-actions p {
   color: #666;
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
-}
-
-.search-select {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  background: white;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-}
-
-.search-select:focus {
-  outline: none;
-  border-color: #5b4bff;
-}
-
-.search-btn {
-  width: 100%;
-  padding: 0.8rem 1.5rem;
-  background: linear-gradient(135deg, #5b4bff, #764ba2);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.search-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(91, 75, 255, 0.4);
-}
-
-.quick-actions {
-  background: white;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.quick-actions h3 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 1.5rem;
 }
 
 .action-cards {
@@ -212,13 +163,10 @@ body, html {
   font-weight: bold;
 }
 
-.right-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
+/* Upcoming Appointments */
 .upcoming-appointments {
+  width: 100%;
+  max-width: 600px;
   background: white;
   padding: 2rem;
   border-radius: 16px;
@@ -324,90 +272,76 @@ body, html {
   color: #4a3ae8;
   text-decoration: underline;
 }
+.search-select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: 1px solid #d0d5dd;
+  font-size: 14px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-select:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+}
+
+.search-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.search-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.25);
+}
+
+.search-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+}
+
 
 @media (max-width: 1024px) {
-  .user-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dashboard-content {
-    grid-template-columns: 1fr;
+  .user-dashboard-content {
+    gap: 1rem;
+    padding: 2rem;
   }
 }
+
 @media (max-width: 768px) {
   .user-dashboard {
     padding: 1rem;
   }
-   .dashboard-content {
-    display: flex;
-    flex-direction: column;
-      /* width:100%; */
-      max-width: 100%;
-    gap: 16px;
-    padding: 8px;
-  }
 
-  .left-section,
-  .right-section {
-    width: 100%;
-  }
-  .dashboard-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .welcome-subtitle {
-    font-size: 0.95rem;
-  }
-
-  /* Stats */
-  .user-stats-grid {
-    grid-template-columns: 1fr; /* ONE card per row */
-    gap: 12px;
-  }
-
-  .user-stat-card {
-    width: 100%;
-    padding: 12px;
-  }
-   .user-stat-card:hover {
-    transform: none;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  }
-
-  .user-stat-icon {
-    width: 44px;
-    height: 44px;
-    font-size: 1.6rem;
-  }
-
-  .user-stat-info h3 {
-   font-size: 1.4rem;
-  }
-
-  .quick-actions{
-      width:100%;
-      max-width: 600px;
-  }
-
-  /* Cards padding reduce */
-  .search-card,
-  .quick-actions,
-  .upcoming-appointments {
-    border-radius: 16px;
-    padding: 1.25rem;
-  }
-
-  /* Actions */
-  .action-card {
+  .user-dashboard-content {
+    gap: 1rem;
     padding: 1rem;
   }
 
-  .action-content h4 {
-    font-size: 1rem;
+  .search-card, .quick-actions, .upcoming-appointments {
+    padding: 1.25rem;
+  }
+    .search-select {
+    padding: 10px 12px;
+    font-size: 13px;
   }
 
-  .action-content p {
-    font-size: 0.85rem;
+  .search-btn {
+    padding: 11px;
+    font-size: 14px;
   }
 }
-

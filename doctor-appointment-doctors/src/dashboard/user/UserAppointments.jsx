@@ -44,14 +44,14 @@ function UserAppointments(){
             <div key={b._id} className={`appointment-card ${b.status}`}>
                 
                 {/* Doctor Info */}
-                <div className="doctor-info">
+                <div className="user-doctor-info">
                 <h3>
                     Dr. {b.doctor.firstName} {b.doctor.lastName}
                 </h3>
                 <p className="specialization">
                     {b.doctor.specialization}
                 </p>
-            <button onClick={()=>navigate(`/dashboard/appointment/${b._id}`)}>View</button>
+            <button className="view-btn" onClick={()=>navigate(`/dashboard/appointment/${b._id}`)}>View</button>
 
                 </div>
                 {/* Appointment Info */}

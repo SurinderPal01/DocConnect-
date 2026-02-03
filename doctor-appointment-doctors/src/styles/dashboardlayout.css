@@ -1,6 +1,7 @@
 .dashboard-content {
   margin-left: 240px;
   padding: 24px;
+  display:flex;
   padding-bottom: 80px;
   /* Inner scroll removed so that only window scrolls */
   overflow-y: visible;
@@ -27,6 +28,7 @@
 /* desktop */
 @media (min-width: 769px) {
   .dashboard-content {
+    display: flex;
     margin-left: 240px; /* sidebar width */
   }
 }
@@ -43,11 +45,13 @@
     left: -260px;
   }
 
-  .dashboard-content {
+   .dashboard-content {
+    display: block;   /*  CRITICAL */
     margin-left: 0;
     padding-top: 70px;
+    padding-left: 0;
+    padding-right: 0;
     padding-bottom: 120px;
-    overflow-y: visible;
-    height: auto;
+    overflow-x: hidden;
   }
 }

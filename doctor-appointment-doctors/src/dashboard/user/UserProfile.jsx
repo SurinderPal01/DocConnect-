@@ -1,11 +1,13 @@
 import { useAuth } from "../../context/useAuth";
 import {  useEffect, useState } from "react";
+import EditProfile from "../../components/EditProfile";
 import api from "../../utils/api";
 import "../../styles/userprofile.css";
 
 function UserProfile() {
-  const { user ,loading} = useAuth();
+  const { user ,loading,setLoading} = useAuth();
     // const [loading , setLoading] = useState(true);
+    const [isEditing , setIsEditing] = useState(false);
   const [appointments, setAppointments] = useState([]);
 
 
@@ -28,6 +30,21 @@ const fetchAppointments = async () => {
     fetchAppointments();
 }, []);
 
+const handleUpdate = async (data)=>{
+  try{
+    setLoading(true);
+    await api.put("/api/users/update",{
+      data:data
+    })
+    fetchAppointments();
+  }catch(err){
+    console.error(err);
+  }finally{
+      setLoading(false);
+    setIsEditing(false);
+  }
+}
+
   if(loading) return <Loader />
   if (!user) return <p>No Profile Data</p>;
 
@@ -35,12 +52,12 @@ return (
   <div className="user-profile">
     <div className="profile-header">
       <h1>User Profile</h1>
-      <button className="edit-btn">✏️ Edit Profile</button>
+       
     </div>
 
     <div className="profile-card">
       {/* Left Section */}
-      <div className="profile-left">
+
         <div className="profile-photo">
           {user.profilePhoto ? (
             <img src={user.profilePhoto} alt="user" />
@@ -49,37 +66,34 @@ return (
           )}
         </div>
 
-        <h2>{user.firstName} {user.lastName}</h2>
+        <h2 className="profile-name">{user.firstName} {user.lastName}</h2>
         <span className="badge">Patient</span>
-      </div>
 
-      {/* Right Section: Move info below the name */}
-      <div className="profile-right">
-        <div className="info-row">
-          <label>Email</label>
-          <p>{user.email}</p>
-        </div>
 
-        <div className="info-row">
-          <label>Phone</label>
-          <p>{user.phone || "—"}</p>
-        </div>
+      {/* // Right Section: Move info below the name */}
+       <div className="info-row">
+    <label>Email</label>
+    <p>{user.email}</p>
+  </div>
 
-        <div className="info-row">
-          <label>Age</label>
-          <p>{user.age || "—"}</p>
-        </div>
-
-        <div className="info-row">
-          <label>Gender</label>
-          <p>{user.gender || "—"}</p>
-        </div>
-
-        <div className="info-row full">
-          <label>About</label>
-          <p>{user.about || "No description added"}</p>
-        </div>
-      </div>
+      {!isEditing && (
+          <button 
+            className="edit-btn"
+            onClick={() => setIsEditing(true)}
+          >
+            ✏️ Edit Profile
+          </button>
+        )}
+        {isEditing && (
+        <EditProfile
+          user={user}
+          onSubmit={(data) => {
+            // API call yahan
+            handleUpdate(data)
+          }}
+          onCancel={() => setIsEditing(false)}
+        />
+        )}
     </div>
 
     {/* Appointment History */}
@@ -91,7 +105,7 @@ return (
       ) : (
         <div className="appointment-list">
           {appointments.map((a) => (
-            <div key={a._id} className="appointment-card">
+            <div key={a._id} className="user-appointment-card">
               <p><strong>Doctor:</strong> Dr. {a.doctor.firstName}</p>
               <p><strong>Specialization:</strong> {a.doctor.specialization}</p>
               <p><strong>Date:</strong> {new Date(a.date).toLocaleDateString()}</p>

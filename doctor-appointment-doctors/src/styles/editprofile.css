@@ -1,0 +1,113 @@
+/* container */
+.edit-profile {
+  background: #fff;
+  padding: 20px;
+  margin-top: 16px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  max-width: 520px;
+}
+
+/* inputs */
+.edit-profile input,
+.edit-profile textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.edit-profile textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* focus */
+.edit-profile input:focus,
+.edit-profile textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+}
+
+/* buttons wrapper */
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* buttons */
+.form-actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}
+
+.form-actions button[type="submit"] {
+  background: #4f46e5;
+  color: #fff;
+}
+
+.form-actions button[type="button"] {
+  background: #f1f1f1;
+}
+
+/* hover */
+.form-actions button:hover {
+  opacity: 0.9;
+}
+
+/* common button */
+.btn {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+/* normal / cancel button */
+.btn-normal {
+    margin-left: 10px;
+  background: #f3f4f6;
+  color: #111;
+}
+
+.btn-normal:hover {
+  background: #e5e7eb;
+}
+
+/* save / primary button */
+.btn-save {
+  background: #4f46e5;
+  color: #fff;
+}
+
+.btn-save:hover {
+  background: #4338ca;
+}
+
+/* disabled state (optional) */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .edit-profile {
+    padding: 16px;
+    max-width: 100%;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+}
+

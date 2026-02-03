@@ -4,20 +4,24 @@
   box-sizing: border-box;
 }
 
+.dash
+
 .user-profile,
-.profile-card,
-.profile-right,
 .info-row {
   max-width: 100%;
 }
 
+.user-profile .profile-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
 .user-profile {
   padding: 30px;
-  max-width: 100%;
+  width: 100%; /* Ensure this takes full width */
   margin: auto;
   overflow-x: hidden;
 }
-
 /* Header */
 .profile-header {
   display: flex;
@@ -36,21 +40,14 @@
   background: #ffffff;
   border-radius: 16px;
   padding: 24px;
-  display: flex !important;
-  flex-direction: column; /* This moves details BELOW the name */
-  align-items: center;    /* Centers the photo and name */
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   width: 100%;
-  max-width: 100%;        /* Prevents shrinking */
   box-sizing: border-box;
 }
 
-
-/* Left Section */
-.profile-left {
-  text-align: center;
-
-}
 
 .profile-photo {
   display: flex;
@@ -66,6 +63,11 @@
   border: 4px solid #2563eb;
 }
 
+.profile-name {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+}
 .avatar {
   width: 150px;
   height: 150px;
@@ -77,10 +79,7 @@
   font-size: 60px;
 }
 
-.profile-left h2 {
-  margin-top: 10px;
-  font-size: 20px;
-}
+
 
 .badge {
   display: inline-block;
@@ -92,20 +91,13 @@
   font-size: 13px;
 }
 
-/* Right Section */
-.profile-right {
-  width: 100%;           /* Essential to stop the squashing */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
 
 .info-row {
+  width: 100%;
+  max-width: 420px;      /* 👈 keeps email nicely centered */
   background: #f9fafb;
   padding: 12px 16px;
   border-radius: 10px;
-  width: 100%;
-  display: block;        /* Ensures label and p stack vertically inside the row */
   text-align: left;
 }
 
@@ -147,7 +139,7 @@
   gap: 12px;
   width: 100%;
 }
-.appointment-card {
+.user-appointment-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -158,13 +150,13 @@
   position: relative;
 }
 
-.appointment-card p {
+.user-appointment-card p {
   margin: 0;
   font-size: 14px;
   color: #374151;
 }
 
-.appointment-card strong {
+.user-appointment-card strong {
   color: #111827;
 }
 
@@ -213,6 +205,7 @@
   }
 
    .profile-card {
+    min-height: auto;
     padding: 15px;
     width: 100%;
   }
@@ -246,11 +239,11 @@
   .appointment-list {
     grid-template-columns: 1fr;
   }
-   .appointment-card {
+   .user-appointment-card {
     padding: 12px;
   }
 
-  .appointment-card p {
+  .user-appointment-card p {
     font-size: 13px;
   }
 }
