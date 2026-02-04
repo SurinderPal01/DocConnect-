@@ -56,7 +56,8 @@ function AppointmentDetailBase({role , actions}) {
     const res = await api.get(`/api/chat/access/${appointment._id}`);
     setChatStatus(res.data.enabledStatus);
     setChatExpired(res.data.expiredStatus)
-    if( (res.data.enabledStatus==="enabled" ||(res.data.enabledStatus ==="disabled" && !res.data.expiredStatus)) && appointment.status=="accepted"){
+    if(res.data.enabledStatus==="enabled" ||res.data.enabledStatus ==="hidden"){
+      // console.log("show the button and chat status",res.data.enabledStatus);
       setShouldShowChatButton(true);
     }
   } catch (err) {

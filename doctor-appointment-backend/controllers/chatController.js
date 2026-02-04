@@ -54,7 +54,7 @@ if (timeToMinutes(currentTime) < timeToMinutes(appointment.start) - 15) {
 } 
 else if (
   timeToMinutes(currentTime) >= timeToMinutes(appointment.start) - 15 &&
-  timeToMinutes(currentTime) < timeToMinutes(appointment.start)
+  timeToMinutes(currentTime) > timeToMinutes(appointment.end)
 ) {
   enabledStatus = "disabled";
 } 
@@ -69,9 +69,9 @@ else {
 }
 const timeExpired =timeToMinutes(currentTime)>=timeToMinutes(appointment.end);
 const expiredStatus = timeExpired || appointment.status === "completed";
-  console.log("trying to save appointment ",appointment.status);
+  // console.log("trying to save appointment ",appointment.status);
   await appointment.save();
-  console.log("status are",expiredStatus,enabledStatus)
+  // console.log("status are",expiredStatus,enabledStatus)
 res.json({enabledStatus , expiredStatus});
 
     }catch(err){
