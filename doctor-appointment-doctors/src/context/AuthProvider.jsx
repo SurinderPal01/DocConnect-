@@ -8,11 +8,11 @@ export default function AuthProvider({ children }) {
   const AUTH_INTENT_KEY = "hasLoggedIn";
 
   const login = (userdata) => {
-    localStorage.setItem(AUTH_INTENT_KEY, "true");
+    sessionStorage.setItem(AUTH_INTENT_KEY, "true");
     setUser(userdata);
   };
   useEffect (()=>{
-     const hasIntent = localStorage.getItem("hasLoggedIn");
+     const hasIntent = sessionStorage.getItem("hasLoggedIn");
     // console.log("hasIntent value",hasIntent);
      if (!hasIntent) {
     setLoading(false);
@@ -37,12 +37,12 @@ export default function AuthProvider({ children }) {
     try {
       await api.post("/api/auth/logout");
       setUser(null);
-      localStorage.removeItem("hasLoggedIn");
+      sessionStorage.removeItem("hasLoggedIn");
       window.location.href = "/";
     } catch (err) {
       console.error("Logout error:", err);
       setUser(null);
-      localStorage.removeItem("hasLoggedIn");
+      sessionStorage.removeItem("hasLoggedIn");
       window.location.href = "/";
     }
   };

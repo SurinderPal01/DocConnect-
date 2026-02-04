@@ -1,5 +1,8 @@
 const Appointment = require("../models/Appointment");
 
+
+let chatTimerInterval;
+
 const timeToMinutes = (t) => {
   const [h, m] = t.split(":").map(Number);
   return h * 60 + m;
@@ -10,13 +13,24 @@ const normalize = (d) => {
   x.setHours(0, 0, 0, 0);
   return x.getTime();
 };
+const normalizeTime =(d)=>{
+  return d.getHours()*60+d.getMinutes();
+}
 
 const warned = new Set();
 
+function stopChatTimer() {
+  if (chatTimerInterval) {
+    clearInterval(chatTimerInterval);
+    chatTimerInterval = null; // Clear interval
+  }
+}
+
 function startChatTimer(io) {
-  setInterval(async () => {
+  chatTimerInterval= setInterval(async () => {
     const now = new Date();
     const today = normalize(now);
+    const currentMinutes = normalizeTime(now);
 
     // sirf aaj ke active appointments
     const appointments = await Appointment.find({
@@ -26,9 +40,8 @@ function startChatTimer(io) {
       },
       status: { $in: ["accepted", "pending"] }
     });
-
-    const currentMinutes =
-      now.getHours() * 60 + now.getMinutes();
+    // const currentMinutes =
+    //   now.getHours() * 60 + now.getMinutes();
 
     for (let app of appointments) {
       const startMin = timeToMinutes(app.start);
@@ -44,11 +57,11 @@ function startChatTimer(io) {
 
         warned.add(app._id.toString());
       }
-
+      console.log("current min's and end min's",currentMinutes,endMin);
       // time over
       if (currentMinutes >= endMin) {
         io.to(app._id.toString()).emit("chat-ended");
-
+        console.log("chat ended and status update");
         if (app.status !== "completed") {
           app.status = "completed";
           app.statusHistory.push({ status: "completed" });
@@ -60,3 +73,4 @@ function startChatTimer(io) {
 }
 
 module.exports = startChatTimer;
+module.exports.stopChatTimer = stopChatTimer;

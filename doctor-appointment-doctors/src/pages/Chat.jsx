@@ -45,7 +45,7 @@ function Chat() {
   const checkAccess = useCallback(async ()=>{
     try{
       const res = await api.get(`/api/chat/access/${appointmentId}`);
-      if(res.data.expiredStatus){
+      if(res.data.expiredStatus || res.data.enabledStatus === "hidden" || res.data.enabledStatus==="disabled"){
         navigate(`/dashboard/appointment/${appointmentId}`);
       }
       setChatEnabled(res.data.enabledStatus);
@@ -81,7 +81,11 @@ function Chat() {
     } 
 
     if(!socketRef.current){
-      socketRef.current = io("http://localhost:4000",{
+       const socketUrl =
+    import.meta.env.MODE === "production"
+      ? import.meta.env.VITE_SOCKET_URL  // Use live socket URL in production
+      : "http://localhost:4000"; 
+      socketRef.current = io(socketUrl,{
         withCredentials:true,
         transports:["websocket","polling"]
       })

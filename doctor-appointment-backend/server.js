@@ -21,6 +21,7 @@ const Appointment = require("./models/Appointment.js");
 const aiRoutes = require("./routes/aiRoutes.js");
 const Chat = require("./models/Chat.js");
 const startChatTimer = require("./utils/setTimer.js");
+const {stopChatTimer} = require("./utils/setTimer.js");
 
 const app  = express();
 const server = http.createServer(app);
@@ -54,7 +55,8 @@ app.use((req,res,next)=>{
 
 const io = new Server(server,{
   cors:{
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: ["http://localhost:5173", "http://localhost:5174",
+      "https://surinder.vercel.app","https://doc-connect-pz1doe7v2-surinders-projects-ccf2e427.vercel.app"],
     credentials: true,
   }
 })
@@ -76,9 +78,17 @@ io.use((socket,next)=>{
   }
 })
 app.set("io",io);
-startChatTimer(io);
+// startChatTimer(io);
+
+//  const stopChatTimer = () => {
+//     if (chatTimerInterval) {
+//       clearInterval(chatTimerInterval);
+//       chatTimerInterval = null;
+//     }
+//   };
 
 io.on("connection", (socket) => {
+  let isInChatRoom = false;
   // console.log("User connected:", socket.id, socket.user);
 
   // Join appointment room
@@ -98,6 +108,12 @@ io.on("connection", (socket) => {
       if (!isAllowed) return;
 
       socket.join(appointmentId);
+      isInChatRoom = true;
+
+      // start the timer only when user joins room
+      if(isInChatRoom){
+        startChatTimer(io);
+      }
       // console.log(`User ${userId} joined room ${appointmentId}`);
     } catch (err) {
       console.error("join-room error:", err.message);
@@ -149,6 +165,9 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("User disconnected:", socket.id);
+    if(isInChatRoom){
+      stopChatTimer();
+    }
   });
 });
 

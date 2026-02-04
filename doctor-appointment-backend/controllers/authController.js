@@ -5,7 +5,7 @@ const User = require("../models/User");
 exports.checkUser = async (req, res) => {
   try {
     let user;
-    console.log("trying to check user");
+    // console.log("trying to check user");
     if (req.user.role == "doctor") {
       user = await Doctor.findById(req.user.id).select("-password");
     }

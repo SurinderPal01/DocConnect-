@@ -18,7 +18,6 @@ function Login(){
             const res = await api.post("/api/auth/login",{
                 email , password, role
             });
-            console.log("login called", res.data.user);
            if (res.data.user) {
             login(res.data.user);
             navigate("/dashboard");

@@ -3,6 +3,7 @@ const Chat = require("../models/Chat");
 const { listeners } = require("../models/User");
 
 exports.getChatAccess = async (req,res)=>{
+  console.log("trying to get the chat access");
     try{
 const id = req.params.id;
 // const role = req.user.role;
@@ -34,7 +35,7 @@ const sameDay =
   normalize(appointment.date) === normalize(today);
 
 if (!sameDay) {
-    return res.json({enabledStatus:"hidden",msg:"Day doenst matchs"});
+    return res.json({enabledStatus:"hidden",msg:"Day doenst match"});
   // hide chat button
 }
 const timeToMinutes = (t)=>{
@@ -68,9 +69,9 @@ else {
 }
 const timeExpired =timeToMinutes(currentTime)>=timeToMinutes(appointment.end);
 const expiredStatus = timeExpired || appointment.status === "completed";
-
+  console.log("trying to save appointment ",appointment.status);
   await appointment.save();
-
+  console.log("status are",expiredStatus,enabledStatus)
 res.json({enabledStatus , expiredStatus});
 
     }catch(err){

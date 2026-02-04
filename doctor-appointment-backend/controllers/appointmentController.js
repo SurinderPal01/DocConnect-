@@ -5,6 +5,7 @@ const notificationService = require("../services/notoficationService");
 
 exports.createAppointment = async (req, res) => {
   try {
+    console.log("creating appointment");
     const { doctorId, date, slotId } = req.body;
     const doctor = await Doctor.findById(doctorId);
     if (!doctor) {
@@ -200,7 +201,6 @@ exports.cancelAppointment = async (req, res) => {
     bookingDate.setHours(0,0,0,0);
     const dateAvailability = doctor.availability.find(
       d=>new Date(d.date).getTime() === new Date(bookingDate).getTime());
-
 
     const slot = dateAvailability?.slots.id(appointment.slotId);
 

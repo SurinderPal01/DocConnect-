@@ -4,7 +4,6 @@ const Doctor = require("../models/Doctor");
 
 module.exports = async (req, res, next) => {
   try {
-    console.log("trying to check user in middleware");
     const token = req.cookies.token||req.header("Authorization")?.replace("Bearer ", "");
     // const token = req.header("Authorization")?.replace("Bearer ", "");
     // console.log("token is-",token);
