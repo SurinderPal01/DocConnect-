@@ -2,22 +2,19 @@ const Appointment = require("../models/Appointment");
 
 
 let chatTimerInterval;
+const warned = new Set();
 
-const timeToMinutes = (t) => {
-  const [h, m] = t.split(":").map(Number);
-  return h * 60 + m;
-};
+const IST_OFFSET_MINUTES = 330;
 
-const normalize = (d) => {
-  const x = new Date(d);
-  x.setHours(0, 0, 0, 0);
-  return x.getTime();
-};
-const normalizeTime =(d)=>{
-  return d.getHours()*60+d.getMinutes();
+// IST "HH:mm" + date + UTC minutes
+const getUTCMinutesFromIST = (date,time)=>{
+  const [h,m] = time.split(":").map(Number);
+  const d = new Date(date);
+  d.setHours(h,m,0,0);
+  return Math.floor((d.getTime()-IST_OFFSET_MINUTES*60000)/60000);
 }
 
-const warned = new Set();
+
 
 function stopChatTimer() {
   if (chatTimerInterval) {
@@ -27,41 +24,46 @@ function stopChatTimer() {
 }
 
 function startChatTimer(io) {
-  chatTimerInterval= setInterval(async () => {
-    const now = new Date();
-    const today = normalize(now);
-    const currentMinutes = normalizeTime(now);
+  chatTimerInterval = setInterval(async () => {
+    const nowUTC = new Date();
+    const nowMinutesUTC = Math.floor(nowUTC.getTime() / 60000);
 
-    // sirf aaj ke active appointments
+    // aaj ke appointments (date match safe)
+    const startOfDay = new Date();
+    startOfDay.setUTCHours(0, 0, 0, 0);
+
+    const endOfDay = new Date();
+    endOfDay.setUTCHours(23, 59, 59, 999);
+
     const appointments = await Appointment.find({
-      date: {
-        $gte: new Date(now.setHours(0, 0, 0, 0)),
-        $lte: new Date(now.setHours(23, 59, 59, 999)),
-      },
+      date: { $gte: startOfDay, $lte: endOfDay },
       status: { $in: ["accepted", "pending"] }
     });
-    // const currentMinutes =
-    //   now.getHours() * 60 + now.getMinutes();
 
     for (let app of appointments) {
-      const startMin = timeToMinutes(app.start);
-      const endMin = timeToMinutes(app.end);
+      const startMinUTC = getUTCMinutesFromIST(app.date, app.start);
+      const endMinUTC = getUTCMinutesFromIST(app.date, app.end);
 
-      //  5 minute warning
-      const diff = endMin - currentMinutes;
+      const diff = endMinUTC - nowMinutesUTC;
 
+      //  5 min warning
+      console.log("difference is",diff);
       if (diff <= 5 && diff > 0 && !warned.has(app._id.toString())) {
         io.to(app._id.toString()).emit("chat-warning", {
           minutesLeft: diff
         });
-
         warned.add(app._id.toString());
       }
-      console.log("current min's and end min's",currentMinutes,endMin);
-      // time over
-      if (currentMinutes >= endMin) {
+
+      console.log(
+        "NOW UTC:", nowMinutesUTC,
+        "END UTC:", endMinUTC
+      );
+
+      //  chat end
+      if (nowMinutesUTC >= endMinUTC) {
         io.to(app._id.toString()).emit("chat-ended");
-        console.log("chat ended and status update");
+
         if (app.status !== "completed") {
           app.status = "completed";
           app.statusHistory.push({ status: "completed" });

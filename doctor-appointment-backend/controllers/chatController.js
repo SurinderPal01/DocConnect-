@@ -11,6 +11,7 @@ if(!id){
     return res.sattus(400).json({msg:"Id missing"})
 }
 const appointment = await Appointment.findById(id)
+
 if (!appointment) {
   return res.status(404).json({ msg: "Appointment not found" });
 }
@@ -38,41 +39,73 @@ if (!sameDay) {
     return res.json({enabledStatus:"hidden",msg:"Day doenst match"});
   // hide chat button
 }
-const timeToMinutes = (t)=>{
-    const [h,m] = t.split(":").map(Number);
-    return h*60+m;
-}   
 
-const now = new Date();
-const hours = now.getHours().toString().padStart(2,"0");
-const minutes = now.getMinutes().toString().padStart(2,"0");
-const currentTime = `${hours}:${minutes}`;
+// const timeToMinutes = (t)=>{
+//     const [h,m] = t.split(":").map(Number);
+//     return h*60+m;
+// }   
 
-let enabledStatus ="";
-if (timeToMinutes(currentTime) < timeToMinutes(appointment.start) - 15) {
-  enabledStatus = "hidden";
-} 
-else if (
-  timeToMinutes(currentTime) >= timeToMinutes(appointment.start) - 15 &&
-  timeToMinutes(currentTime) > timeToMinutes(appointment.end)
-) {
-  enabledStatus = "disabled";
-} 
-else if (
-  timeToMinutes(currentTime) >= timeToMinutes(appointment.start) &&
-  timeToMinutes(currentTime) < timeToMinutes(appointment.end)
-) {
-  enabledStatus = "enabled";
-} 
-else {
-  enabledStatus = "hidden";
-}
-const timeExpired =timeToMinutes(currentTime)>=timeToMinutes(appointment.end);
-const expiredStatus = timeExpired || appointment.status === "completed";
-  // console.log("trying to save appointment ",appointment.status);
-  await appointment.save();
-  // console.log("status are",expiredStatus,enabledStatus)
-res.json({enabledStatus , expiredStatus});
+// const now = new Date(); 
+// const hours = now.getHours().toString().padStart(2,"0");
+// const minutes = now.getMinutes().toString().padStart(2,"0");
+// const currentTime = `${hours}:${minutes}`;
+
+// let enabledStatus ="";
+// if (timeToMinutes(currentTime) < timeToMinutes(appointment.start) - 15) {
+//   enabledStatus = "hidden";
+// } 
+// else if (
+//   timeToMinutes(currentTime) >= timeToMinutes(appointment.start) - 15 &&
+//   timeToMinutes(currentTime) > timeToMinutes(appointment.end)
+// ) {
+//   enabledStatus = "disabled";
+// } 
+// else if (
+//   timeToMinutes(currentTime) >= timeToMinutes(appointment.start) &&
+//   timeToMinutes(currentTime) < timeToMinutes(appointment.end)
+// ) {
+//   enabledStatus = "enabled";
+// } 
+// else {
+//   enabledStatus = "hidden";
+// }
+// const timeExpired =timeToMinutes(currentTime)>=timeToMinutes(appointment.end);
+// const expiredStatus = timeExpired || appointment.status === "completed";
+//   // console.log("trying to save appointment ",appointment.status);
+//   await appointment.save();
+//   // console.log("status are",expiredStatus,enabledStatus)
+// res.json({enabledStatus , expiredStatus});
+
+      // IST is UTC + 5:30
+    const IST_OFFSET_MINUTES = 330;
+
+      const getUTCDateTimeFromIST = (date, time) => {
+        const [h, m] = time.split(":").map(Number);
+        const d = new Date(date);
+        d.setUTCHours(h, m, 0, 0);
+        return new Date(d.getTime()-IST_OFFSET_MINUTES*60000);
+      };
+      const startUTC = getUTCDateTimeFromIST(appointment.date , appointment.start);
+      const endUTC = getUTCDateTimeFromIST(appointment.date , appointment.end);
+      const nowUTC = new Date();
+
+      console.log("Start UTC",startUTC.toISOString());
+      console.log("end UTC",endUTC.toISOString());
+      console.log("date UTC",nowUTC.toISOString());
+
+      let enabledStatus = "hidden";
+
+      if (nowUTC < new Date(startUTC.getTime() - 15 * 60000)) {
+        enabledStatus = "hidden";
+      } else if (nowUTC >= startUTC && nowUTC < endUTC) {
+        enabledStatus = "enabled";
+      } else if (nowUTC >= endUTC) {
+        enabledStatus = "disabled";
+      }
+
+      const expiredStatus = nowUTC >= endUTC || appointment.status ==="completed";
+      console.log("status",enabledStatus , expiredStatus);
+      res.json({ enabledStatus, expiredStatus });
 
     }catch(err){
         return res.status(500).json({msg:"Server Error"})
