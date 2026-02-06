@@ -329,7 +329,7 @@
 
   .user-dashboard-content {
     gap: 1rem;
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .search-card, .quick-actions, .upcoming-appointments {

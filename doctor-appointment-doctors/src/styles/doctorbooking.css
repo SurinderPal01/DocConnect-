@@ -109,6 +109,7 @@
 @media (max-width:768px){
   .my-bookings-page{
     width:360px;
+    margin-left: 15px;
    
   }
 

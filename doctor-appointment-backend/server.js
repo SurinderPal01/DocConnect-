@@ -20,8 +20,8 @@ const chatRoute = require("./routes/chatRoute.js");
 const Appointment = require("./models/Appointment.js");
 const aiRoutes = require("./routes/aiRoutes.js");
 const Chat = require("./models/Chat.js");
-const startChatTimer = require("./utils/setTimer.js");
-const {stopChatTimer} = require("./utils/setTimer.js");
+// const startChatTimer = require("./utils/setTimer.js");
+const {startAppointmentTimer } = require("./utils/setTimer.js");
 
 const app  = express();
 const server = http.createServer(app);
@@ -78,20 +78,11 @@ io.use((socket,next)=>{
   }
 })
 app.set("io",io);
-// startChatTimer(io);
 
-//  const stopChatTimer = () => {
-//     if (chatTimerInterval) {
-//       clearInterval(chatTimerInterval);
-//       chatTimerInterval = null;
-//     }
-//   };
 
 io.on("connection", (socket) => {
-  let isInChatRoom = false;
-  // console.log("User connected:", socket.id, socket.user);
+  // let isInChatRoom = false;
 
-  // Join appointment room
   socket.on("join-room", async ({ appointmentId }) => {
     try {
       if (!appointmentId) return;
@@ -108,66 +99,30 @@ io.on("connection", (socket) => {
       if (!isAllowed) return;
 
       socket.join(appointmentId);
-      isInChatRoom = true;
-
-      // start the timer only when user joins room
-      if(isInChatRoom){
-        startChatTimer(io);
-      }
-      // console.log(`User ${userId} joined room ${appointmentId}`);
     } catch (err) {
       console.error("join-room error:", err.message);
     }
   });
+  socket.on("start-chat-timer",async ({appointmentId})=>{
+      if (!appointmentId) return;
 
-  // // Send message
-  // socket.on("send-message", async ({ appointmentId, message }) => {
-  //   try {
-  //     if (!appointmentId || !message?.trim()) return;
+  const appt = await Appointment.findById(appointmentId);
+  if (!appt) return;
 
-  //     const userId = socket.user.id;
-  //     const role = socket.user.role; // "user" | "doctor"
+  const userId = socket.user.id;
+  const isAllowed =
+    appt.user.toString() === userId ||
+    appt.doctor.toString() === userId;
 
-  //     const appt = await Appointment.findById(appointmentId);
-  //     if (!appt) return;
-
-  //     const isAllowed =
-  //       appt.user.toString() === userId ||
-  //       appt.doctor.toString() === userId;
-
-  //     if (!isAllowed) return;
-
-  //     const receiver =
-  //       role === "user" ? appt.doctor : appt.user;
-
-  //     const chat = await Chat.create({
-  //       appointment: appointmentId,
-  //       sender: userId,
-  //       senderModel: role === "user" ? "User" : "Doctor",
-  //       receiver,
-  //       message: message.trim(),
-  //       type: "text",
-  //     });
-
-  //     io.to(appointmentId).emit("receive-message", {
-  //       _id: chat._id,
-  //       appointment: appointmentId,
-  //       sender: userId,
-  //       senderModel: chat.senderModel,
-  //       receiver,
-  //       message: chat.message,
-  //       createdAt: chat.createdAt,
-  //     });
-  //   } catch (err) {
-  //     console.error("send-message error:", err.message);
-  //   }
-  // });
+  if (!isAllowed) return;
+    startAppointmentTimer(io,appointmentId);
+  })
 
   socket.on("disconnect", () => {
     console.log("User disconnected:", socket.id);
-    if(isInChatRoom){
-      stopChatTimer();
-    }
+    // if(isInChatRoom){
+    //   stopChatTimer();
+    // }
   });
 });
 

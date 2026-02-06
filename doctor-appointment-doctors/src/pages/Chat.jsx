@@ -1,4 +1,4 @@
-import { useEffect,useState, useRef , useCallback} from "react";
+import { useEffect,useState, useRef} from "react";
 import { useParams ,useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import { useAuth } from "../context/useAuth";
@@ -41,8 +41,10 @@ function Chat() {
     fetchAppointment();
   },[appointmentId,user?._id,user?.role]);
 
+
+  useEffect(()=>{
   //chat access api 
-  const checkAccess = useCallback(async ()=>{
+  const checkAccess = async ()=>{
     try{
       const res = await api.get(`/api/chat/access/${appointmentId}`);
       if(res.data.expiredStatus || res.data.enabledStatus === "hidden" || res.data.enabledStatus==="disabled"){
@@ -53,11 +55,9 @@ function Chat() {
       console.error("Chata access error",err);
       navigate(`/dashboard/appointment/${appointmentId}`);
     }
-   },[appointmentId,navigate]);
-  useEffect(()=>{
-  //  if(!appointmentId) return;
+   };
    checkAccess();
-  },[checkAccess]);
+  },[appointmentId,navigate]);
 
   //fetch the messages 
   useEffect(()=>{
@@ -91,6 +91,9 @@ function Chat() {
       })
       // console.log("socket",socketRef?.current);
        socketRef.current.emit("join-room", {appointmentId});
+       if(chatEnabled==="enabled"){
+       socketRef.current.emit("start-chat-timer",{appointmentId});
+       }
        socketRef.current.on("receive-message",(msg)=>{
         setMessages((prev)=>[...prev ,msg])
        })
@@ -117,7 +120,7 @@ function Chat() {
         socketRef.current=null;
       }
     }
-  },[user?._id,socketRef,appointmentId , navigate]);
+  },[user?._id,socketRef,appointmentId , navigate,chatEnabled]);
 
   // countdown decrease
 useEffect(() => {
@@ -141,7 +144,6 @@ const formatTime = (sec) => {
  const sendMessage = async () => {
   if (!chatEnabled || timeOver) return;
   if (!text.trim() || !socketRef.current) return;
-  checkAccess();
   const msgData = {
     appointmentId,
     message: text.trim(),

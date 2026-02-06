@@ -32,7 +32,7 @@
 
 .profile-header h1 {
   font-size: 26px;
-  font-weight: 600;
+  font-weight: 620;
 }
 
 /* Card */
@@ -79,7 +79,10 @@
   font-size: 60px;
 }
 
-
+.appointment-history h2{
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
 
 .badge {
   display: inline-block;

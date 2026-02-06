@@ -11,6 +11,10 @@
   gap: 24px;
 }
 
+.page-title {
+  margin-bottom: 20px;
+}
+
 /* ---------------- CARD ---------------- */
 .appointment-card {
   background: #fff;
