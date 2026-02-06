@@ -3,33 +3,29 @@ import {Link, useNavigate} from "react-router-dom";
 import api from "../utils/api";
 import Loader from "../components/Loader";
 import HomeSkeleton from "../components/HomeSkeleton";
+import SpecializationSkeleton from "../components/SpecializationSkeleton";
 import "../styles/home.css";
 
 function Home() {
   const [featuredDoctors, setFeaturedDoctors] = useState([]);
   const [specializations, setSpecializations] = useState([]);
-  const [loading, setLoading] = useState(true);
+
+  const [loadingFeatured , setLoadingFeatured] = useState(true);
+  const [loadingSpecs , setLoadingSpecs] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [doctorsRes, specsRes] = await Promise.all([
-          api.get("/api/doctor/public/featured"),
-          api.get("/api/doctor/public/specializations")
-        ]);
-        setFeaturedDoctors(doctorsRes.data);
-        setSpecializations(specsRes.data);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  api.get("/api/doctor/public/featured")
+    .then(res => setFeaturedDoctors(res.data))
+    .catch(console.error)
+    .finally(() => setLoadingFeatured(false));
 
-  if (loading) return <HomeSkeleton />;
+  api.get("/api/doctor/public/specializations")
+    .then(res => setSpecializations(res.data))
+    .catch(console.error)
+    .finally(() => setLoadingSpecs(false));
+}, []);
+
 
   return (
     <div className="home-container">
@@ -64,7 +60,10 @@ function Home() {
         </div>
       </section>
 
-      {featuredDoctors.length > 0 && (
+      {loadingFeatured ? (
+        <HomeSkeleton />
+      ):
+      (featuredDoctors.length > 0 && (
         <section className="featured-doctors">
           <h2>Featured Doctors</h2>
           <div className="doctors-grid">
@@ -85,9 +84,13 @@ function Home() {
           </div>
           <Link to="/doctors" className="btn primary">View All Doctors</Link>
         </section>
-      )}
+      ))
+    }
 
-      {specializations.length > 0 && (
+    {loadingSpecs ? (
+      <SpecializationSkeleton />
+    ):(
+      specializations.length > 0 && (
         <section className="specializations-section">
           <h2>Browse by Specialization</h2>
           <div className="specializations-grid">
@@ -102,7 +105,7 @@ function Home() {
             ))}
           </div>
         </section>
-      )}
+      ))}
 
       <section className="info-section">
         <h2>For Doctors</h2>

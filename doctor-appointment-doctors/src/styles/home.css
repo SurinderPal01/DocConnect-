@@ -79,10 +79,16 @@
 .info-section {
   padding: 3rem 2rem;
   text-align: center;
+  margin-top: 3rem;
 }
 
 .info-section.light {
   background: #f4f6fb;
+}
+
+.info-section .btn {
+    display: inline-block;
+  margin-top: 1.2rem;
 }
 
 /* FOOTER */
