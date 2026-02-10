@@ -142,54 +142,70 @@ exports.getAvailability = async(req , res)=>{
 exports.updateAvailability = async (req, res) => {
   try {
     const { availability } = req.body;
-
+    const toMinutes = (t)=>{
+    const [h,m] = t.split(":").map(Number);
+    return h*60+m;
+    }  
     if (!Array.isArray(availability)) {
       return res.status(400).json({ message: "Invalid availability data" });
     }
+      for (const day of availability) {
+          if (!Array.isArray(day.slots)) {
+        return res.status(400).json({
+          success: false,
+          message: `Slots missing or invalid for ${day.day}`,
+        });
+      }
 
-    for (const day of availability) {
-      const slots = [...day.slots].sort(
-        (a, b) => toMinutes(a.start) - toMinutes(b.start)
-      );
 
-      for (let i = 0; i < slots.length; i++) {
-        const startMin = toMinutes(slots[i].start);
-        const endMin = toMinutes(slots[i].end);
+       for (const slot of day.slots) {
+    if (!slot?.start || !slot?.end) {
+      return res.status(400).json({
+        success: false,
+        message: `Slot start/end missing on ${day.day}`,
+      });
+    }
+  }
 
-        if (!slots[i].start || !slots[i].end || startMin >= endMin) {
-          return res.status(400).json({
-            success: false,
-            message: `Invalid slot on ${day.day}`,
-          });
-        }
+        const slots = [...day.slots].sort(
+          (a, b) => toMinutes(a.start) - toMinutes(b.start)
+        );
+        for (let i = 0; i < slots.length; i++) {
 
-        if (
-          i < slots.length - 1 &&
-          endMin > toMinutes(slots[i + 1].start)
-        ) {
-          return res.status(400).json({
-            success: false,
-            message: `Overlapping slots on ${day.day}`,
-          });
+          const startMin = toMinutes(slots[i].start);
+          const endMin = toMinutes(slots[i].end);
+
+          if (!slots[i].start || !slots[i].end || startMin >= endMin) {
+            return res.status(400).json({
+              success: false,
+              message: `Invalid slot on ${day.day}`,
+            }); 
+          }
+
+          if (
+            i < slots.length - 1 &&
+            endMin > toMinutes(slots[i + 1].start)
+          ) {
+            return res.status(400).json({
+              success: false,
+              message: `Overlapping slots on ${day.day}`,
+            });
+          }
         }
       }
+      const doctor = await Doctor.findByIdAndUpdate(
+        req.user._id,
+        { availability },
+        { new: true }
+      );
+      if (!doctor) {
+        return res.status(400).json({ message: "Doctor not found" });
+      }
+      res.json(doctor.availability);
+    } catch (err) {
+      res.status(500).json({ message: "Server Error" });
     }
-
-    const doctor = await Doctor.findByIdAndUpdate(
-      req.user._id,
-      { availability },
-      { new: true }
-    );
-
-    if (!doctor) {
-      return res.status(400).json({ message: "Doctor not found" });
-    }
-
-    res.json(doctor.availability);
-  } catch (err) {
-    res.status(500).json({ message: "Server Error" });
-  }
-};
+  };
 
 
 exports.getTodayAppointments = async(req,res)=>{

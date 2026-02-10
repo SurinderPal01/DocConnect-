@@ -18,6 +18,7 @@ const appointmentRoute = require("./routes/appointmentRoute.js");
 const notificationRoute = require("./routes/notificationRoute.js");
 const chatRoute = require("./routes/chatRoute.js");
 const Appointment = require("./models/Appointment.js");
+const paymentRoute = require("./routes/paymentRoute.js");
 const aiRoutes = require("./routes/aiRoutes.js");
 const Chat = require("./models/Chat.js");
 // const startChatTimer = require("./utils/setTimer.js");
@@ -47,6 +48,7 @@ app.use("/api/appointment",appointmentRoute);
 app.use("/api/notifications",notificationRoute);
 app.use("/api/chat",chatRoute);
 app.use("/api/ai", aiRoutes);
+app.use("/api/payment",paymentRoute)
 
 app.use((req,res,next)=>{
   // console.log("Incoming request:", req.method, req.path);

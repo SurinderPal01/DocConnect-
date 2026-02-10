@@ -3,7 +3,6 @@ const Chat = require("../models/Chat");
 const { listeners } = require("../models/User");
 
 exports.getChatAccess = async (req,res)=>{
-  console.log("trying to get the chat access");
     try{
 const id = req.params.id;
 // const role = req.user.role;
@@ -89,9 +88,9 @@ if (!sameDay) {
       const endUTC = getUTCDateTimeFromIST(appointment.date , appointment.end);
       const nowUTC = new Date();
 
-      console.log("Start UTC",startUTC.toISOString());
-      console.log("end UTC",endUTC.toISOString());
-      console.log("date UTC",nowUTC.toISOString());
+      // console.log("Start UTC",startUTC.toISOString());
+      // console.log("end UTC",endUTC.toISOString());
+      // console.log("date UTC",nowUTC.toISOString());
 
       let enabledStatus = "hidden";
 
@@ -104,7 +103,7 @@ if (!sameDay) {
       }
 
       const expiredStatus = nowUTC >= endUTC || appointment.status ==="completed";
-      console.log("status",enabledStatus , expiredStatus);
+      // console.log("status",enabledStatus , expiredStatus);
       res.json({ enabledStatus, expiredStatus });
 
     }catch(err){

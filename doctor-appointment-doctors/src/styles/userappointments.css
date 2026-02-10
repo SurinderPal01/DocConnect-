@@ -17,6 +17,9 @@
 
 /* ---------------- CARD ---------------- */
 .appointment-card {
+   display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: #fff;
   border-radius: 14px;
   padding: 20px;
@@ -162,10 +165,13 @@
 /* ---------------- LARGER SCREENS ---------------- */
 @media (min-width: 769px) {
   .appointments-list {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .appointment-card {
+     display: flex;
+  justify-content: space-between;
+  align-items: center;
     padding: 24px 26px;
   }
 
@@ -178,6 +184,6 @@
 
 @media (min-width: 1200px) {
   .appointments-list {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
   }
 }

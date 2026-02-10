@@ -32,10 +32,19 @@ const AppointmentSchema = mongoose.Schema(
             type:String,
             required:true
         },
+        fee:{
+            type: Number,
+            required: true,
+        },
         status:{
             type:String,
             enum:["pending","accepted","rejected","cancelled","completed"],
             default:"pending"
+        },
+        paymentStatus:{
+            type:String, 
+            enum:["NOT_ALLOWED","PENDING","PAID","FALIED"],
+            default:"NOT_ALLOWED",
         },
         statusHistory:{
             type:[

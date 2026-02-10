@@ -70,27 +70,42 @@ function DoctorAppointment(){
   );
 }
 
-    return (
-    <div className="my-bookings-page">
-      <h2>My Bookings</h2>
+  return (
+  <div className="my-bookings-page">
+    <h2 className="page-title">My Bookings</h2>
 
-      {bookings.length === 0 && <p>No bookings found</p>}
+    {bookings.length === 0 && <p>No bookings found</p>}
 
+    <div className="bookings-grid">
       {bookings.map(b => (
         <div key={b._id} className={`booking-card ${b.status}`}>
           
+          {/* INFO */}
           <div className="booking-info">
-            <h4>{b.user?.name}</h4>
-            <p>
+            <h4>{b.user?.firstName} {b.user?.lastName}</h4>
+
+            <p className="slot">
               {b.day} | {to12Hour(b.start)} - {to12Hour(b.end)}
             </p>
-            <span className="status">{b.status}</span>
-            <button onClick={()=>navigate(`/dashboard/appointment/${b._id}`)}>View</button>
+
+            <span className={`status ${b.status}`}>
+              {b.status}
+            </span>
+
+            <button
+              className="view-btn"
+              onClick={() => navigate(`/dashboard/appointment/${b._id}`)}
+            >
+              View
+            </button>
           </div>
+
+          {/* ACTIONS */}
           <div className="booking-actions">
             {b.status === "pending" && (
               <>
                 <button
+                  className="accept-btn"
                   disabled={actionId === b._id}
                   onClick={() => accept(b._id)}
                 >
@@ -98,6 +113,7 @@ function DoctorAppointment(){
                 </button>
 
                 <button
+                  className="reject-btn"
                   disabled={actionId === b._id}
                   onClick={() => reject(b._id)}
                 >
@@ -108,6 +124,7 @@ function DoctorAppointment(){
 
             {b.status === "accepted" && (
               <button
+                className="cancel-btn"
                 disabled={actionId === b._id}
                 onClick={() => cancel(b._id)}
               >
@@ -115,9 +132,12 @@ function DoctorAppointment(){
               </button>
             )}
           </div>
+
         </div>
       ))}
     </div>
-  );
+  </div>
+);
+
 };
 export default DoctorAppointment;

@@ -5,7 +5,6 @@ const notificationService = require("../services/notoficationService");
 
 exports.createAppointment = async (req, res) => {
   try {
-    console.log("creating appointment");
     const { doctorId, date, slotId } = req.body;
     const doctor = await Doctor.findById(doctorId);
     if (!doctor) {
@@ -49,7 +48,6 @@ exports.createAppointment = async (req, res) => {
     }
 
 
-
     // book slot
     slot.isAvailable = false;
     doctor.markModified("availability");
@@ -60,9 +58,11 @@ exports.createAppointment = async (req, res) => {
       user: req.user._id,
       date:bookingDate,
       slotId: slot._id,
+      fee : doctor.consultationFee,
       start: slot.start,
       end: slot.end,
-      status: "pending"
+      status: "pending",
+      paymentStatus:"NOT_ALLOWED",
     });
     appointment.statusHistory.push({status:"pending"});
     await appointment.save();
@@ -118,6 +118,7 @@ exports.acceptAppointment = async (req,res)=>{
           return res.status(400).json({ msg: "Already accepted" });
         }
         appointment.status="accepted";
+        appointment.paymentStatus="PENDING";
         appointment.statusHistory.push({status:"accepted"});
         await appointment.save();
 
