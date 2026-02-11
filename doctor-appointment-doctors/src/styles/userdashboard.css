@@ -75,12 +75,12 @@
 
 /* Single column layout for dashboard content */
 .user-dashboard-content {
-  display: flex;
-  flex-direction: column; /* Stack everything vertically */
-  gap: 2rem; /* Add space between sections */
-  width: 100%; /* Ensures the content takes the full width */
-  align-items: flex-start; /* Align items to the left */
-  padding: 0 1rem; /* Add some padding */
+  display: grid;
+  grid-template-columns: 1fr; /* Single column for mobile */
+  gap: 2rem;
+  width: 100%;
+  padding: 0 1rem;
+  align-items: start;
 }
 
 /* Quick Actions and Search Cards */
@@ -327,9 +327,9 @@
     padding: 1rem;
   }
 
-  .user-dashboard-content {
-    gap: 1rem;
-    padding: 0.5rem;
+    .user-dashboard-content {
+    grid-template-columns: 1fr; /* Ensures stacking on small screens */
+    padding: 0;
   }
 
   .search-card, .quick-actions, .upcoming-appointments {
@@ -343,5 +343,42 @@
   .search-btn {
     padding: 11px;
     font-size: 14px;
+  }
+}
+
+/* --- Desktop Layout Adjustments (min-width: 1024px) --- */
+@media (min-width: 1024px) {
+  .user-dashboard-content {
+    grid-template-columns: 1fr 1fr; /* Two columns for desktop */
+    max-width: 1200px;
+  }
+
+  /* Force "Quick Actions" and "Upcoming Appointments" to top row */
+  .quick-actions { 
+    grid-column: 1; 
+    grid-row: 1; 
+  }
+  .upcoming-appointments { 
+    grid-column: 2; 
+    grid-row: 1; 
+  }
+
+  /* Force "Find Doctors" and "AI Suggested Doctors" to second row */
+  .search-card { 
+    grid-column: 1; 
+    grid-row: 2; 
+  }
+  /* Targets the SuggestedDoctorCard component */
+  .user-dashboard-content > div:last-child { 
+    grid-column: 2; 
+    grid-row: 2; 
+  }
+
+  /* Remove max-width to let cards fill the grid cells equally */
+  .search-card,
+  .quick-actions,
+  .upcoming-appointments {
+    max-width: 100%;
+    height: 100%; /* Optional: keeps cards the same height */
   }
 }

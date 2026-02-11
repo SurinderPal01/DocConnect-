@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../../utils/api";
 import { to12Hour } from "../../utils/time";
-import Loader from "../../components/Loader";
+import DoctorAvailabilitySkelton from "../../components/DoctorAvailabilitySkelton";
 import "../../styles/availability.css";
 
 const DoctorAvailability = () => {
@@ -112,7 +112,7 @@ const DoctorAvailability = () => {
     alert("Availability saved");
   };
 
-  if (loading) return <Loader />;
+  if (loading) return <DoctorAvailabilitySkelton />;
 
   return (
     <div className="availability-page">

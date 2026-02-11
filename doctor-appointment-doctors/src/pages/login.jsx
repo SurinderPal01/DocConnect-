@@ -5,7 +5,7 @@ import { useAuth } from "../context/useAuth";
 import "../styles/signup.css";
 import "../styles/login.css";
 
-function Login(){
+function Login({setToast}){
     const [email , setEmail] = useState("");
     const [password , setPassword] = useState("");
     const [role, setRole] = useState("patient");
@@ -20,6 +20,10 @@ function Login(){
             });
            if (res.data.user) {
             login(res.data.user);
+            setToast({
+                show: true,
+                message: "Login Successful "
+            });
             navigate("/dashboard");
             } else {
             alert(res.data.message || "Login failed");

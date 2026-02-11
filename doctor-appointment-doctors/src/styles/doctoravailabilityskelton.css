@@ -1,0 +1,67 @@
+/* BASE */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 25%,
+    #f3f4f6 50%,
+    #e5e7eb 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 6px;
+}
+
+/* ANIMATION */
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* CARD */
+.skeleton-card {
+  padding: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* TITLE */
+.skeleton-title {
+  width: 50%;
+  height: 20px;
+  margin-bottom: 20px;
+}
+
+/* SLOT ROW */
+.slot-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.skeleton-time {
+  flex: 1;
+  height: 16px;
+}
+
+.skeleton-btn {
+  width: 90px;
+  height: 32px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .skeleton-card {
+    max-width: 100%;
+    padding: 12px;
+  }
+
+  .skeleton-title {
+    width: 60%;
+  }
+
+  .skeleton-btn {
+    width: 70px;
+    height: 28px;
+  }
+}

@@ -1,6 +1,6 @@
 
 import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense , useState } from "react";
 import { useAuth } from "./context/useAuth";
 
 import PublicLayout from "./layout/PublicLayout";
@@ -25,9 +25,14 @@ const DoctorDetails = lazy(() => import("./dashboard/user/DoctorDetails"));
 const AppointmentDetails = lazy(() => import("./dashboard/AppointmentDetails"));
 const Notifications = lazy(() => import("./pages/Notifications"));
 const Chat = lazy(() => import("./pages/Chat"));
+import Toast from "./components/Toast";
 
 function App() {
   const { loading } = useAuth();
+   const [toast, setToast] = useState({
+    show: false,
+    message: ""
+  });
   if (loading) return <Loader />;
 
   return (
@@ -38,7 +43,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signupuser" element={<SignupUser />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login  setToast={setToast} />} />
           <Route path="/doctors" element={<PublicDoctors />} />
           <Route path="/doctor/public/:id" element={<PublicDoctorDetail />} />
         </Route>
@@ -56,6 +61,12 @@ function App() {
           <Route path="/chat/:appointmentId" element={<Chat />} />
         </Route>
       </Routes>
+
+       <Toast
+        message={toast.message}
+        show={toast.show}
+        onClose={() => setToast({ ...toast, show: false })}
+      />
     </Suspense>
   );
 }

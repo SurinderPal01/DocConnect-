@@ -3,6 +3,7 @@
   padding: 24px;
   display:flex;
   padding-bottom: 80px;
+  justify-content: center;
   /* Inner scroll removed so that only window scrolls */
   overflow-y: visible;
   overflow-x: hidden;         /* prevent horizontal scroll */
