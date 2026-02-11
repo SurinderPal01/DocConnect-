@@ -6,6 +6,7 @@ import SuggestedDoctorCard from "../../components/SuggestedDoctorsCard";
 import api from "../../utils/api";
 import "../../styles/userdashboard.css";
 import Loader from "../../components/Loader";
+import { formatTime } from "../../utils/time";
 
 function UserDashboard({ user }) {
     const navigate = useNavigate();
@@ -157,7 +158,9 @@ function UserDashboard({ user }) {
                       year: 'numeric'
                     })}
                   </p>
-                  <p className="preview-time">{apt.start} - {apt.end}</p>
+                  <p className="preview-time">
+                    {formatTime(apt.start)} - {formatTime(apt.end)}
+                  </p>
                 </div>
                 <span className={`preview-status ${apt.status}`}>
                   {apt.status}

@@ -1,8 +1,24 @@
-export const to12Hour = (time)=>{
-    if(!time) return"";
+export const formatTime = (value) => {
+  if (!value) return "";
 
-    const [h,m] = time.split(":").map(Number);
-    const period = h>12? "Pm" : "Am";
-    const hour = h%12||12;
-    return `${hour}:${String(m).padStart(2,"0")} ${period}`;
-}
+  // If we already have a valid Date or ISO string, format it directly
+  const asDate = value instanceof Date ? value : new Date(value);
+  if (!Number.isNaN(asDate.getTime())) {
+    return asDate.toLocaleTimeString(undefined, {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  }
+
+  // Fallback for plain "HH:mm" strings (used for raw slots)
+  const [h, m] = String(value).split(":").map(Number);
+  const date = new Date();
+  date.setHours(h || 0, m || 0, 0, 0);
+
+  return date.toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+};

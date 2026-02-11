@@ -2,7 +2,7 @@ import { useEffect , useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../utils/api";
 import Loader from "../../components/Loader";
-import { to12Hour } from "../../utils/time";
+import { formatTime } from "../../utils/time";
 import "../../styles/userappointments.css";
 
 function UserAppointments(){
@@ -57,7 +57,7 @@ function UserAppointments(){
                 {/* Appointment Info */}
                 <div className="appointment-info">
                 <p className="slot">
-                    {b.day} | {to12Hour(b.start)} - {to12Hour(b.end)}
+                    {b.day} | {formatTime(b.start)} - {formatTime(b.end)}
                 </p>
                 <span className={`status ${b.status}`}>
                     {b.status}

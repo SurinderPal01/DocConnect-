@@ -75,35 +75,26 @@ if (!sameDay) {
 //   // console.log("status are",expiredStatus,enabledStatus)
 // res.json({enabledStatus , expiredStatus});
 
-      // IST is UTC + 5:30
-    const IST_OFFSET_MINUTES = 330;
-
-      const getUTCDateTimeFromIST = (date, time) => {
-        const [h, m] = time.split(":").map(Number);
-        const d = new Date(date);
-        d.setUTCHours(h, m, 0, 0);
-        return new Date(d.getTime()-IST_OFFSET_MINUTES*60000);
-      };
-      const startUTC = getUTCDateTimeFromIST(appointment.date , appointment.start);
-      const endUTC = getUTCDateTimeFromIST(appointment.date , appointment.end);
-      const nowUTC = new Date();
-
-      // console.log("Start UTC",startUTC.toISOString());
-      // console.log("end UTC",endUTC.toISOString());
-      // console.log("date UTC",nowUTC.toISOString());
+      // Use stored Date fields directly so timezone handling is consistent.
+      // Appointment.start and .end are absolute moments; we simply compare
+      // with current server time, and the frontend renders them in the user's
+      // local timezone.
+      const start = new Date(appointment.start);
+      const end = new Date(appointment.end);
+      const now = new Date();
 
       let enabledStatus = "hidden";
 
-      if (nowUTC < new Date(startUTC.getTime() - 15 * 60000)) {
+      // show button up to 15 minutes before the appointment start
+      if (now < new Date(start.getTime() - 15 * 60000)) {
         enabledStatus = "hidden";
-      } else if (nowUTC >= startUTC && nowUTC < endUTC) {
+      } else if (now >= start && now < end) {
         enabledStatus = "enabled";
-      } else if (nowUTC >= endUTC) {
+      } else if (now >= end) {
         enabledStatus = "disabled";
       }
 
-      const expiredStatus = nowUTC >= endUTC || appointment.status ==="completed";
-      // console.log("status",enabledStatus , expiredStatus);
+      const expiredStatus = now >= end || appointment.status ==="completed";
       res.json({ enabledStatus, expiredStatus });
 
     }catch(err){

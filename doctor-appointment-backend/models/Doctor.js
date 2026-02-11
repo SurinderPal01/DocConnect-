@@ -103,4 +103,9 @@ const DoctorSchema = new mongoose.Schema(
      { timestamps: true }
 );
 
+// Helpful indexes for common queries
+DoctorSchema.index({ email: 1 });
+DoctorSchema.index({ specialization: 1, approved: 1 });
+DoctorSchema.index({ approved: 1, createdAt: -1 });
+
 module.exports = mongoose.model("Doctor" ,DoctorSchema);

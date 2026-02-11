@@ -18,7 +18,7 @@ exports.createAppointment = async (req, res) => {
     }
     const dateAvailability = doctor.availability.find(
       // a=> new Date(a.date).getTime()=== new Date(bookingDate).getTime());
-      a=> normalize(a.date)=== normalize(bookingDate));
+      a=> normalize(a.date) === normalize(bookingDate));
 
     if (!dateAvailability) {
       return res.status(400).json({ msg: "Doctor not available on this day" });
@@ -33,34 +33,52 @@ exports.createAppointment = async (req, res) => {
       return res.status(400).json({ msg: "Slot already booked" });
     }
 
+    // Prevent booking slots that are already in the past (by end time)
+    const [endHCheck, endMCheck] = String(slot.end).split(":").map(Number);
+    const slotEndCheck = new Date(bookingDate);
+    slotEndCheck.setHours(endHCheck || 0, endMCheck || 0, 0, 0);
+    if (slotEndCheck.getTime() < Date.now()) {
+      return res.status(400).json({ msg: "Cannot book a past slot" });
+    }
+
     // check if user has booked slot on the same day
     const checkAppointment = await Appointment.find({
       user:req.user ,
       status:"accepted"
       // normalize(date): normalize(date)
     })
-    const checkDate = checkAppointment.map(m=>
-      normalize(m.date) === normalize(date) ? m :null
-    )
-    const ifFalse = checkDate.some(d=>d===true);
-    if(ifFalse){
-      return res.status(400).json({msg:"Slot already booked for this date"})
-    }
+    const alreadyBooked = checkAppointment.some(m =>
+      normalize(m.date) === normalize(bookingDate)
+    );
 
+    if (alreadyBooked) {
+      return res.status(400).json({ msg: "Slot already booked for this date" });
+    }
 
     // book slot
     slot.isAvailable = false;
     doctor.markModified("availability");
-
     await doctor.save();
+
+    // Build absolute start/end Date objects based on the chosen slot.
+    // These are stored as real Date instances in UTC; the frontend will
+    // render them in the user's local timezone using toLocaleTimeString.
+    const [startH,startM] = slot.start.split(":").map(Number);
+    const [endH , endM] = slot.end.split(":").map(Number);
+
+    const start = new Date(bookingDate);
+    start.setHours(startH , startM , 0, 0);
+
+    const end = new Date(bookingDate);
+    end.setHours(endH , endM,0,0);
     const appointment = await Appointment.create({
       doctor: doctorId,
       user: req.user._id,
       date:bookingDate,
       slotId: slot._id,
       fee : doctor.consultationFee,
-      start: slot.start,
-      end: slot.end,
+      start: start,
+      end: end,
       status: "pending",
       paymentStatus:"NOT_ALLOWED",
     });
@@ -101,7 +119,9 @@ exports.getDoctorAppointment = async (req,res)=>{
         const appointment = await Appointment.find({
             doctor:req.user._id
         }).populate("user" , "firstName lastName email")
+        .populate("slotId", "start end")
         .sort({createdAt:-1});
+        console.log("app",appointment);
         res.json(appointment)
     }catch(err){
         res.status(500).json({msg:"Server Error"});

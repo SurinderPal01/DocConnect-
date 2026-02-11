@@ -7,6 +7,27 @@ const normalize = (d)=>{
     return x.getTime();
 }
 
+// hide slots that are completely in the past for the selected date
+const isSlotInFutureOrNow = (selectedDate, slot) => {
+  const today = new Date();
+
+  const date = new Date(selectedDate);
+  date.setHours(0, 0, 0, 0);
+
+  // if selected date is before today, no slots should be shown
+  if (date.getTime() < normalize(today)) return false;
+
+  // if selected date is after today, all slots are okay
+  if (date.getTime() > normalize(today)) return true;
+
+  // same day: compare end time with "now"
+  const [endH, endM] = String(slot.end).split(":").map(Number);
+  const slotEnd = new Date(selectedDate);
+  slotEnd.setHours(endH || 0, endM || 0, 0, 0);
+
+  return slotEnd.getTime() >= today.getTime();
+};
+
 function DoctorSlots({doctor , selectedDate}){
     const dateAvailability = doctor.availability.find(
         a=>normalize(a.date) === normalize(selectedDate))
@@ -27,7 +48,7 @@ function DoctorSlots({doctor , selectedDate}){
 
         <div className="slots-grid">
             {dateAvailability.slots
-            .filter(slot => slot.isAvailable)
+            .filter(slot => slot.isAvailable && isSlotInFutureOrNow(selectedDate, slot))
             .map(slot => (
                 <BookAppointment
                 key={slot._id}

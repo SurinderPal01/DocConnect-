@@ -24,13 +24,21 @@ const AppointmentSchema = mongoose.Schema(
             type:Date,
             requied:true
         },
+        // start:{
+        //     type:String,
+        //     required:true
+        // },
+        // end:{
+        //     type:String,
+        //     required:true
+        // },
         start:{
-            type:String,
-            required:true
+            type:Date,
+            required:true,
         },
         end:{
-            type:String,
-            required:true
+            type:Date,
+            required:true,
         },
         fee:{
             type: Number,
@@ -59,4 +67,10 @@ const AppointmentSchema = mongoose.Schema(
     },
     {timestamps:true}
 );
+
+// Indexes to speed up common queries
+AppointmentSchema.index({ user: 1, createdAt: -1 });
+AppointmentSchema.index({ doctor: 1, createdAt: -1 });
+AppointmentSchema.index({ doctor: 1, date: 1 });
+
 module.exports = mongoose.model("Appointment",AppointmentSchema)

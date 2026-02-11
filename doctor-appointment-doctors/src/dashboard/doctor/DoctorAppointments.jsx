@@ -1,10 +1,11 @@
 import { useEffect , useState } from "react";
 import api from "../../utils/api";
 import Loader from "../../components/Loader";
-import { to12Hour } from "../../utils/time";
+import { formatTime } from "../../utils/time";
 import SkeletonBooking from "../../components/skeltonBookings";
 import "../../styles/doctorbooking.css";
 import { useNavigate } from "react-router-dom";
+
 
 function DoctorAppointment(){
    const [bookings, setBookings] = useState([]);
@@ -13,9 +14,11 @@ function DoctorAppointment(){
   const navigate = useNavigate();
    useEffect(()=>{
       api.get("/api/appointment/doctor")
-      .then(res=>setBookings(res.data))
+      .then(res=>{setBookings(res.data)
+    console.log("data",res.data)})  
       .finally(()=>setLoading(false));
    },[]);
+
 
 
    const updateStatus=(id , status)=>{
@@ -85,7 +88,7 @@ function DoctorAppointment(){
             <h4>{b.user?.firstName} {b.user?.lastName}</h4>
 
             <p className="slot">
-              {b.day} | {to12Hour(b.start)} - {to12Hour(b.end)}
+              {b.day} | {formatTime(b.start)} - {formatTime(b.end)}
             </p>
 
             <span className={`status ${b.status}`}>

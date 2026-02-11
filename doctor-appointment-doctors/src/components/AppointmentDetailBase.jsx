@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import AppointmentDetailSkeleton from "../components/AppointmentDetailSkeleton";
 import api from "../utils/api";
 import Loader from "../components/Loader";
-import { to12Hour } from "../utils/time";
+import { formatTime } from "../utils/time";
 import "../styles/appointmentdetailbase.css";
 
 function AppointmentDetailBase({ role, actions }) {
@@ -182,7 +182,7 @@ function AppointmentDetailBase({ role, actions }) {
       <div className="detail-row">
         <span>Time:</span>
         <strong>
-          {to12Hour(appointment.start)} - {to12Hour(appointment.end)}
+          {formatTime(appointment.start)} - {formatTime(appointment.end)}
         </strong>
       </div>
 

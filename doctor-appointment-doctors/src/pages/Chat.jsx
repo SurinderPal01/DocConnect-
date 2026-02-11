@@ -143,20 +143,39 @@ const formatTime = (sec) => {
   //send message and emit
  const sendMessage = async () => {
   if (!chatEnabled || timeOver) return;
-  if (!text.trim() || !socketRef.current) return;
+  if (!text.trim() || !socketRef.current || !user?._id) return;
+
+  const trimmed = text.trim();
   const msgData = {
     appointmentId,
-    message: text.trim(),
-    receiver:receiverId
+    message: trimmed,
+    receiver: receiverId
   };
 
+  // Optimistic update: show message immediately in UI
+  const tempId = `temp-${Date.now()}`;
+  const optimisticMsg = {
+    _id: tempId,
+    appointment: appointmentId,
+    sender: user._id,
+    senderModel: user.role === "doctor" ? "Doctor" : "User",
+    receiver: receiverId,
+    message: trimmed,
+    type: "text",
+    createdAt: new Date().toISOString(),
+  };
+
+  setMessages((prev) => [...prev, optimisticMsg]);
+  setText("");
+
   try {
+    // Emit over socket first so the other side gets it instantly
     socketRef.current.emit("send-message", msgData);
+    // Then persist to backend
     await api.post("/api/chat/message", msgData);
-    // setMessages((prev) => [...prev, msgData]);
-    setText("");
   } catch (err) {
     console.error("Error Sending message", err);
+    // On failure you could optionally mark or remove optimistic message
   }
 };
 

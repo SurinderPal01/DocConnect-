@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../../utils/api";
-import { to12Hour } from "../../utils/time";
+import { formatTime } from "../../utils/time";
 import DoctorAvailabilitySkelton from "../../components/DoctorAvailabilitySkelton";
 import "../../styles/availability.css";
 
@@ -15,8 +15,16 @@ const DoctorAvailability = () => {
 
   /* ---------------- FETCH ---------------- */
   useEffect(() => {
-    api.get("/api/doctor/availability")
-      .then(res => setAvailability(res.data || []))
+    api
+      .get("/api/doctor/availability")
+      .then((res) => {
+        const data = Array.isArray(res.data) ? res.data : [];
+        // Sort so the latest day appears at the top
+        const sorted = [...data].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+        setAvailability(sorted);
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -53,15 +61,15 @@ const DoctorAvailability = () => {
   };
 
   // Date formater 
-  const formatDateWithDay = (date)=>{
-    const d= new Date(date);
-    return d.toDateString("en-US",{
-      weekDay: "long",
-      day:"2-digit",
-      month:"short",
-      year:"numeric"
-    })
-  }
+ const formatDateWithDay = (date) => {
+  const d = new Date(date);
+  return d.toLocaleDateString("en-IN", {
+    weekday: "long",
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+};
 
   /* ---------------- ADD DATE ---------------- */
   const addDateAvailability = () => {
@@ -81,13 +89,20 @@ const DoctorAvailability = () => {
 
     if (exists) return alert("Availability already exists for this date");
 
-    setAvailability(prev => [
-      ...prev,
-      {
-        date: selectedDate,
-        slots: generateSlots()
-      }
-    ]);
+    setAvailability(prev => {
+      const next = [
+        ...prev,
+        {
+          date: selectedDate,
+          slots: generateSlots()
+        }
+      ];
+
+      // keep newest dates at the top
+      return next.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    });
   };
 
   /* ---------------- TOGGLE SLOT ---------------- */
@@ -150,7 +165,7 @@ const DoctorAvailability = () => {
               key={i}
               className={`slot-row ${!slot.isAvailable ? "disabled" : ""}`}
             >
-              <span>{to12Hour(slot.start)} - {to12Hour(slot.end)}</span>
+              <span>{formatTime(slot.start)} - {formatTime(slot.end)}</span>
 
               <button onClick={() => toggleSlot(a.date, i)}>
                 {slot.isAvailable ? "Available" : "Unavailable"}

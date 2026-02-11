@@ -99,14 +99,15 @@ function DoctorDashboard() {
                     {a.user?.firstName} {a.user?.lastName}
                   </h3>
                   <p className="appt-time">
-                    {a.date
-                      ? new Date(a.date).toLocaleTimeString([], {
+                    {a.start && a.end
+                      ? `${new Date(a.start).toLocaleTimeString([], {
                           hour: "2-digit",
                           minute: "2-digit",
-                        })
+                        })} – ${new Date(a.end).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}`
                       : ""}
-                    {" • "}
-                    {a.start} – {a.end}
                   </p>
                 </div>
                 <div className="appt-side-info">

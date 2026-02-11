@@ -12,6 +12,7 @@ function DoctorDetails() {
 
   useEffect(() => {
     api.get(`/api/doctor/${doctorId}`).then(res => {
+      console.log("data",res.data.availability);
       setDoctor(res.data);
     });
   }, [doctorId]);

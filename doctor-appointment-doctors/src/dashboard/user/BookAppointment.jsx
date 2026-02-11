@@ -1,6 +1,6 @@
 import { useState } from "react";
 import api from "../../utils/api";
-import { to12Hour } from "../../utils/time";
+import { formatTime } from "../../utils/time";
 import "../../styles/doctordetail.css";
 
 function BookAppointment({doctorId , date, slot}){
@@ -25,9 +25,9 @@ function BookAppointment({doctorId , date, slot}){
     return(
         <buttton className="slot-btn"
             // disabled={loading}
-            disabled = {slot.isAvailable || loading}
+            disabled = {!slot.isAvailable || loading}
             onClick={handleBook}>
-            {to12Hour(slot.start)}-{to12Hour(slot.end)}
+            {formatTime(slot.start)}-{formatTime(slot.end)}
         </buttton>
     )
 }
