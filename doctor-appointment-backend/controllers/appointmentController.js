@@ -24,7 +24,6 @@ exports.createAppointment = async (req, res) => {
       return res.status(400).json({ msg: "Doctor not available on this day" });
     }
     const slot = dateAvailability.slots.id(slotId);
-
     if (!slot) {
       return res.status(400).json({ msg: "Slot not found" });
     }
@@ -42,17 +41,31 @@ exports.createAppointment = async (req, res) => {
     }
 
     // check if user has booked slot on the same day
-    const checkAppointment = await Appointment.find({
-      user:req.user ,
-      status:"accepted"
-      // normalize(date): normalize(date)
-    })
-    const alreadyBooked = checkAppointment.some(m =>
-      normalize(m.date) === normalize(bookingDate)
-    );
+    // const checkAppointment = await Appointment.find({
+    //   user:req.user ,
+    //   status:"accepted"
+    //   // normalize(date): normalize(date)
+    // })
+    // const alreadyBooked = checkAppointment.some(m =>
+    //   normalize(m.date) === normalize(bookingDate)
+    // );
 
-    if (alreadyBooked) {
-      return res.status(400).json({ msg: "Slot already booked for this date" });
+    // if (alreadyBooked) {
+    //   return res.status(400).json({ msg: "Slot already booked for this date" });
+    // }
+
+    const existingAccepted = await Appointment.findOne({
+      user: req.user._id,
+      status: "accepted",
+      date: {
+        $gte: new Date(bookingDate.setHours(0,0,0,0)),
+        $lt: new Date(bookingDate.setHours(23,59,59,999))
+      }
+    });
+    if (existingAccepted) {
+      return res.status(400).json({
+        msg: "You already have an accepted appointment on this date"
+      });
     }
 
     // book slot
@@ -92,7 +105,7 @@ exports.createAppointment = async (req, res) => {
       title:"New Appointment Request",
       message:"A user has requested an appointment",
       link:`/doctor/appointment/${appointment._id}`
-    })
+    });
     res.status(201).json({ success: true, appointment });
 
   } catch (err) {
@@ -121,7 +134,6 @@ exports.getDoctorAppointment = async (req,res)=>{
         }).populate("user" , "firstName lastName email")
         .populate("slotId", "start end")
         .sort({createdAt:-1});
-        console.log("app",appointment);
         res.json(appointment)
     }catch(err){
         res.status(500).json({msg:"Server Error"});

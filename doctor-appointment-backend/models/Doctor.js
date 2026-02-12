@@ -4,13 +4,13 @@ const DoctorSchema = new mongoose.Schema(
     {
         firstName:{type:String , required:true},
         lastName:{type:String , required:true},
-        email :{ type:String , required:true , unique:true},
+        email :{ type:String , required:true , unique:true,  lowercase: true,},
         password :{type:String , required:true},
         phone :{type:Number , required:true},
         age:{type:Number , required:true},
         experience:{type:Number},
         consultationFee:{type:Number},
-        specialization: {
+        specialization: {   
         type: String,
         required: true,
                 enum: [
@@ -104,7 +104,7 @@ const DoctorSchema = new mongoose.Schema(
 );
 
 // Helpful indexes for common queries
-DoctorSchema.index({ email: 1 });
+// DoctorSchema.index({ email: 1 });
 DoctorSchema.index({ specialization: 1, approved: 1 });
 DoctorSchema.index({ approved: 1, createdAt: -1 });
 

@@ -68,6 +68,7 @@ if(loading) return <Loader />
               <button
                 disabled={!doc.approved}
                 className="book-btn"
+                 onClick={() => navigate(`/doctor/${doc._id}`)}
               >
                 Book Appointment
               </button>

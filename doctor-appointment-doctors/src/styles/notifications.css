@@ -1,7 +1,8 @@
 .notification-page {
-  max-width: 760px;
+  width: 100%;
+  max-width: 720px; /* default for tablet */
   margin: 40px auto;
-  padding: 0 14px;
+  padding: 0 16px;
 }
 
 .notification-title {
@@ -31,8 +32,7 @@
 /* Left indicator */
 .notif-left {
   display: flex;
-  align-items: flex-start;
-  padding-top: 6px;
+  align-items: center;
 }
 
 .notif-left .dot {
@@ -77,4 +77,23 @@
 
 .notification-item.unread {
   border-left: 4px solid #6366f1;
+}
+
+@media (min-width: 1024px) {
+  .notification-page {
+    max-width: 900px;  /* wider on large screens */
+  }
+
+  .notification-item {
+    padding: 20px 22px;
+    gap: 18px;
+  }
+
+  .notif-content h4 {
+    font-size: 16px;
+  }
+
+  .notif-content p {
+    font-size: 15px;
+  }
 }

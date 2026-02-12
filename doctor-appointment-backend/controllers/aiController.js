@@ -30,7 +30,7 @@ exports.suggestDoctor = async (req, res) => {
 exports.suggestSpecialization = async (req, res) => {
   try {
     const { symptoms } = req.body;
-    console.log("Symptoms",symptoms);
+    // console.log("Symptoms",symptoms);
     if (!symptoms) {
       return res.status(400).json({ msg: "Symptoms required" });
     }
@@ -44,9 +44,9 @@ exports.suggestSpecialization = async (req, res) => {
     `;
 
     const result = await geminiModel.generateContent(prompt);
-    console.log("result",result);
+    // console.log("result",result);
     const response = result.response.text().trim();
-    console.log("specialization:", response);
+    // console.log("specialization:", response);
 
     const doctors = await Doctor.find({
       specialization: response,

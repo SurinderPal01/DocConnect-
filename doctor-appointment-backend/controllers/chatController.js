@@ -105,7 +105,7 @@ if (!sameDay) {
 // chatController.js
 exports.sendMessage = async (req, res) => {
   try {
-    const { appointmentId, receiver, message } = req.body;
+    const { appointmentId, receiver, message ,tempId} = req.body;
     const sender = req.user._id;
     const senderModel = req.user.role === "doctor" ? "Doctor" : "User";
 
@@ -130,6 +130,7 @@ exports.sendMessage = async (req, res) => {
       message,
       type:chat.type,
       createdAt: chat.createdAt,
+      tempId,
     }
     // io.to(appointmentId).emit("chat-warning",{
     //   minutesLeft: 5

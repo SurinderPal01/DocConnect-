@@ -95,7 +95,23 @@ function Chat() {
        socketRef.current.emit("start-chat-timer",{appointmentId});
        }
        socketRef.current.on("receive-message",(msg)=>{
-        setMessages((prev)=>[...prev ,msg])
+        setMessages(prev => {
+
+          // check if temp message exists
+          const tempIndex = prev.findIndex(
+            m => m.isTemp && m._id === msg.tempId
+          );
+
+          if (tempIndex !== -1) {
+            // replace temp with real message
+            const updated = [...prev];
+            updated[tempIndex] = msg;
+            return updated;
+          }
+
+          // if not temp → normal add
+          return [...prev, msg];
+        });
        })
       // socketRef?.emit()
       // 5 minutes waring listner 
@@ -146,12 +162,9 @@ const formatTime = (sec) => {
   if (!text.trim() || !socketRef.current || !user?._id) return;
 
   const trimmed = text.trim();
-  const msgData = {
-    appointmentId,
-    message: trimmed,
-    receiver: receiverId
-  };
+  
 
+  console.log("try to add message");
   // Optimistic update: show message immediately in UI
   const tempId = `temp-${Date.now()}`;
   const optimisticMsg = {
@@ -165,7 +178,15 @@ const formatTime = (sec) => {
     createdAt: new Date().toISOString(),
   };
 
+  const msgData = {
+    appointmentId,
+    message: trimmed,
+    receiver: receiverId,
+    tempId
+  };
+
   setMessages((prev) => [...prev, optimisticMsg]);
+  console.log("optimistic msg",optimisticMsg)
   setText("");
 
   try {
@@ -191,7 +212,7 @@ useEffect(()=>{
   }
 
   // for subsequent updates only update if user was near bottm 
-  const parent = messageEndRef.current.parentElement;
+  const parent = messageEndRef.current.parentElement;        
 
   if(!parent) return;
   const distanceFromBottom =  parent.scrollHeight -(parent.scrollTop + parent.clientHeight);

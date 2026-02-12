@@ -65,6 +65,9 @@ exports.login = async (req, res) => {
         user: doctor_data,
       });
     }
+    else if(!doctor){
+  return res.json({ message: "Invalid email" });
+    }
     }
     else if(role ==="patient"){
    const user = await User.findOne({ email: email.toLowerCase() });
@@ -86,6 +89,9 @@ exports.login = async (req, res) => {
         success: true,
         user: user,
       });
+    }
+    else if(!user){
+  return res.json({ message: "Invalid email" });
     }
     }
     else{

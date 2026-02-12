@@ -5,7 +5,6 @@ const Appointment = require("../models/Appointment");
 exports.createOrder = async (req,res)=>{
     try{
         const {appointmentId} = req.body;
-        console.log("id",appointmentId);
         const appointment = await Appointment.findById(appointmentId);
         if(!appointment){
             return res.status(400).json({message:"Appointment Not Found"});

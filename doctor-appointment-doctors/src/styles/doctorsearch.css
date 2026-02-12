@@ -13,10 +13,12 @@
 
 .doctor-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(360px, 1fr)); /* FIX */
-  gap: 28px;
+  grid-template-columns: 1fr; /* Default: 1 column */
+  gap: 24px;
   align-items: stretch;
 }
+
+
 
 /* CARD */
 .doctor-card {
@@ -56,11 +58,11 @@
 /* INFO */
 .doctor-info {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Age + Email/Phone */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 10px 16px;
   font-size: 14px;
-  word-break: break-word;
 }
+
 .doctor-info p {
   margin: 0;
   word-break: break-word;   /*  important */
@@ -70,8 +72,13 @@
 /* FOOTER */
 .doctor-footer {
   margin-top: 16px;
-  gap: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
+
 
 .approved {
   color: green;
@@ -108,7 +115,7 @@
   }
 
  .doctor-card {
-  width: 340px;
+  /* width: 340px; */
     padding: 18px;
   }
 
@@ -124,5 +131,11 @@
 
   .book-btn {
     width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .doctor-list {
+     grid-template-columns: repeat(2, 1fr);
   }
 }
