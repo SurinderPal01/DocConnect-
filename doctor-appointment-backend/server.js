@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: ["http://localhost:5173", "http://localhost:5174",
-       "https://surinder.vercel.app","https://doc-connect-pz1doe7v2-surinders-projects-ccf2e427.vercel.app"
+       "https://docconnectapp.vercel.app","https://doc-connect-pz1doe7v2-surinders-projects-ccf2e427.vercel.app"
     ],
     credentials: true,
   })
