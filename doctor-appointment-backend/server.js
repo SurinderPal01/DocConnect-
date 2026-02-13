@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
+const TZ = process.env.TZ || "Asia/Kolkata";
 const http = require("http");
 const {Server} = require("socket.io");
 const connectDB = require("./config/db.js");

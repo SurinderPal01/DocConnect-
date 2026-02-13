@@ -1,141 +1,233 @@
 .doctor-search {
-  padding: 24px;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  min-height: 100vh;
 }
 
 .doctor-search h2 {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
+  color: #111827;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border-bottom: 3px solid #003366;
+  display: inline-block;
+  padding-bottom: 0.5rem;
 }
 
 .no-data {
-  color: #666;
-  margin-top: 20px;
+  color: #6b7280;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  text-align: center;
 }
 
 .doctor-list {
-  display: grid;
-  grid-template-columns: 1fr; /* Default: 1 column */
-  gap: 24px;
-  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-
-
-/* CARD */
+/* CARD LAYOUT - Horizontal by default on desktop */
 .doctor-card {
   background: #fff;
   border-radius: 12px;
-  padding: 22px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   display: flex;
-  min-height: 260px; 
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  /* Horizontal layout */
+  overflow: hidden;
+  transition: transform 0.2sease, box-shadow 0.2s ease;
+  border: 1px solid #e5e7eb;
 }
 
-/* HEADER */
-.doctor-header {
+.doctor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-color: #003366;
+}
+
+/* LEFT: IMAGE & LINK */
+.doctor-card-image {
+  width: 200px;
+  background: #f3f4f6;
+  padding: 1.5rem;
   display: flex;
-  gap: 12px;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  border-right: 1px solid #e5e7eb;
+  flex-shrink: 0;
 }
 
 .avatar {
-  width: 48px;
-  height: 48px;
-  background: #e5e7eb;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  margin-bottom: 1rem;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
+  /* Circular avatar */
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.spec {
-  color: #2563eb;
-  font-size: 14px;
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* INFO */
-.doctor-info {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 10px 16px;
-  font-size: 14px;
-}
-
-.doctor-info p {
-  margin: 0;
-  word-break: break-word;   /*  important */
-  overflow-wrap: anywhere; /*  important */
-}
-
-/* FOOTER */
-.doctor-footer {
-  margin-top: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-
-.approved {
-  color: green;
-  font-weight: 500;
-}
-
-.pending {
-  color: orange;
-  font-weight: 500;
-}
-
-.book-btn {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: none;
-  background: #2563eb;
-  color: white;
+.view-profile-link {
+  color: #003366;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: underline;
   cursor: pointer;
 }
 
-.book-btn:disabled {
-  background: #ccc;
+.view-profile-link:hover {
+  color: #2563eb;
+}
+
+/* CENTER: DETAILS */
+.doctor-card-details {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.doc-header h3 {
+  color: #003366;
+  font-size: 1.4rem;
+  margin: 0 0 0.3rem 0;
+  font-weight: 700;
+}
+
+.doc-spec {
+  color: #2563eb;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.doc-meta {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.meta-row {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.meta-label {
+  font-weight: 600;
+  color: #111827;
+  min-width: 90px;
+}
+
+/* RIGHT: ACTIONS */
+.doctor-card-actions {
+  width: 250px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: #fff;
+  border-left: 1px solid #e5e7eb;
+}
+
+.status-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  margin-bottom: 0.5rem;
+}
+
+.status-badge.approved {
+  color: #059669;
+  background-color: #d1fae5;
+}
+
+.status-badge.pending {
+  color: #d97706;
+  background-color: #fef3c7;
+}
+
+.book-btn-large {
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  background-color: #003366;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+}
+
+.book-btn-large:hover:not(:disabled) {
+  background-color: #002244;
+}
+
+.book-btn-large:disabled {
+  background-color: #9ca3af;
   cursor: not-allowed;
 }
 
-/* MOBILE FIX */
-@media (max-width: 768px) {
-  .doctor-search {
-    padding: 16px;
-  }
-
-  .doctor-list {
-    grid-template-columns: 1fr;
-  }
-
- .doctor-card {
-  /* width: 340px; */
-    padding: 18px;
-  }
-
-  .doctor-info {
-    grid-template-columns: 1fr; /* 🔥 stack vertically */
-  }
-
-  .doctor-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .book-btn {
-    width: 100%;
-  }
+.contact-info-small {
+  margin-top: 0.5rem;
+  color: #6b7280;
 }
 
-@media (min-width: 1024px) {
-  .doctor-list {
-     grid-template-columns: repeat(2, 1fr);
+
+/* MOBILE RESPONSIVE < 768px */
+@media (max-width: 768px) {
+  .doctor-search {
+    padding: 1rem;
+  }
+
+  .doctor-card {
+    flex-direction: column;
+  }
+
+  .doctor-card-image {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1rem;
+  }
+
+  .doctor-card-details {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .doctor-card-actions {
+    width: 100%;
+    border-left: none;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: #f9fafb;
+  }
+
+  .book-btn-large {
+    width: auto;
+    flex: 1;
   }
 }

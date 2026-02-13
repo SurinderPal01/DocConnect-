@@ -368,4 +368,34 @@ exports.updateDoctorProfile = async (req,res)=>{
     console.error(err);
     res.status(500).json({ msg: "Server error" });
   }
-}
+};
+
+exports.uploadProfilePhoto = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ msg: "No file uploaded" });
+    }
+
+    const doctorId = req.user.id;
+    const profilePhoto = req.file.path; // Cloudinary URL
+
+    const updatedDoctor = await Doctor.findByIdAndUpdate(
+      doctorId,
+      { profilePhoto },
+      { new: true }
+    ).select("-password");
+
+    if (!updatedDoctor) {
+      return res.status(404).json({ msg: "Doctor not found" });
+    }
+
+    res.json({
+      success: true,
+      profilePhoto: updatedDoctor.profilePhoto,
+      msg: "Profile photo updated successfully"
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Server Error", error: err.message });
+  }
+};

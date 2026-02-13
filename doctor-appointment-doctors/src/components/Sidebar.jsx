@@ -12,27 +12,37 @@ function Sidebar({ open,setOpen}){
         <h2 className="logo">DocConnect</h2>
 
         <nav onClick={handleClose}>
+        
+        {user ? (
+          <>
             <Link to="/dashboard">Dashboard</Link>
-             {user?.role === "user" && (
-          <>
-            <Link to="/dashboard/profile">Profile</Link>
-            <Link to="/dashboard/appointments">Appointments</Link>
-            <Link to="/notifications" >Notifications</Link>
+            {user.role === "user" && (
+              <>
+                <Link to="/dashboard/profile">Profile</Link>
+                <Link to="/dashboard/appointments">Appointments</Link>
+                <Link to="/dashboard/find-doctors">Browse Doctors</Link>
+                <Link to="/notifications" >Notifications</Link>
+              </>
+            )}
 
+            {user.role === "doctor" && (
+              <>
+                <Link to="/dashboard/availability">Availability</Link>
+                <Link to="/dashboard/appointments">Appointments</Link>
+                <Link to="/dashboard/profile">Profile</Link>
+                <Link to="/notifications" >Notifications</Link>
+              </>
+            )}
+            <button className="logout-btn" onClick={logout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/">Home</Link>
+            <Link to="/doctors">Find Doctors</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Signup</Link>
           </>
         )}
-
-        {user?.role === "doctor" && (
-          <>
-          
-           <Link to="/dashboard/availability">Availability</Link>
-            <Link to="/dashboard/appointments">Appointments</Link>
-            <Link to="/dashboard/profile">Profile</Link>
-            <Link to="/notifications" >Notifications</Link>
-
-          </>
-        )}
-        <button className="logout-btn" onClick={logout}>Logout</button>
         </nav>
       </aside>
     )

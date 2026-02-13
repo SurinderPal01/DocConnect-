@@ -124,6 +124,9 @@
 
 /* Mobile */
 @media (max-width: 768px) {
+  .doctor-profile{
+    padding: 10px;
+  }
   .profile-card {
     grid-template-columns: 1fr;
     padding: 20px;
@@ -142,4 +145,12 @@
   .edit-btn {
     width: 100%;
   }
+}
+
+.dashboard-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  /* Filter to turn black icons to royalblue (#4169e1) */
+  filter: brightness(0) saturate(100%) invert(32%) sepia(96%) saturate(1637%) hue-rotate(214deg) brightness(93%) contrast(94%);
 }

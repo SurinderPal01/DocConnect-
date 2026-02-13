@@ -63,7 +63,9 @@ function UserDashboard({ user }) {
 
     <div className="user-stats-grid">
       <div className="user-stat-card">
-        <div className="user-stat-icon">📅</div>
+        <div className="user-stat-icon">
+          <img src="/assets/calander.png" alt="Total Appointments" className="dashboard-icon" />
+        </div>
         <div className="user-stat-info">
           <h3>{totalAppointments}</h3>
           <p>Total Appointments</p>
@@ -71,7 +73,9 @@ function UserDashboard({ user }) {
       </div>
 
       <div className="user-stat-card">
-        <div className="user-stat-icon">⏰</div>
+        <div className="user-stat-icon">
+          <img src="/assets/alarm-clock.png" alt="Upcoming" className="dashboard-icon" />
+        </div>
         <div className="user-stat-info">
           <h3>{upcomingAppointments.length}</h3>
           <p>Upcoming</p>
@@ -79,7 +83,9 @@ function UserDashboard({ user }) {
       </div>
 
       <div className="user-stat-card">
-        <div className="user-stat-icon">✅</div>
+        <div className="user-stat-icon">
+          <img src="/assets/check-double.png" alt="Completed" className="dashboard-icon" />
+        </div>
         <div className="user-stat-info">
           <h3>{completedAppointments}</h3>
           <p>Completed</p>
@@ -89,7 +95,9 @@ function UserDashboard({ user }) {
 
     <div className="user-dashboard-content">
       <div className="search-card">
-        <h3>🔍 Find Doctors</h3>
+        <h3>
+          <img src="/assets/search.png" alt="Search" className="dashboard-icon-inline" /> Find Doctors
+        </h3>
         <p>Search doctors by specialization</p>
         <select
           value={category}
@@ -112,7 +120,9 @@ function UserDashboard({ user }) {
         <h3>Quick Actions</h3>
         <div className="action-cards">
           <Link to="/dashboard/appointments" className="action-card">
-            <div className="action-icon">📅</div>
+            <div className="action-icon">
+              <img src="/assets/calander.png" alt="Appointments" className="dashboard-icon" />
+            </div>
             <div className="action-content">
               <h4>My Appointments</h4>
               <p>View all your appointments</p>
@@ -121,7 +131,9 @@ function UserDashboard({ user }) {
           </Link>
 
           <Link to="/dashboard/profile" className="action-card">
-            <div className="action-icon">👤</div>
+            <div className="action-icon">
+              <img src="/assets/user.png" alt="Profile" className="dashboard-icon" />
+            </div>
             <div className="action-content">
               <h4>Profile</h4>
               <p>Update your information</p>
@@ -130,7 +142,9 @@ function UserDashboard({ user }) {
           </Link>
 
           <Link to="/doctors" className="action-card">
-            <div className="action-icon">🔍</div>
+            <div className="action-icon">
+              <img src="/assets/search.png" alt="Browse" className="dashboard-icon" />
+            </div>
             <div className="action-content">
               <h4>Browse Doctors</h4>
               <p>Find and book doctors</p>
@@ -146,11 +160,16 @@ function UserDashboard({ user }) {
           <div className="appointments-preview">
             {upcomingAppointments.slice(0, 3).map((apt) => (
               <div key={apt._id} className="appointment-preview-card" onClick={() => navigate(`/dashboard/appointment/${apt._id}`)}>
-                <div className="preview-doctor-info">
-                  <h4>Dr. {apt.doctor?.firstName} {apt.doctor?.lastName}</h4>
-                  <p className="preview-spec">{apt.doctor?.specialization}</p>
+                <div className="card-left-content">
+                  <div className="preview-doctor-info">
+                    <h4>Dr. {apt.doctor?.firstName} {apt.doctor?.lastName}</h4>
+                    <p className="preview-spec">{apt.doctor?.specialization}</p>
+                  </div>
+                  <span className={`preview-status ${apt.status}`}>
+                    {apt.status}
+                  </span>
                 </div>
-                <div className="preview-date-info">
+                <div className="card-right-content">
                   <p className="preview-date">
                     {new Date(apt.date).toLocaleDateString('en-US', { 
                       month: 'short', 
@@ -162,9 +181,6 @@ function UserDashboard({ user }) {
                     {formatTime(apt.start)} - {formatTime(apt.end)}
                   </p>
                 </div>
-                <span className={`preview-status ${apt.status}`}>
-                  {apt.status}
-                </span>
               </div>
             ))}
             {upcomingAppointments.length > 3 && (

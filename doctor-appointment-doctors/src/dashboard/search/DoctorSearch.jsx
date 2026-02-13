@@ -35,43 +35,57 @@ if(loading) return <Loader />
         <div className="doctor-list">
         {doctors.map((doc) => (
           <div className="doctor-card" key={doc._id}>
-            <div className="doctor-header">
-              <div className="avatar"  onClick={() => navigate(`/doctor/${doc._id}`)}>
-                {doc.profilePhoto ? (
-                  <img src={doc.profilePhoto} alt="doctor" />
-                ) : (
-                  <span>👨‍⚕️</span>
-                )}
+            <div className="doctor-card-image">
+               <div className="avatar" onClick={() => navigate(`/doctor/${doc._id}`)}>
+                <img 
+                  src={doc.profilePhoto || "/assets/doctor.png"} 
+                  alt={`Dr. ${doc.firstName}`} 
+                  onError={(e) => {e.target.onerror = null; e.target.src = "/assets/doctor.png"}}
+                />
               </div>
-
-              <div>
-                <h3>
-                  Dr. {doc.firstName} {doc.lastName}
-                </h3>
-                <p className="spec">{doc.specialization}</p>
-              </div>
+              <span className="view-profile-link" onClick={() => navigate(`/doctor/${doc._id}`)}>View Profile</span>
             </div>
 
-            <div className="doctor-info">
-              <p>Age: {doc.age}</p>
-              <p>Email: {doc.email}</p>
-              <p>Phone: {doc.phone}</p>
+            <div className="doctor-card-details">
+                <div className="doc-header">
+                    <h3>Dr. {doc.firstName} {doc.lastName}</h3>
+                    <p className="doc-spec">{doc.specialization}</p>
+                </div>
+                
+                <div className="doc-meta">
+                    <div className="meta-row">
+                        <span className="meta-label">Experience:</span>
+                        <span className="meta-value">12+ Years</span> {/* Dummy data for now as per plan */}
+                    </div>
+                    <div className="meta-row">
+                         <span className="meta-label">Languages:</span>
+                         <span className="meta-value">English, Hindi</span>
+                    </div>
+                     <div className="meta-row">
+                        <span className="meta-label">Gender:</span>
+                        <span className="meta-value">Male</span> {/* Placeholder, or derive if available */}
+                    </div>
+                </div>
             </div>
 
-            <div className="doctor-footer">
-              {doc.approved ? (
-                <span className="approved">✔ Approved</span>
+            <div className="doctor-card-actions">
+               {doc.approved ? (
+                <span className="status-badge approved">Available Today</span>
               ) : (
-                <span className="pending">⏳ Pending Approval</span>
+                <span className="status-badge pending">Approval Pending</span>
               )}
-
+              
               <button
                 disabled={!doc.approved}
-                className="book-btn"
+                className="book-btn-large"
                  onClick={() => navigate(`/doctor/${doc._id}`)}
               >
-                Book Appointment
+                Book an Appointment
               </button>
+              
+               <div className="contact-info-small">
+                  <small>📞 {doc.phone}</small>
+               </div>
             </div>
           </div>
         ))}

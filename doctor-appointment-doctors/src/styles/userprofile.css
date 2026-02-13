@@ -1,195 +1,359 @@
-/* ========== BASE ========== */
-
+/* User Profile CSS */
 .user-profile {
   padding: 30px;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 }
 
-/* Header */
-.profile-header {
+.profile-header-container h1 {
+  font-size: 28px;
+  font-weight: 700;
   margin-bottom: 30px;
+  color: #1f2937;
 }
 
-.profile-header h1 {
-  font-size: 30px;
-  font-weight: 600;
-}
-
-/* ========== PROFILE CARD ========== */
-
+/* Card */
 .profile-card {
   background: #ffffff;
-  border-radius: 16px;
-  padding: 40px;
-  display: grid;
-  grid-template-columns: 300px 1fr; /* desktop layout */
-  gap: 40px;
-  align-items: center;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-/* LEFT SIDE */
-.profile-photo {
+  border-radius: 20px;
+  padding: 50px;
   display: flex;
-  justify-content: center;
+  gap: 60px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  position: relative;
+  align-items: flex-start;
+  margin-bottom: 50px;
 }
 
-.profile-photo img,
-.avatar {
-  width: 160px;
-  height: 160px;
+/* Top Right Edit Button */
+.edit-btn-top {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background: #f3f4f6;
+  border: none;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-}
-
-.profile-photo img {
-  object-fit: cover;
-  border: 4px solid #2563eb;
-}
-
-.avatar {
-  background: #e5e7eb;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 60px;
+  font-size: 1.2rem;
+  transition: all 0.2s;
+  color: #4b5563;
+}
+
+.edit-btn-top:hover {
+  background: #e5e7eb;
+  color: #111827;
+  transform: scale(1.05);
+}
+
+/* Left Section */
+.profile-left {
+  flex: 0 0 300px;
+  text-align: center;
+  border-right: 1px solid #f3f4f6;
+  padding-right: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-photo-container {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin-bottom: 1.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 4px solid white;
+  outline: 4px solid #f3f4f6;
+}
+
+.profile-photo,
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-upload-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  color: white;
+  font-size: 2rem;
+}
+
+.profile-photo-container:hover .photo-upload-overlay {
+  opacity: 1;
+}
+
+.hidden-input {
+  display: none;
 }
 
 .profile-name {
-  font-size: 22px;
-  font-weight: 600;
-  text-align: center;
-  margin-top: 15px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
 }
 
 .badge {
   display: inline-block;
-  margin-top: 8px;
-  padding: 6px 14px;
-  background: #10b981;
-  color: white;
-  border-radius: 20px;
-  font-size: 13px;
+  padding: 0.4rem 1rem;
+  background: #d1fae5;
+  color: #059669;
+  border-radius: 99px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid #a7f3d0;
 }
 
-/* RIGHT SIDE */
-.info-row {
-  background: #f9fafb;
-  padding: 18px;
-  border-radius: 12px;
+/* Right Section */
+.profile-right {
+  flex: 1;
   width: 100%;
 }
 
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.info-row {
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #f3f4f6;
+  transition: all 0.2s;
+}
+
+.info-row:hover {
+  border-color: #e5e7eb;
+}
+
 .info-row label {
-  font-size: 13px;
+  font-size: 0.85rem;
   color: #6b7280;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .info-row p {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
   word-break: break-word;
 }
 
-/* Edit Button */
-.edit-btn {
-  margin-top: 20px;
-  padding: 10px 18px;
+/* Edit Form Styles */
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-group input {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-save {
   background: #2563eb;
   color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
 }
 
-.edit-btn:hover {
-  background: #1e40af;
+.btn-save:hover {
+  background: #1d4ed8;
 }
 
-/* ========== APPOINTMENTS ========== */
+.btn-cancel {
+  background: #e5e7eb;
+  color: #374151;
+}
 
-.appointment-history {
-  margin-top: 50px;
+.btn-cancel:hover {
+  background: #d1d5db;
+}
+
+
+/* Appointment History */
+.appointment-history h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #1f2937;
 }
 
 .appointment-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
 }
 
 .user-appointment-card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-.user-appointment-card p {
-  margin: 4px 0;
-  font-size: 14px;
+.user-appointment-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  border-color: #d1d5db;
+}
+
+.appt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.appt-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.appt-spec {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
+.appt-date-time {
+  display: flex;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: #4b5563;
+  background: #f9fafb;
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .status {
-  display: inline-block;
-  margin-top: 10px;
-  font-size: 12px;
   padding: 4px 12px;
-  border-radius: 14px;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 600;
   text-transform: capitalize;
 }
 
 .status.pending {
-  background: #fff3cd;
-  color: #856404;
+  background: #fff7ed;
+  color: #c2410c;
 }
 
 .status.accepted {
-  background: #d4edda;
-  color: #155724;
+  background: #ecfccb;
+  color: #4d7c0f;
 }
 
 .status.rejected,
 .status.cancelled {
-  background: #e5e7eb;
-  color: #6b7280;
+  background: #f3f4f6;
+  color: #4b5563;
 }
 
-/* ========== TABLET ========== */
+
+/* Responsive */
 @media (max-width: 1024px) {
   .profile-card {
-    grid-template-columns: 250px 1fr;
+    flex-direction: column;
     padding: 30px;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .profile-left {
+    border-right: none;
+    border-bottom: 1px solid #f3f4f6;
+    padding-right: 0;
+    padding-bottom: 40px;
+    width: 100%;
+    flex: auto;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
   }
 }
 
-/* ========== MOBILE ========== */
-@media (max-width: 768px) {
-  .user-profile {
-    padding: 15px;
-  }
+.dashboard-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  /* Filter to turn black icons to royalblue (#4169e1) */
+  filter: brightness(0) saturate(100%) invert(32%) sepia(96%) saturate(1637%) hue-rotate(214deg) brightness(93%) contrast(94%);
+}
 
-  .profile-card {
-    grid-template-columns: 1fr;  /* stacked */
-    padding: 20px;
-    text-align: center;
-  }
+.appointment-history-icon{
+  width:15px;
+  height:15px;
+  filter: brightness(0) saturate(100%) invert(32%) sepia(96%) saturate(1637%) hue-rotate(214deg) brightness(93%) contrast(94%);
 
-  .profile-photo img,
-  .avatar {
-    width: 120px;
-    height: 120px;
-  }
+}
+.appointment-history-clock{
+    width:15px;
+  height:15px;
+  filter: brightness(0) saturate(100%) invert(32%) sepia(96%) saturate(1637%) hue-rotate(214deg) brightness(93%) contrast(94%);
 
-  .edit-btn {
-    width: 100%;
-  }
+}
 
-  .appointment-list {
-    grid-template-columns: 1fr;
+@media(max-width:768px){
+  .user-profile{
+    padding:10px
   }
 }

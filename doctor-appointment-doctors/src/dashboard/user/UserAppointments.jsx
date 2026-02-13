@@ -2,7 +2,7 @@ import { useEffect , useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../utils/api";
 import Loader from "../../components/Loader";
-import { formatTime } from "../../utils/time";
+import { formatTime, formatDate } from "../../utils/time";
 import "../../styles/userappointments.css";
 
 function UserAppointments(){
@@ -19,16 +19,6 @@ function UserAppointments(){
         }
     },[]);
 
-    const handleCancel = async(id)=>{
-        if(!confirm("Cancel This Appointment?")) return;
-        await api.put(`/api/appointment/${id}/cancel`);
-        setAppointments(prev=>
-            prev.map(a=>
-                a._id===id ? {...a, status:"cancelled"} :a
-            )
-        )
-    }
-
     if(loading)return  <Loader />
 
     return(
@@ -41,32 +31,33 @@ function UserAppointments(){
 
         <div className="appointments-list">
             {appointments.map(b => (
-            <div key={b._id} className={`appointment-card ${b.status}`}>
+            <div key={b._id} className={`appointment-card`}>
                 
-                {/* Doctor Info */}
-                <div className="user-doctor-info">
-                <h3>
-                    Dr. {b.doctor.firstName} {b.doctor.lastName}
-                </h3>
-                <p className="specialization">
-                    {b.doctor.specialization}
-                </p>
-            <button className="view-btn" onClick={()=>navigate(`/dashboard/appointment/${b._id}`)}>View</button>
+                {/* Left Side: Doctor Info + Status + Actions */}
+                <div className="card-left">
+                    <h3>
+                        Dr. {b.doctor.firstName} {b.doctor.lastName}
+                    </h3>
+                    <p className="specialization">
+                        {b.doctor.specialization}
+                    </p>
+                    <span className={`status ${b.status}`}>
+                        {b.status}
+                    </span>
 
+                    <div className="card-actions">
+                        <button className="view-btn" onClick={()=>navigate(`/dashboard/appointment/${b._id}`)}>View</button>
+                    </div>
                 </div>
-                {/* Appointment Info */}
-                <div className="appointment-info">
-                <p className="slot">
-                    {b.day} | {formatTime(b.start)} - {formatTime(b.end)}
-                </p>
-                <span className={`status ${b.status}`}>
-                    {b.status}
-                </span>
-                {(b.status==="pending" || b.status==="approved") &&(
-                    <button className="cancel-btn"
-                    onClick={()=>handleCancel(b._id)}>
-                    Cancel</button>
-                )}
+
+                {/* Right Side: Date & Time */}
+                <div className="card-right">
+                    <p className="appointment-date">
+                        {formatDate(b.date || b.start)}
+                    </p>
+                    <p className="appointment-time">
+                        {formatTime(b.start)} - {formatTime(b.end)}
+                    </p>
                 </div>
 
             </div>

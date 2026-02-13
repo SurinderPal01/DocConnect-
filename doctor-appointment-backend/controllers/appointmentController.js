@@ -84,6 +84,7 @@ exports.createAppointment = async (req, res) => {
 
     const end = new Date(bookingDate);
     end.setHours(endH , endM,0,0);
+    
     const appointment = await Appointment.create({
       doctor: doctorId,
       user: req.user._id,

@@ -28,34 +28,44 @@ function Home() {
 
 
   return (
-    <div className="home-container">
-      <section className="hero">
-        <h1>Book doctors appointments easily </h1>
-        <p>A simple platform to connect doctors with patients</p>
-
-        <div className="hero-buttons">
-          <Link to="/signup" className="btn primary">Get Started</Link>
-          <Link to="/login" className="btn secondary">Login</Link>
+    <div className="home-wrapper">
+      <section className="hero-section">
+        <div className="hero-content">
+            <h1>Your Health, Our Priority</h1>
+            <p>Connect with top-rated doctors and manage your appointments effortlessly.</p>
+            <div className="hero-actions">
+            <Link to="/signup" className="btn btn-primary-lg">Get Started</Link>
+            <Link to="/login" className="btn btn-outline-lg">Login</Link>
+            </div>
         </div>
       </section>
 
-      <section className="features">
-        <h2>Why Choose Us?</h2>
+      <section className="features-section">
+        <div className="section-header">
+            <h2>Why Choose DocConnect?</h2>
+            <p>We provide the best medical services for you and your family.</p>
+        </div>
         <div className="feature-grid">
-          <div className="feature-card">
-            <img src="/assets/img11.jpg" alt="Verified Doctors" />
+          <div className="feature-item">
+            <div className="feature-icon">
+                <img src="/assets/users.png" alt="Verified" />
+            </div>
             <h3>Verified Doctors</h3>
-            <p>All our doctors are verified and approved professionals</p>
+            <p>All our doctors are verified and approved professionals.</p>
           </div>
-          <div className="feature-card">
-            <img src="/assets/img12.jpg" alt="Easy Appointments" />
-            <h3>Easy Appointments</h3>
-            <p>Book appointments easily without hassle.</p>
+          <div className="feature-item">
+            <div className="feature-icon">
+                <img src="/assets/calander.png" alt="Booking" />
+            </div>
+            <h3>Easy Booking</h3>
+            <p>Book appointments in seconds without hassle.</p>
           </div>
-          <div className="feature-card">
-            <img src="/assets/img13.jpg" alt="Secure Platform" />
-            <h3>Secure Platform</h3>
-            <p>Your personal data is fully secure and encrypted.</p>
+          <div className="feature-item">
+            <div className="feature-icon">
+                <img src="/assets/securelock.png" alt="Secure" />
+            </div>
+            <h3>Secure Data</h3>
+            <p>Your personal health data is fully encrypted and safe.</p>
           </div>
         </div>
       </section>
@@ -64,25 +74,38 @@ function Home() {
         <HomeSkeleton />
       ):
       (featuredDoctors.length > 0 && (
-        <section className="featured-doctors">
-          <h2>Featured Doctors</h2>
-          <div className="doctors-grid">
-            {featuredDoctors.slice(0, 6).map((doctor) => (
-              <div key={doctor._id} className="doctor-card-mini" onClick={() => navigate(`/doctor/public/${doctor._id}`)}>
-                {doctor.profilePhoto ? (
-                  <img src={doctor.profilePhoto} alt={doctor.firstName} />
-                ) : (
-                  <div className="doctor-avatar">👨‍⚕️</div>
-                )}
-                <h3>Dr. {doctor.firstName} {doctor.lastName}</h3>
-                <p className="spec">{doctor.specialization}</p>
-                {doctor.consultationFee && (
-                  <p className="fee">₹{doctor.consultationFee}</p>
-                )}
+        <section className="doctors-section">
+          <div className="section-header">
+             <h2>Top Rated Doctors</h2>
+             <p>Book appointments with our most trusted specialists.</p>
+          </div>
+          
+          <div className="doctors-grid-home">
+            {featuredDoctors.slice(0, 4).map((doctor) => (
+              <div key={doctor._id} className="doc-card-home" onClick={() => navigate(`/doctor/public/${doctor._id}`)}>
+                <div className="doc-img-wrapper">
+                    <img 
+                        src={doctor.profilePhoto || "/assets/doctor.png"} 
+                        alt={doctor.firstName} 
+                        onError={(e) => e.target.src = "/assets/doctor.png"}
+                    />
+                </div>
+                <div className="doc-card-body">
+                    <div className="doc-badge">{doctor.specialization}</div>
+                    <h3>Dr. {doctor.firstName} {doctor.lastName}</h3>
+                    <div className="doc-meta-home">
+                         <span>₹{doctor.consultationFee}</span>
+                    </div>
+                </div>
+                <div className="doc-card-footer">
+                    <button className="btn-book">Book Appointment</button>
+                </div>
               </div>
             ))}
           </div>
-          <Link to="/doctors" className="btn primary">View All Doctors</Link>
+          <div className="view-all-container">
+               <Link to="/doctors" className="btn btn-secondary">View All Doctors</Link>
+          </div>
         </section>
       ))
     }
@@ -91,13 +114,16 @@ function Home() {
       <SpecializationSkeleton />
     ):(
       specializations.length > 0 && (
-        <section className="specializations-section">
-          <h2>Browse by Specialization</h2>
-          <div className="specializations-grid">
-            {specializations.slice(0, 12).map((spec) => (
+        <section className="specs-section">
+          <div className="section-header">
+            <h2>Browse by Specialization</h2>
+            <p>Find the right doctor for your specific needs.</p>
+          </div>
+          <div className="specs-grid-home">
+            {specializations.slice(0, 8).map((spec) => (
               <div 
                 key={spec} 
-                className="spec-card"
+                className="spec-card-home"
                 onClick={() => navigate(`/doctors?specialization=${encodeURIComponent(spec)}`)}
               >
                 {spec}
@@ -107,23 +133,16 @@ function Home() {
         </section>
       ))}
 
-      <section className="info-section">
-        <h2>For Doctors</h2>
-        <p>
-          Manage your profile, specialization, and appointments from a single
-          dashboard.
-        </p>
-        <Link to="/signup" className="btn secondary">Join as Doctor</Link>
+      <section className="cta-section">
+        <div className="cta-content">
+            <h2>Are you a qualified Doctor?</h2>
+            <p>Join our network and help thousands of patients.</p>
+             <Link to="/signup" className="btn btn-white">Join as Doctor</Link>
+        </div>
       </section>
 
-      <section className="info-section light">
-        <h2>For Patients</h2>
-        <p>Find Doctors by Specialization and Book Appointment System</p>
-        <Link to="/signupuser" className="btn primary">Sign Up as Patient</Link>
-      </section>
-
-      <footer className="footer">
-        <p>© {new Date().getFullYear()} Doctor Appointment System</p>
+      <footer className="main-footer">
+        <p>© {new Date().getFullYear()} DocConnect. All rights reserved.</p>
       </footer>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useState , useRef , useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
+import Topbar from "../components/Topbar";
+import Sidebar from "../components/Sidebar"; // RESTORED
 import "../styles/dashboardlayout.css";
 
 function DashboardLayout() {
@@ -19,20 +20,15 @@ function DashboardLayout() {
   },[open]);
   return (
     <div className="dashboard-layout">
-      {/* mobile toggle button */}
-      <button className="menu-btn" onClick={(e) =>{
-        e.stopPropagation();
-        setOpen((prev)=>!prev);
-      }}>
-        ☰
-      </button>
-
         <div ref={sidebarRef}>
         <Sidebar open={open} setOpen={setOpen} />
       </div>
 
       <main className="dashboard-content">
-        <Outlet />
+        <Topbar onMenuClick={() => setOpen(!open)} isOpen={open} />
+        <div className="dashboard-page-container">
+           <Outlet />
+        </div>
       </main>
     </div>
   );

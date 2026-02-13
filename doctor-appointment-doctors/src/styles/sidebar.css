@@ -15,11 +15,14 @@
   display: flex;
   flex-direction: column;
 
-  position: fixed;     /* 🔥 change */
+  position: fixed;
+  /* 🔥 change */
   top: 0;
   left: 0;
-  height: 100vh;       /* 🔥 full height */
+  height: 100vh;
+  /* 🔥 full height */
 }
+
 /* Tablet */
 @media (max-width: 1024px) {
   .sidebar {
@@ -34,22 +37,62 @@
     left: -260px;
     top: 0;
     height: 100vh;
-    z-index: 150;
+    z-index: 1500;
+    /* Under Topbar */
     transition: left 0.3s ease;
+    padding-top: 70px;
+    /* Space for Topbar */
   }
 
   .sidebar.open {
     left: 0;
+    box-shadow: 10px 0 20px rgba(0, 0, 0, 0.2);
   }
 }
 
 
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
 .logo {
   font-size: 22px;
   font-weight: bold;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  text-align: center;
+  margin: 0;
+}
+
+.close-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.close-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
+@media (max-width: 768px) {
+  .sidebar-header {
+    justify-content: flex-start;
+  }
+
+  .close-btn {
+    display: block;
+    order: -1;
+    /* Ensure it stays on left */
+  }
+
+  .logo {
+    display: none;
+    /* Remove name on mobile as requested */
+  }
 }
 
 /* Links container */

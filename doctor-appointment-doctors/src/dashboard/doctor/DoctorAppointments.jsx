@@ -1,7 +1,7 @@
 import { useEffect , useState } from "react";
 import api from "../../utils/api";
 import Loader from "../../components/Loader";
-import { formatTime } from "../../utils/time";
+import { formatTime, formatDate } from "../../utils/time";
 import SkeletonBooking from "../../components/skeltonBookings";
 import "../../styles/doctorbooking.css";
 import { useNavigate } from "react-router-dom";
@@ -49,18 +49,6 @@ function DoctorAppointment(){
     }
   };
 
-  const cancel = async (id) => {
-    if (!confirm("Cancel this booking?")) return;
-
-    setActionId(id);
-    try {
-      await api.put(`/api/appointment/${id}/cancel`);
-      updateStatus(id, "cancelled");
-    } finally {
-      setActionId(null);
-    }
-  };
-
   // if(loading) return <Loader />
   if (loading) {
   return (
@@ -77,63 +65,59 @@ function DoctorAppointment(){
   <div className="my-bookings-page">
     <h2 className="page-title">My Bookings</h2>
 
-    {bookings.length === 0 && <p>No bookings found</p>}
+    {bookings.length === 0 && <p className="empty-text">No bookings found</p>}
 
     <div className="bookings-grid">
       {bookings.map(b => (
-        <div key={b._id} className={`booking-card ${b.status}`}>
+        <div key={b._id} className={`booking-card`}>
           
-          {/* INFO */}
-          <div className="booking-info">
+          {/* Left Side: Patient Info + Status + Actions */}
+          <div className="card-left">
             <h4>{b.user?.firstName} {b.user?.lastName}</h4>
-
-            <p className="slot">
-              {b.day} | {formatTime(b.start)} - {formatTime(b.end)}
-            </p>
-
+            <p className="patient-label">Patient</p>
+            
             <span className={`status ${b.status}`}>
               {b.status}
             </span>
 
-            <button
-              className="view-btn"
-              onClick={() => navigate(`/dashboard/appointment/${b._id}`)}
-            >
-              View
-            </button>
+            <div className="card-actions">
+                <button
+                className="view-btn"
+                onClick={() => navigate(`/dashboard/appointment/${b._id}`)}
+                >
+                View
+                </button>
+
+                {b.status === "pending" && (
+                <>
+                    <button
+                    className="accept-btn"
+                    disabled={actionId === b._id}
+                    onClick={() => accept(b._id)}
+                    >
+                    Accept
+                    </button>
+
+                    <button
+                    className="reject-btn"
+                    disabled={actionId === b._id}
+                    onClick={() => reject(b._id)}
+                    >
+                    Reject
+                    </button>
+                </>
+                )}
+            </div>
           </div>
 
-          {/* ACTIONS */}
-          <div className="booking-actions">
-            {b.status === "pending" && (
-              <>
-                <button
-                  className="accept-btn"
-                  disabled={actionId === b._id}
-                  onClick={() => accept(b._id)}
-                >
-                  Accept
-                </button>
-
-                <button
-                  className="reject-btn"
-                  disabled={actionId === b._id}
-                  onClick={() => reject(b._id)}
-                >
-                  Reject
-                </button>
-              </>
-            )}
-
-            {b.status === "accepted" && (
-              <button
-                className="cancel-btn"
-                disabled={actionId === b._id}
-                onClick={() => cancel(b._id)}
-              >
-                Cancel
-              </button>
-            )}
+          {/* Right Side: Date & Time */}
+          <div className="card-right">
+              <p className="appointment-date">
+                  {formatDate(b.date || b.start)}
+              </p>
+              <p className="appointment-time">
+                {formatTime(b.start)} - {formatTime(b.end)}
+              </p>
           </div>
 
         </div>

@@ -6,6 +6,7 @@ function EditProfile({user,onSubmit,onCancel }){
     firstName: user?.firstName || "",
     lastName: user?.lastName || "",
     phone: user?.phone || "",
+    age: user?.age || "",
     description: user?.description || "",
     });
 
@@ -19,25 +20,55 @@ function EditProfile({user,onSubmit,onCancel }){
     }
 
      return (
-    <form className="edit-profile" onSubmit={handleSubmit}>
-      <input
-        name="firstName"
-        placeholder="First Name"
-        value={form.firstName}
-        onChange={handleChange}
-      />
+    <form className="edit-profile-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+            <label>First Name</label>
+            <input
+                name="firstName"
+                placeholder="First Name"
+                value={form.firstName}
+                onChange={handleChange}
+            />
+        </div>
 
-      <input
-        name="lastName"
-        placeholder="Last Name"
-        value={form.lastName}
-        onChange={handleChange}
-      />
+        <div className="form-group">
+             <label>Last Name</label>
+            <input
+                name="lastName"
+                placeholder="Last Name"
+                value={form.lastName}
+                onChange={handleChange}
+            />
+        </div>
 
-      <button type="submit" className="btn btn-save">Save</button>
-      <button type="button" className="btn btn-normal" onClick={onCancel}>
-          Cancel
-        </button>
+         <div className="form-group">
+             <label>Age</label>
+            <input
+                name="age"
+                type="number"
+                placeholder="Age"
+                value={form.age}
+                onChange={handleChange}
+            />
+        </div>
+
+         <div className="form-group">
+             <label>Phone</label>
+            <input
+                name="phone"
+                placeholder="Phone Number"
+                value={form.phone}
+                onChange={handleChange}
+            />
+        </div>
+      
+      <div className="form-actions">
+           <button type="submit" className="btn btn-save">Save Changes</button>
+            <button type="button" className="btn btn-cancel" onClick={onCancel}>
+                Cancel
+            </button>
+      </div>
+     
     </form>
   );
 }

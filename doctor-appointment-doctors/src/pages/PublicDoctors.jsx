@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import api from "../utils/api";
 import Loader from "../components/Loader";
 import DoctorCardSkeleton from "../components/DoctorCardSkeleton";
@@ -15,6 +15,7 @@ function PublicDoctors() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +46,7 @@ function PublicDoctors() {
   const handleSpecChange = (spec) => {
     setSelectedSpec(spec);
     setPage(1);
-    navigate(`/doctors${spec ? `?specialization=${encodeURIComponent(spec)}` : ""}`);
+    navigate(`${location.pathname}${spec ? `?specialization=${encodeURIComponent(spec)}` : ""}`);
   };
 
   return (
@@ -80,7 +81,7 @@ function PublicDoctors() {
         <div className="doctors-list-section">
           {loading ? (
             <div className="doctors-grid">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((i) => (
+              {[1, 2, 3].map((i) => (
                 <DoctorCardSkeleton key={i} />
               ))}
             </div>
@@ -90,32 +91,54 @@ function PublicDoctors() {
             </div>
           ) : (
             <>
-              <div className="doctors-grid">
+              <div className="doctors-list-wide">
                 {doctors.map((doctor) => (
                   <div
                     key={doctor._id}
-                    className="doctor-card-public"
-                    onClick={() => navigate(`/doctor/public/${doctor._id}`)}
+                    className="doctor-card-wide"
                   >
-                    <div className="doctor-image">
-                      {doctor.profilePhoto ? (
-                        <img src={doctor.profilePhoto} alt={doctor.firstName} />
-                      ) : (
-                        <div className="doctor-avatar-large">👨‍⚕️</div>
-                      )}
+                    <div className="doctor-card-image">
+                       <div className="avatar" onClick={() => navigate(`/doctor/public/${doctor._id}`)}>
+                        <img 
+                          src={doctor.profilePhoto || "/assets/doctor.png"} 
+                          alt={`Dr. ${doctor.firstName}`}
+                          onError={(e) => {e.target.onerror = null; e.target.src = "/assets/doctor.png"}}
+                        />
+                      </div>
+                      <span className="view-profile-link" onClick={() => navigate(`/doctor/public/${doctor._id}`)}>View Profile</span>
                     </div>
-                    <div className="doctor-info-public">
-                      <h3>Dr. {doctor.firstName} {doctor.lastName}</h3>
-                      <p className="specialization">{doctor.specialization}</p>
-                      {doctor.experience && (
-                        <p className="experience">Experience: {doctor.experience} years</p>
-                      )}
-                      {doctor.consultationFee && (
-                        <p className="fee">Consultation Fee: ₹{doctor.consultationFee}</p>
-                      )}
-                      {doctor.approved && (
-                        <span className="verified-badge">✓ Verified</span>
-                      )}
+
+                    <div className="doctor-card-details">
+                      <div className="doc-header">
+                        <h3>Dr. {doctor.firstName} {doctor.lastName}</h3>
+                        <p className="doc-spec">{doctor.specialization}</p>
+                         {doctor.approved && <span className="verified-badge">✔ Verified</span>}
+                      </div>
+
+                      <div className="doc-meta">
+                        <div className="meta-row">
+                            <span className="meta-label">Experience:</span>
+                            <span className="meta-value">{doctor.experience ? `${doctor.experience} Years` : '5+ Years'}</span>
+                        </div>
+                        <div className="meta-row">
+                             <span className="meta-label">Fee:</span>
+                             <span className="meta-value">₹{doctor.consultationFee || '500'}</span>
+                        </div>
+                         <div className="meta-row">
+                            <span className="meta-label">Languages:</span>
+                            <span className="meta-value">English, Hindi</span>
+                        </div>
+                      </div>
+                    </div>
+
+                     <div className="doctor-card-actions">
+                         <span className="status-badge approved">Available Today</span>
+                        <button
+                          className="book-btn-large"
+                          onClick={() => navigate(`/doctor/public/${doctor._id}`)}
+                        >
+                          Book Appointment
+                        </button>
                     </div>
                   </div>
                 ))}

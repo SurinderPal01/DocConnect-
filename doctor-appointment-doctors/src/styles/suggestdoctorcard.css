@@ -1,63 +1,205 @@
+/* Container */
 .ai-suggested-doctor {
-  background: #ffffff;
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  /* Softer shadow */
+  border: 1px solid #f3f4f6;
+  margin-top: 30px;
+}
+
+/* Header */
+.ai-header {
+  margin-bottom: 20px;
+}
+
+.ai-header h3 {
+  font-size: 1.4rem;
+  color: #1f2937;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-header p {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+/* Search Box */
+.ai-search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ai-search-box input {
+  flex: 1;
+  padding: 12px 15px;
   border: 1px solid #e5e7eb;
-  padding: 1.25rem;
-  margin-top: 1.5rem;
-  border-radius: 14px;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  outline: none;
 }
 
-/* heading */
-.ai-suggested-doctor h3 {
-  margin-bottom: 0.75rem;
+.ai-search-box input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-/* input + button wrapper feel */
-.ai-suggested-doctor input {
-  width: 100%;
-  padding: 0.6rem 0.75rem;
-  margin-bottom: 0.75rem;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-}
-
-.ai-suggested-doctor button {
-  width: 100%;
-  padding: 0.6rem;
-  border-radius: 8px;
-  background: #6366f1;
+.ai-search-btn {
+  padding: 0 25px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  /* Gradient */
   color: white;
   border: none;
+  border-radius: 10px;
+  font-weight: 600;
   cursor: pointer;
+  transition: transform 0.1s;
 }
 
-/* doctor list */
-.doctor-cards {
+.ai-search-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.ai-search-btn:active {
+  transform: translateY(0);
+}
+
+.ai-search-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Result Badge */
+.ai-result-badge {
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  border: 1px solid #dbeafe;
+}
+
+/* Doctor Grid */
+.doctor-cards-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin-top: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
 }
 
-/* individual doctor card */
-.doctor-card {
-  background: #f9fafb;
+/* Doctor Card */
+.suggested-doc-card {
+  background: #ffffff;
   border: 1px solid #e5e7eb;
-  padding: 1rem;
   border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
-.doctor-card h4 {
-  margin-bottom: 4px;
+.suggested-doc-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: #c7d2fe;
 }
 
-/* Desktop improvement */
-@media (min-width: 768px) {
-  .doctor-cards {
-    grid-template-columns: repeat(2, 1fr);
+/* Avatar */
+.doc-avatar-wrapper {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  /* Ring effect */
+}
+
+.doc-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+}
+
+/* Info */
+.doc-info h4 {
+  color: #111827;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.doc-spec-badge {
+  background: #f3f4f6;
+  color: #4b5563;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.doc-meta {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 15px;
+}
+
+/* Button */
+.view-profile-btn {
+  width: 100%;
+  padding: 10px;
+  background: white;
+  border: 1px solid #6366f1;
+  color: #6366f1;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.suggested-doc-card:hover .view-profile-btn {
+  background: #6366f1;
+  color: white;
+}
+
+.no-docs-msg {
+  text-align: center;
+  color: #6b7280;
+  grid-column: 1 / -1;
+  padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .ai-search-box {
+    flex-direction: column;
   }
 
-  .ai-suggested-doctor button {
-    width: auto;
-    margin-top: 0.5rem;
+  .ai-search-btn {
+    padding: 12px;
+    width: 100%;
+  }
+
+  .doctor-cards-grid {
+    grid-template-columns: 1fr;
   }
 }

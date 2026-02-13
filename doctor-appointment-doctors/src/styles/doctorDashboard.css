@@ -184,15 +184,21 @@
 }
 
 .doc-stat-icon {
-  width: 56px;
-  height: 56px;
+  width: 54px;
+  height: 54px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  background: linear-gradient(135deg, #5b4bff, #764ba2);
-  color: #fff;
+  background: #f0f0ff;
+  /* Pastel theme */
+  flex-shrink: 0;
+}
+
+.doc-stat-icon img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .doc-stat-content h4 {
@@ -331,6 +337,7 @@
   0% {
     background-position: -200px 0;
   }
+
   100% {
     background-position: calc(200px + 100%) 0;
   }
@@ -347,5 +354,9 @@
 
   .appointments-box {
     padding: 1.4rem;
+  }
+
+  .doc-stat-card {
+    padding: 1rem;
   }
 }

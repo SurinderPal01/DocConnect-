@@ -48,21 +48,27 @@ function DoctorDashboard() {
       {/* Stats Cards */}
       <div className="doc-stats-grid">
         <div className="doc-stat-card">
-          <div className="doc-stat-icon">👥</div>
+          <div className="doc-stat-icon">
+            <img src="/assets/users.png" alt="Patients" />
+          </div>
           <div className="doc-stat-content">
             <h4>Total Patients</h4>
             <p>{stats.totalPatients}</p>
           </div>
         </div>
         <div className="doc-stat-card">
-          <div className="doc-stat-icon">📅</div>
+          <div className="doc-stat-icon">
+             <img src="/assets/calander.png" alt="Appointments" />
+          </div>
           <div className="doc-stat-content">
             <h4>Today&apos;s Appointments</h4>
             <p>{stats.totalAppointments}</p>
           </div>
         </div>
         <div className="doc-stat-card">
-          <div className="doc-stat-icon">💰</div>
+          <div className="doc-stat-icon">
+             <img src="/assets/moneybag.png" alt="Earnings" />
+          </div>
           <div className="doc-stat-content">
             <h4>Total Earnings</h4>
             <p>₹{stats.totalEarnings}</p>

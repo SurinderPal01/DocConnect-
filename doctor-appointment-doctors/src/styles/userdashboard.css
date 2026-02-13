@@ -1,7 +1,10 @@
 .user-dashboard {
-  padding: 1.5rem; /* Adjusted padding */
-  max-width: 1200px; /* Make sure it doesn't stretch too wide */
-  margin: 0 auto; /* Centers the content horizontally */
+  padding: 1.5rem;
+  /* Adjusted padding */
+  max-width: 1200px;
+  /* Make sure it doesn't stretch too wide */
+  margin: 0 auto;
+  /* Centers the content horizontally */
   background: #f5f7fa;
   min-height: 100vh;
   width: 100%;
@@ -9,11 +12,13 @@
 }
 
 .dashboard-header {
-  margin-bottom: 1.5rem; /* Reduced margin */
+  margin-bottom: 1.5rem;
+  /* Reduced margin */
 }
 
 .dashboard-header h1 {
-  font-size: 2.2rem; /* Reduced font size */
+  font-size: 2.2rem;
+  /* Reduced font size */
   color: #333;
   margin-bottom: 0.5rem;
   background: linear-gradient(135deg, #5b4bff, #764ba2);
@@ -24,7 +29,8 @@
 
 .welcome-subtitle {
   color: #666;
-  font-size: 1.0rem; /* Reduced font size */
+  font-size: 1.0rem;
+  /* Reduced font size */
 }
 
 .user-stats-grid {
@@ -34,18 +40,18 @@
   margin-bottom: 2.5rem;
 }
 
-.user-stat-card { 
+.user-stat-card {
   background: #fff;
   padding: 1.4rem;
   border-radius: 14px;
   display: flex;
   align-items: center;
   gap: 1rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
 .user-stat-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -76,10 +82,11 @@
 /* Single column layout for dashboard content */
 .user-dashboard-content {
   display: grid;
-  grid-template-columns: 1fr; /* Single column for mobile */
+  grid-template-columns: 1fr;
+  /* Single column for mobile */
   gap: 2rem;
   width: 100%;
-  padding: 0 1rem;
+  padding: 0 0rem;
   align-items: start;
 }
 
@@ -87,7 +94,8 @@
 .search-card,
 .quick-actions {
   width: 100%;
-  max-width: 600px; /* Set a maximum width for the cards */
+  max-width: 600px;
+  /* Set a maximum width for the cards */
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -100,7 +108,7 @@
   margin-bottom: 0.5rem;
 }
 
-.search-card > p,
+.search-card>p,
 .quick-actions p {
   color: #666;
   margin-bottom: 1.5rem;
@@ -130,6 +138,37 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.user-stat-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(91, 75, 255, 0.1);
+}
+
+.dashboard-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  /* Filter to turn black icons to royalblue (#4169e1) */
+  filter: brightness(0) saturate(100%) invert(32%) sepia(96%) saturate(1637%) hue-rotate(214deg) brightness(93%) contrast(94%);
+}
+
+.dashboard-icon-inline {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 8px;
+  filter: brightness(0) saturate(100%) invert(32%) sepia(96%) saturate(1637%) hue-rotate(214deg) brightness(93%) contrast(94%);
+}
+
+.action-card:hover .dashboard-icon {
+  /* Keep it blue */
+}
+
 .action-icon {
   font-size: 2rem;
   width: 50px;
@@ -137,7 +176,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #5b4bff, #764ba2);
+  background: rgba(91, 75, 255, 0.1);
+  /* Light purple/blue bg instead of gradient */
   border-radius: 10px;
 }
 
@@ -192,6 +232,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .appointment-preview-card:hover {
@@ -199,6 +242,20 @@
   border-color: #5b4bff;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-left-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.card-right-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  text-align: right;
 }
 
 .preview-doctor-info h4 {
@@ -209,27 +266,24 @@
 
 .preview-spec {
   color: #5b4bff;
-  font-size: 0.9rem;
-  margin: 0 0 0.8rem 0;
-  font-weight: 500;
-}
-
-.preview-date-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 600;
+  background: rgba(91, 75, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
 }
 
 .preview-date {
-  color: #666;
-  font-size: 0.9rem;
+  color: #444;
+  font-size: 0.95rem;
+  font-weight: 500;
   margin: 0;
 }
 
 .preview-time {
-  color: #333;
-  font-weight: 600;
+  color: #666;
   font-size: 0.9rem;
   margin: 0;
 }
@@ -241,6 +295,7 @@
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: capitalize;
+  width: fit-content;
 }
 
 .preview-status.pending {
@@ -272,6 +327,7 @@
   color: #4a3ae8;
   text-decoration: underline;
 }
+
 .search-select {
   width: 100%;
   padding: 12px 14px;
@@ -327,15 +383,19 @@
     padding: 1rem;
   }
 
-    .user-dashboard-content {
-    grid-template-columns: 1fr; /* Ensures stacking on small screens */
+  .user-dashboard-content {
+    grid-template-columns: 1fr;
+    /* Ensures stacking on small screens */
     padding: 0;
   }
 
-  .search-card, .quick-actions, .upcoming-appointments {
+  .search-card,
+  .quick-actions,
+  .upcoming-appointments {
     padding: 1.25rem;
   }
-    .search-select {
+
+  .search-select {
     padding: 10px 12px;
     font-size: 13px;
   }
@@ -349,29 +409,32 @@
 /* --- Desktop Layout Adjustments (min-width: 1024px) --- */
 @media (min-width: 1024px) {
   .user-dashboard-content {
-    grid-template-columns: 1fr 1fr; /* Two columns for desktop */
+    grid-template-columns: 1fr 1fr;
+    /* Two columns for desktop */
     max-width: 1200px;
   }
 
   /* Force "Quick Actions" and "Upcoming Appointments" to top row */
-  .quick-actions { 
-    grid-column: 1; 
-    grid-row: 1; 
+  .quick-actions {
+    grid-column: 1;
+    grid-row: 1;
   }
-  .upcoming-appointments { 
-    grid-column: 2; 
-    grid-row: 1; 
+
+  .upcoming-appointments {
+    grid-column: 2;
+    grid-row: 1;
   }
 
   /* Force "Find Doctors" and "AI Suggested Doctors" to second row */
-  .search-card { 
-    grid-column: 1; 
-    grid-row: 2; 
+  .search-card {
+    grid-column: 1;
+    grid-row: 2;
   }
+
   /* Targets the SuggestedDoctorCard component */
-  .user-dashboard-content > div:last-child { 
-    grid-column: 2; 
-    grid-row: 2; 
+  .user-dashboard-content>div:last-child {
+    grid-column: 2;
+    grid-row: 2;
   }
 
   /* Remove max-width to let cards fill the grid cells equally */
@@ -379,6 +442,7 @@
   .quick-actions,
   .upcoming-appointments {
     max-width: 100%;
-    height: 100%; /* Optional: keeps cards the same height */
+    height: 100%;
+    /* Optional: keeps cards the same height */
   }
 }

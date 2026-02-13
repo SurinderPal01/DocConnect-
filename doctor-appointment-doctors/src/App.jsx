@@ -55,6 +55,7 @@ function App() {
           <Route path="/dashboard/appointments" element={<Appointments />} />
           <Route path="/dashboard/availability" element={<DoctorAvailability />} />
           <Route path="/dashboard/search" element={<DoctorSearch />} />
+          <Route path="/dashboard/find-doctors" element={<PublicDoctors />} />
           <Route path="/doctor/:doctorId" element={<DoctorDetails />} />
           <Route path="/dashboard/appointment/:id" element={<AppointmentDetails />} />
           <Route path="/notifications" element={<Notifications />} />

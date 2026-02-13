@@ -43,6 +43,7 @@ function AppointmentDetailBase({ role, actions }) {
   const getData = useCallback(async () => {
     try {
       const res = await api.get(`/api/appointment/${id}`);
+      console.log("app",res.data);
       setAppointment(res.data);
       // if(res.data.paymentStatus ==="PENDING"){setShowPaymentButton(true)}
     } catch (err) {

@@ -28,6 +28,7 @@ exports.checkUser = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
+  console.log("Login attempt received");
   try {
     const { email, password ,role} = req.body;
     const isProduction = process.env.NODE_ENV === "production";
