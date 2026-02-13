@@ -7,11 +7,12 @@
   flex-direction: column;
   position: relative;
 } */
-.sidebar {
+.dc-sidebar {
   width: 240px;
   background-color: #111827;
   color: #ffffff;
-  padding: 20px;
+  padding: 0;
+  /* Remove padding to handle header/nav separately */
   display: flex;
   flex-direction: column;
 
@@ -25,46 +26,89 @@
 
 /* Tablet */
 @media (max-width: 1024px) {
-  .sidebar {
+  .dc-sidebar {
     width: 200px;
   }
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .sidebar {
+  .dc-sidebar {
     position: fixed;
     left: -260px;
     top: 0;
     height: 100vh;
     z-index: 1500;
-    /* Under Topbar */
-    transition: left 0.3s ease;
-    padding-top: 70px;
-    /* Space for Topbar */
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-top: 0;
   }
 
-  .sidebar.open {
+  .dc-sidebar.dc-open {
     left: 0;
-    box-shadow: 10px 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
   }
 }
 
+/* Hide public sidebar on desktop */
+@media (min-width: 769px) {
+  .dc-public-layout .dc-sidebar {
+    display: none;
+  }
+}
 
-.sidebar-header {
+.dc-mobile-sidebar-header {
+  display: none;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  background: #111827;
+  border-bottom: 1px solid #1f2933;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .dc-mobile-sidebar-header {
+    display: flex;
+  }
+}
+
+.dc-mobile-close-btn {
+  background: #f0f0ff;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #5b4bff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.dc-mobile-close-btn:hover {
+  background: #e5e5ff;
+}
+
+.dc-mobile-close-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+
+.dc-sidebar-header {
   display: flex;
   align-items: center;
   gap: 15px;
   margin-bottom: 30px;
 }
 
-.logo {
+.dc-logo {
   font-size: 22px;
   font-weight: bold;
   margin: 0;
 }
 
-.close-btn {
+.dc-close-btn {
   display: none;
   background: none;
   border: none;
@@ -73,37 +117,51 @@
   padding: 4px;
 }
 
-.close-btn svg {
+.dc-close-btn svg {
   width: 28px;
   height: 28px;
 }
 
 @media (max-width: 768px) {
-  .sidebar-header {
+  .dc-sidebar-header {
     justify-content: flex-start;
   }
 
-  .close-btn {
+  .dc-close-btn {
     display: block;
     order: -1;
     /* Ensure it stays on left */
   }
 
-  .logo {
+  .dc-logo {
     display: none;
     /* Remove name on mobile as requested */
   }
 }
 
 /* Links container */
-.sidebar nav {
+.dc-sidebar nav {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding: 20px;
+}
+
+.dc-desktop-logo {
+  padding: 24px 24px 10px;
+  color: #fff;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .dc-desktop-logo {
+    display: none;
+  }
 }
 
 /* Sidebar links */
-.sidebar a {
+.dc-sidebar a {
   color: #d1d5db;
   text-decoration: none;
   padding: 10px 12px;
@@ -111,12 +169,12 @@
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.sidebar a:hover {
+.dc-sidebar a:hover {
   background-color: #1f2933;
   color: #ffffff;
 }
 
-.logout-btn {
+.dc-logout-btn {
   margin-top: auto;
   padding: 10px 12px;
   background-color: #dc3545;
@@ -129,6 +187,6 @@
   transition: background 0.2s ease;
 }
 
-.logout-btn:hover {
+.dc-logout-btn:hover {
   background-color: #c82333;
 }

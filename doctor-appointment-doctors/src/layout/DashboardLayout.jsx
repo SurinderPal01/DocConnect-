@@ -19,15 +19,15 @@ function DashboardLayout() {
     return () => document.removeEventListener("click", handleClickOutside);
   },[open]);
   return (
-    <div className="dashboard-layout">
-        <div ref={sidebarRef}>
+    <div className="dc-dashboard-layout">
+      <div ref={sidebarRef}>
         <Sidebar open={open} setOpen={setOpen} />
       </div>
 
-      <main className="dashboard-content">
+      <main className="dc-dashboard-content">
         <Topbar onMenuClick={() => setOpen(!open)} isOpen={open} />
-        <div className="dashboard-page-container">
-           <Outlet />
+        <div className="dc-dashboard-page-container">
+          <Outlet />
         </div>
       </main>
     </div>

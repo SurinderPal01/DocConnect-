@@ -1,4 +1,4 @@
-.dashboard-content {
+.dc-dashboard-content {
   margin-left: 240px;
   /* padding: 24px; REMOVED to allow full width Topbar */
   display: flex;
@@ -16,7 +16,7 @@
   height: auto;
 }
 
-.dashboard-page-container {
+.dc-dashboard-page-container {
   padding: 24px;
   flex: 1;
   display: flex;
@@ -29,12 +29,12 @@
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .sidebar {
+  .dc-sidebar {
     left: -260px;
     z-index: 1000;
   }
 
-  .dashboard-content {
+  .dc-dashboard-content {
     display: block;
     margin-left: 0;
     padding-top: 0;
@@ -45,7 +45,7 @@
   }
 }
 
-.sidebar-btn {
+.dc-sidebar-btn {
   width: 30px;
   height: 30px;
   color: royalblue;

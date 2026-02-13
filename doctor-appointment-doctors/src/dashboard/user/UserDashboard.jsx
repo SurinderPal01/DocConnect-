@@ -55,54 +55,54 @@ function UserDashboard({ user }) {
         return <Loader />
     }
    return (
-  <div className="user-dashboard">
-    <div className="dashboard-header">
+  <div className="dc-user-dashboard">
+    <div className="dc-dashboard-header">
       <h1>Welcome back, {currentUser?.firstName}!</h1>
-      <p className="welcome-subtitle">Manage your appointments and find doctors easily</p>
+      <p className="dc-welcome-subtitle">Manage your appointments and find doctors easily</p>
     </div>
 
-    <div className="user-stats-grid">
-      <div className="user-stat-card">
-        <div className="user-stat-icon">
-          <img src="/assets/calander.png" alt="Total Appointments" className="dashboard-icon" />
+    <div className="dc-user-stats-grid">
+      <div className="dc-user-stat-card">
+        <div className="dc-user-stat-icon">
+          <img src="/assets/calander.png" alt="Total Appointments" className="dc-dashboard-icon" />
         </div>
-        <div className="user-stat-info">
+        <div className="dc-user-stat-info">
           <h3>{totalAppointments}</h3>
           <p>Total Appointments</p>
         </div>
       </div>
 
-      <div className="user-stat-card">
-        <div className="user-stat-icon">
-          <img src="/assets/alarm-clock.png" alt="Upcoming" className="dashboard-icon" />
+      <div className="dc-user-stat-card">
+        <div className="dc-user-stat-icon">
+          <img src="/assets/alarm-clock.png" alt="Upcoming" className="dc-dashboard-icon" />
         </div>
-        <div className="user-stat-info">
+        <div className="dc-user-stat-info">
           <h3>{upcomingAppointments.length}</h3>
           <p>Upcoming</p>
         </div>
       </div>
 
-      <div className="user-stat-card">
-        <div className="user-stat-icon">
-          <img src="/assets/check-double.png" alt="Completed" className="dashboard-icon" />
+      <div className="dc-user-stat-card">
+        <div className="dc-user-stat-icon">
+          <img src="/assets/check-double.png" alt="Completed" className="dc-dashboard-icon" />
         </div>
-        <div className="user-stat-info">
+        <div className="dc-user-stat-info">
           <h3>{completedAppointments}</h3>
           <p>Completed</p>
         </div>
       </div>
     </div>
 
-    <div className="user-dashboard-content">
-      <div className="search-card">
+    <div className="dc-user-dashboard-content">
+      <div className="dc-search-card">
         <h3>
-          <img src="/assets/search.png" alt="Search" className="dashboard-icon-inline" /> Find Doctors
+          <img src="/assets/search.png" alt="Search" className="dc-dashboard-icon-inline" /> Find Doctors
         </h3>
         <p>Search doctors by specialization</p>
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="search-select"
+          className="dc-search-select"
         >
           <option value="">Select Specialization</option>
           {specializations.map((spec) => (
@@ -111,80 +111,80 @@ function UserDashboard({ user }) {
             </option>
           ))}
         </select>
-        <button onClick={searchDoctor} className="search-btn">
+        <button onClick={searchDoctor} className="dc-search-btn">
           Search Doctors
         </button>
       </div>
 
-      <div className="quick-actions">
+      <div className="dc-quick-actions">
         <h3>Quick Actions</h3>
-        <div className="action-cards">
-          <Link to="/dashboard/appointments" className="action-card">
-            <div className="action-icon">
-              <img src="/assets/calander.png" alt="Appointments" className="dashboard-icon" />
+        <div className="dc-action-cards">
+          <Link to="/dashboard/appointments" className="dc-action-card">
+            <div className="dc-action-icon">
+              <img src="/assets/calander.png" alt="Appointments" className="dc-dashboard-icon" />
             </div>
-            <div className="action-content">
+            <div className="dc-action-content">
               <h4>My Appointments</h4>
               <p>View all your appointments</p>
             </div>
-            <span className="action-arrow">→</span>
+            <span className="dc-action-arrow">→</span>
           </Link>
 
-          <Link to="/dashboard/profile" className="action-card">
-            <div className="action-icon">
-              <img src="/assets/user.png" alt="Profile" className="dashboard-icon" />
+          <Link to="/dashboard/profile" className="dc-action-card">
+            <div className="dc-action-icon">
+              <img src="/assets/user.png" alt="Profile" className="dc-dashboard-icon" />
             </div>
-            <div className="action-content">
+            <div className="dc-action-content">
               <h4>Profile</h4>
               <p>Update your information</p>
             </div>
-            <span className="action-arrow">→</span>
+            <span className="dc-action-arrow">→</span>
           </Link>
 
-          <Link to="/doctors" className="action-card">
-            <div className="action-icon">
-              <img src="/assets/search.png" alt="Browse" className="dashboard-icon" />
+          <Link to="/doctors" className="dc-action-card">
+            <div className="dc-action-icon">
+              <img src="/assets/search.png" alt="Browse" className="dc-dashboard-icon" />
             </div>
-            <div className="action-content">
+            <div className="dc-action-content">
               <h4>Browse Doctors</h4>
               <p>Find and book doctors</p>
             </div>
-            <span className="action-arrow">→</span>
+            <span className="dc-action-arrow">→</span>
           </Link>
         </div>
       </div>
 
       {upcomingAppointments.length > 0 && (
-        <div className="upcoming-appointments">
+        <div className="dc-upcoming-appointments">
           <h3>Upcoming Appointments</h3>
-          <div className="appointments-preview">
+          <div className="dc-appointments-preview">
             {upcomingAppointments.slice(0, 3).map((apt) => (
-              <div key={apt._id} className="appointment-preview-card" onClick={() => navigate(`/dashboard/appointment/${apt._id}`)}>
-                <div className="card-left-content">
-                  <div className="preview-doctor-info">
+              <div key={apt._id} className="dc-appointment-preview-card" onClick={() => navigate(`/dashboard/appointment/${apt._id}`)}>
+                <div className="dc-card-left-content">
+                  <div className="dc-preview-doctor-info">
                     <h4>Dr. {apt.doctor?.firstName} {apt.doctor?.lastName}</h4>
-                    <p className="preview-spec">{apt.doctor?.specialization}</p>
+                    <p className="dc-preview-spec">{apt.doctor?.specialization}</p>
                   </div>
-                  <span className={`preview-status ${apt.status}`}>
+                  <span className={`dc-preview-status ${apt.status}`}>
                     {apt.status}
                   </span>
                 </div>
-                <div className="card-right-content">
-                  <p className="preview-date">
+                <div className="dc-card-right-content">
+                  <p className="dc-preview-date">
                     {new Date(apt.date).toLocaleDateString('en-US', { 
                       month: 'short', 
                       day: 'numeric',
                       year: 'numeric'
                     })}
                   </p>
-                  <p className="preview-time">
+                  <p className="dc-preview-time">
                     {formatTime(apt.start)} - {formatTime(apt.end)}
                   </p>
                 </div>
               </div>
             ))}
             {upcomingAppointments.length > 3 && (
-              <Link to="/dashboard/appointments" className="view-all-link">
+              <Link to="/dashboard/appointments" className="dc-view-all-link">
                 View All Appointments →
               </Link>
             )}

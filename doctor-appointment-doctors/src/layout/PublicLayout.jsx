@@ -19,12 +19,12 @@ function PublicLayout (){
     }, [open]);
 
     return(
-        <div className="public-layout">
+        <div className="dc-public-layout">
             <div ref={sidebarRef}>
                 <Sidebar open={open} setOpen={setOpen} />
             </div>
             
-            <div className="public-content">
+            <div className="dc-public-content">
                 <Topbar onMenuClick={() => setOpen(!open)} isOpen={open} />
                 <Outlet />
             </div>

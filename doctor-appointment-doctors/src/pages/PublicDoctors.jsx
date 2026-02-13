@@ -50,18 +50,18 @@ function PublicDoctors() {
   };
 
   return (
-    <div className="public-doctors-page">
-      <div className="doctors-header">
+    <div className="dc-public-doctors-page">
+      <div className="dc-doctors-header">
         <h1>Find Your Doctor</h1>
         <p>Browse through our verified doctors</p>
       </div>
 
-      <div className="doctors-content">
-        <div className="filters-sidebar">
+      <div className="dc-doctors-content">
+        <div className="dc-filters-sidebar">
           <h3>Specializations</h3>
-          <div className="filter-list">
+          <div className="dc-filter-list">
             <button
-              className={`filter-btn ${!selectedSpec ? "active" : ""}`}
+              className={`dc-filter-btn ${!selectedSpec ? "active" : ""}`}
               onClick={() => handleSpecChange("")}
             >
               All Specializations
@@ -69,7 +69,7 @@ function PublicDoctors() {
             {specializations.map((spec) => (
               <button
                 key={spec}
-                className={`filter-btn ${selectedSpec === spec ? "active" : ""}`}
+                className={`dc-filter-btn ${selectedSpec === spec ? "active" : ""}`}
                 onClick={() => handleSpecChange(spec)}
               >
                 {spec}
@@ -78,63 +78,63 @@ function PublicDoctors() {
           </div>
         </div>
 
-        <div className="doctors-list-section">
+        <div className="dc-doctors-list-section">
           {loading ? (
-            <div className="doctors-grid">
+            <div className="dc-doctors-grid">
               {[1, 2, 3].map((i) => (
                 <DoctorCardSkeleton key={i} />
               ))}
             </div>
           ) : doctors.length === 0 ? (
-            <div className="no-doctors">
+            <div className="dc-no-doctors">
               <p>No doctors found</p>
             </div>
           ) : (
             <>
-              <div className="doctors-list-wide">
+              <div className="dc-doctors-list-wide">
                 {doctors.map((doctor) => (
                   <div
                     key={doctor._id}
-                    className="doctor-card-wide"
+                    className="dc-doctor-card-wide"
                   >
-                    <div className="doctor-card-image">
-                       <div className="avatar" onClick={() => navigate(`/doctor/public/${doctor._id}`)}>
+                    <div className="dc-doctor-card-image">
+                       <div className="dc-avatar" onClick={() => navigate(`/doctor/public/${doctor._id}`)}>
                         <img 
                           src={doctor.profilePhoto || "/assets/doctor.png"} 
                           alt={`Dr. ${doctor.firstName}`}
                           onError={(e) => {e.target.onerror = null; e.target.src = "/assets/doctor.png"}}
                         />
                       </div>
-                      <span className="view-profile-link" onClick={() => navigate(`/doctor/public/${doctor._id}`)}>View Profile</span>
+                      <span className="dc-view-profile-link" onClick={() => navigate(`/doctor/public/${doctor._id}`)}>View Profile</span>
                     </div>
 
-                    <div className="doctor-card-details">
-                      <div className="doc-header">
+                    <div className="dc-doctor-card-details">
+                      <div className="dc-doc-header">
                         <h3>Dr. {doctor.firstName} {doctor.lastName}</h3>
-                        <p className="doc-spec">{doctor.specialization}</p>
-                         {doctor.approved && <span className="verified-badge">✔ Verified</span>}
+                        <p className="dc-doc-spec">{doctor.specialization}</p>
+                         {doctor.approved && <span className="dc-verified-badge">✔ Verified</span>}
                       </div>
 
-                      <div className="doc-meta">
-                        <div className="meta-row">
-                            <span className="meta-label">Experience:</span>
-                            <span className="meta-value">{doctor.experience ? `${doctor.experience} Years` : '5+ Years'}</span>
+                      <div className="dc-doc-meta">
+                        <div className="dc-meta-row">
+                            <span className="dc-meta-label">Experience:</span>
+                            <span className="dc-meta-value">{doctor.experience ? `${doctor.experience} Years` : '5+ Years'}</span>
                         </div>
-                        <div className="meta-row">
-                             <span className="meta-label">Fee:</span>
-                             <span className="meta-value">₹{doctor.consultationFee || '500'}</span>
+                        <div className="dc-meta-row">
+                             <span className="dc-meta-label">Fee:</span>
+                             <span className="dc-meta-value">₹{doctor.consultationFee || '500'}</span>
                         </div>
-                         <div className="meta-row">
-                            <span className="meta-label">Languages:</span>
-                            <span className="meta-value">English, Hindi</span>
+                         <div className="dc-meta-row">
+                            <span className="dc-meta-label">Languages:</span>
+                            <span className="dc-meta-value">English, Hindi</span>
                         </div>
                       </div>
                     </div>
 
-                     <div className="doctor-card-actions">
-                         <span className="status-badge approved">Available Today</span>
+                     <div className="dc-doctor-card-actions">
+                         <span className="dc-status-badge dc-approved">Available Today</span>
                         <button
-                          className="book-btn-large"
+                          className="dc-book-btn-large"
                           onClick={() => navigate(`/doctor/public/${doctor._id}`)}
                         >
                           Book Appointment
@@ -145,7 +145,7 @@ function PublicDoctors() {
               </div>
 
               {totalPages > 1 && (
-                <div className="pagination">
+                <div className="dc-pagination">
                   <button
                     disabled={page === 1}
                     onClick={() => setPage(page - 1)}

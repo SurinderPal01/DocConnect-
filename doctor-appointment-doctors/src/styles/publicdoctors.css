@@ -1,48 +1,40 @@
-.public-doctors-page {
+.dc-public-doctors-page {
   min-height: 100vh;
   background: #f5f7fa;
-  padding: 2rem;
-}
-
-/* Reuse the variables and core styles from doctorsearch.css, 
-   but mapped to the classes used in PublicDoctors.jsx 
-*/
-
-.public-doctors-page {
   padding: 1.5rem;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  /* min-height handled by dashboard */
 }
 
-.doctors-header {
+.dc-doctors-header {
   margin-bottom: 2rem;
-  border-bottom: 3px solid #003366;
+  border-bottom: 3px solid #5b4bff;
+  /* Unified with app colors */
   padding-bottom: 1rem;
 }
 
-.doctors-header h1 {
+.dc-doctors-header h1 {
   color: #111827;
   font-size: 2rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
 }
 
-.doctors-header p {
+.dc-doctors-header p {
   color: #6b7280;
   font-size: 1.1rem;
   margin: 0;
 }
 
-.doctors-content {
+.dc-doctors-content {
   display: flex;
   gap: 2rem;
   align-items: flex-start;
 }
 
 /* FILTERS SIDEBAR */
-.filters-sidebar {
+.dc-filters-sidebar {
   width: 250px;
   background: white;
   padding: 1.5rem;
@@ -51,7 +43,7 @@
   flex-shrink: 0;
 }
 
-.filters-sidebar h3 {
+.dc-filters-sidebar h3 {
   font-size: 1.2rem;
   margin-bottom: 1rem;
   color: #111827;
@@ -59,13 +51,13 @@
   padding-bottom: 0.5rem;
 }
 
-.filter-list {
+.dc-filter-list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.filter-btn {
+.dc-filter-btn {
   text-align: left;
   background: none;
   border: none;
@@ -77,31 +69,31 @@
   transition: all 0.2s;
 }
 
-.filter-btn:hover {
-  background-color: #eff6ff;
-  color: #2563eb;
+.dc-filter-btn:hover {
+  background-color: #f0f0ff;
+  color: #5b4bff;
 }
 
-.filter-btn.active {
-  background-color: #eff6ff;
-  color: #2563eb;
-  /* Royal/App Blue */
+.dc-filter-btn.active {
+  background-color: #f0f0ff;
+  color: #5b4bff;
   font-weight: 600;
-  border-left: 3px solid #003366;
+  border-left: 3px solid #5b4bff;
 }
 
 /* DOCTORS LIST */
-.doctors-list-section {
+.dc-doctors-list-section {
   flex: 1;
+  width: 100%;
 }
 
-.doctors-list-wide {
+.dc-doctors-list-wide {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.no-doctors {
+.dc-no-doctors {
   text-align: center;
   padding: 3rem;
   color: #6b7280;
@@ -110,12 +102,12 @@
   border-radius: 12px;
 }
 
-/* CARD LAYOUT (Same as DoctorSearch) */
-.doctor-card-wide {
+/* CARD LAYOUT */
+.dc-doctor-card-wide {
   background: #fff;
   border-radius: 12px;
   padding: 0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -123,20 +115,17 @@
   border: 1px solid #e5e7eb;
 }
 
-.doctor-card-wide:hover {
+.dc-doctor-card-wide:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  border-color: #003366;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #5b4bff;
 }
 
 /* LEFT: IMAGE */
-.doctor-card-image {
-  width: 220px;
-  /* Slightly wider */
+.dc-doctor-card-image {
+  width: 200px;
   background: #f9fafb;
-  /* Lighter gray */
-  padding: 2rem;
-  /* Increased padding */
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -145,260 +134,249 @@
   flex-shrink: 0;
 }
 
-.avatar {
-  width: 130px;
-  /* Larger avatar */
-  height: 130px;
+.dc-avatar {
+  width: 110px;
+  height: 110px;
   cursor: pointer;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  /* Softer shadow */
+  border: 3px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.avatar img {
+.dc-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.view-profile-link {
-  color: #003366;
+.dc-view-profile-link {
+  color: #5b4bff;
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.view-profile-link:hover {
-  color: #2563eb;
-}
-
 /* MIDDLE: DETAILS */
-.doctor-card-details {
+.dc-doctor-card-details {
   flex: 1;
-  padding: 2rem;
-  /* Increased padding */
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1.2rem;
+  gap: 1rem;
+  min-width: 0;
+  /* Important for flex truncation */
 }
 
-.doc-header {
+.dc-doc-header {
   border-bottom: 1px dashed #e5e7eb;
-  padding-bottom: 1rem;
-  margin-bottom: 0.5rem;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.3rem;
 }
 
-.doc-header h3 {
+.dc-doc-header h3 {
   color: #111827;
-  font-size: 1.6rem;
-  margin: 0 0 0.4rem 0;
+  font-size: 1.4rem;
+  margin: 0 0 0.3rem 0;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.doc-spec {
+.dc-doc-spec {
   color: #5b4bff;
-  /* Highlight color */
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
 }
 
-.verified-badge {
+.dc-verified-badge {
   display: inline-flex;
-  align-items: center;
   background-color: #ecfdf5;
   color: #059669;
-  font-size: 0.75rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: 6px;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
   font-weight: 600;
-  border: 1px solid #d1fae5;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  margin-top: 0.4rem;
 }
 
-.doc-meta {
+.dc-doc-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.6rem;
 }
 
-.meta-row {
+.dc-meta-row {
   display: flex;
   align-items: center;
-  font-size: 0.95rem;
-  color: #4b5563;
+  font-size: 0.9rem;
 }
 
-.meta-label {
+.dc-meta-label {
   font-weight: 600;
   color: #9ca3af;
-  width: 100px;
-  /* Fixed width for alignment */
+  width: 90px;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  font-size: 0.8rem;
 }
 
-.meta-value {
+.dc-meta-value {
   color: #1f2937;
   font-weight: 500;
 }
 
 /* RIGHT: ACTIONS */
-.doctor-card-actions {
-  width: 280px;
-  /* Wider action area */
-  padding: 2rem;
+.dc-doctor-card-actions {
+  width: 240px;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1rem;
   background-color: #fff;
   border-left: 1px solid #e5e7eb;
+  flex-shrink: 0;
 }
 
-.status-badge {
-  font-size: 0.85rem;
+.dc-status-badge {
+  font-size: 0.8rem;
   font-weight: 600;
-  padding: 0.35rem 1rem;
+  padding: 0.3rem 0.80rem;
   border-radius: 99px;
-  margin-bottom: 0.5rem;
-  text-align: center;
-  display: inline-block;
-  white-space: nowrap;
 }
 
-.status-badge.approved {
+.dc-status-badge.dc-approved {
   color: #059669;
   background-color: #d1fae5;
 }
 
-.book-btn-large {
+.dc-book-btn-large {
   width: 100%;
-  padding: 0.8rem 1.2rem;
-  background-color: #003366;
+  padding: 0.7rem 1rem;
+  background-color: #5b4bff;
   color: white;
   border: none;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.2s;
-  text-align: center;
-  white-space: nowrap;
+  transition: all 0.2s;
 }
 
-.book-btn-large:hover {
-  background-color: #002244;
+.dc-book-btn-large:hover {
+  background-color: #4a3ae8;
+  transform: translateY(-1px);
 }
 
-.pagination {
+.dc-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
   margin-top: 2rem;
-  padding: 1rem;
 }
 
-.pagination button {
-  padding: 0.6rem 1.2rem;
-  border: 2px solid #5b4bff;
-  background: white;
-  color: #5b4bff;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
+/* TABLET FIXES (Mid-size 768px - 1024px) */
+@media (max-width: 1024px) {
+  .dc-doctor-card-wide {
+    flex-wrap: wrap;
+    /* Allow parts to wrap if needed */
+  }
 
-.pagination button:hover:not(:disabled) {
-  background: #5b4bff;
-  color: white;
-}
+  .dc-doctor-card-actions {
+    width: 200px;
+    padding: 1rem;
+  }
 
-.pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.pagination span {
-  font-weight: 600;
-  color: #333;
+  .dc-doctor-card-image {
+    width: 170px;
+    padding: 1rem;
+  }
 }
 
 @media (max-width: 900px) {
-  .doctors-content {
+  .dc-doctors-content {
     flex-direction: column;
   }
 
-  .filters-sidebar {
+  .dc-filters-sidebar {
     width: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
-  .filter-list {
+  .dc-filter-list {
     flex-direction: row;
     overflow-x: auto;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
   }
 
-  .filter-btn {
+  .dc-filter-btn {
     white-space: nowrap;
     border-left: none;
     border-bottom: 3px solid transparent;
   }
 
-  .filter-btn.active {
-    border-left: none;
-    border-bottom: 3px solid #003366;
+  .dc-filter-btn.active {
+    border-bottom: 3px solid #5b4bff;
   }
 }
 
-@media (max-width: 768px) {
-  .doctor-card-wide {
+/* Transition from row to column for cards */
+@media (max-width: 850px) {
+  .dc-doctor-card-wide {
     flex-direction: column;
   }
 
-  .doctor-card-image {
+  .dc-doctor-card-image {
     width: 100%;
     border-right: none;
     border-bottom: 1px solid #e5e7eb;
-    padding: 1rem;
+    padding: 1.5rem;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 2rem;
   }
 
-  .doctor-card-details {
-    padding: 1rem;
+  .dc-avatar {
+    margin-bottom: 0;
   }
 
-  .doctor-card-actions {
+  .dc-doctor-card-actions {
     width: 100%;
     border-left: none;
     border-top: 1px solid #e5e7eb;
     flex-direction: row;
     justify-content: space-between;
-    padding: 1rem;
-    background-color: #f9fafb;
-    flex-wrap: wrap;
+    padding: 1rem 1.5rem;
+    background: #f9fafb;
   }
 
-  .status-badge {
-    margin-bottom: 0;
-  }
-
-  .book-btn-large {
+  .dc-book-btn-large {
     width: auto;
-    flex: 1;
-    margin-left: 1rem;
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dc-doctor-card-image {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .dc-doctor-card-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dc-book-btn-large {
+    width: 100%;
+    margin-top: 0.5rem;
   }
 }

@@ -6,11 +6,11 @@ function Topbar({ onMenuClick, isOpen }){
     const { user } = useAuth();
 
     return(
-        <nav className={`topbar ${isOpen ? "menu-open" : ""}`}>
-            <div className="topbar-container">
-                <div className="topbar-left">
+        <nav className={`dc-topbar ${isOpen ? "dc-menu-open" : ""}`}>
+            <div className="dc-topbar-container">
+                <div className="dc-topbar-left">
                     {onMenuClick && (
-                        <button className={`mobile-menu-toggle ${isOpen ? "active" : ""}`} onClick={(e) => {
+                        <button className={`dc-mobile-menu-toggle ${isOpen ? "active" : ""}`} onClick={(e) => {
                             e.stopPropagation();
                             onMenuClick();
                         }}>
@@ -25,24 +25,24 @@ function Topbar({ onMenuClick, isOpen }){
                             )}
                         </button>
                     )}
-                    <Link to="/" className="logo-link">
-                        <h2 className="logo-text">DocConnect</h2>
+                    <Link to="/" className="dc-logo-link">
+                        <h2 className="dc-logo-text">DocConnect</h2>
                     </Link>
                 </div>
                 
-                <div className="topbar-links">
-                    <Link to="/doctors" className="nav-link">Find Doctors</Link>
+                <div className="dc-topbar-links">
+                    <Link to="/doctors" className="dc-nav-link">Find Doctors</Link>
                     {user ? (
                         <>
-                            <Link to="/dashboard" className="nav-link">Dashboard</Link>
-                            <Link to="/dashboard/profile" className="nav-link user-name">
+                            <Link to="/dashboard" className="dc-nav-link">Dashboard</Link>
+                            <Link to="/dashboard/profile" className="dc-nav-link dc-user-name">
                                 {user.firstName}
                             </Link>
                         </>
                     ) : (
                         <>
-                            <Link to="/login" className="nav-link">Login</Link>
-                            <Link to="/signup" className="nav-link btn-primary">Get Started</Link>
+                            <Link to="/login" className="dc-nav-link">Login</Link>
+                            <Link to="/signup" className="dc-nav-link dc-btn-primary">Get Started</Link>
                         </>
                     )}
                 </div>

@@ -1,13 +1,14 @@
-.topbar {
+.dc-topbar {
   background: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 2100;
+  /* Higher than sidebar on mobile */
   padding: 0;
 }
 
-.topbar-container {
+.dc-topbar-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 1rem 2rem;
@@ -16,11 +17,11 @@
   align-items: center;
 }
 
-.logo-link {
+.dc-logo-link {
   text-decoration: none;
 }
 
-.logo-text {
+.dc-logo-text {
   font-size: 1.8rem;
   font-weight: 700;
   background: linear-gradient(135deg, #5b4bff, #764ba2);
@@ -30,14 +31,14 @@
   margin: 0;
 }
 
-.topbar-links {
+.dc-topbar-links {
   display: flex;
   align-items: center;
   margin-left: 10px;
   gap: 1.5rem;
 }
 
-.nav-link {
+.dc-nav-link {
   text-decoration: none;
   color: #333;
   font-weight: 500;
@@ -48,42 +49,47 @@
   font-size: 0.95rem;
 }
 
-.nav-link:hover {
+.dc-nav-link:hover {
   color: #5b4bff;
   background: #f0f0ff;
 }
 
-.nav-link.btn-primary {
+.dc-nav-link.active {
+  color: #5b4bff;
+  background: #f0f0ff;
+}
+
+.dc-nav-link.dc-btn-primary {
   background: #5b4bff;
   color: white;
   padding: 0.6rem 1.5rem;
 }
 
-.nav-link.btn-primary:hover {
+.dc-nav-link.dc-btn-primary:hover {
   background: #4a3ae8;
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(91, 75, 255, 0.3);
 }
 
-.nav-link.user-name {
+.dc-nav-link.dc-user-name {
   background: linear-gradient(135deg, #5b4bff, #764ba2);
   color: white;
   font-weight: 600;
 }
 
-.nav-link.user-name:hover {
+.dc-nav-link.dc-user-name:hover {
   background: linear-gradient(135deg, #4a3ae8, #6a3b92);
   color: white;
 }
 
-.topbar-left {
+.dc-topbar-left {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.mobile-menu-toggle {
+.dc-mobile-menu-toggle {
   display: none;
   background: #f0f0ff;
   /* Pastel theme */
@@ -97,38 +103,37 @@
   justify-content: center;
 }
 
-.mobile-menu-toggle:hover {
+.dc-mobile-menu-toggle:hover {
   background: #e5e5ff;
 }
 
-.mobile-menu-toggle svg {
+.dc-mobile-menu-toggle svg {
   width: 24px;
   height: 24px;
 }
 
 @media (max-width: 768px) {
-  .topbar {
-    z-index: 2000;
-    /* Must be above sidebar */
+  .dc-topbar {
+    z-index: 2100;
   }
 
-  .topbar.menu-open .logo-text {
+  .dc-topbar.dc-menu-open .dc-logo-text {
     display: none;
   }
 
-  .topbar-links {
+  .dc-topbar-links {
     display: none;
   }
 
-  .mobile-menu-toggle {
+  .dc-mobile-menu-toggle {
     display: flex;
   }
 
-  .topbar-container {
-    padding: 0.6rem 1rem;
+  .dc-topbar-container {
+    padding: 0.5rem 1rem;
   }
 
-  .logo-text {
-    font-size: 1.35rem;
+  .dc-logo-text {
+    font-size: 1.3rem;
   }
 }

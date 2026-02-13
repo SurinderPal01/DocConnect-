@@ -1,4 +1,4 @@
-.user-dashboard {
+.dc-user-dashboard {
   padding: 1.5rem;
   /* Adjusted padding */
   max-width: 1200px;
@@ -11,12 +11,12 @@
   overflow: hidden;
 }
 
-.dashboard-header {
+.dc-dashboard-header {
   margin-bottom: 1.5rem;
   /* Reduced margin */
 }
 
-.dashboard-header h1 {
+.dc-dashboard-header h1 {
   font-size: 2.2rem;
   /* Reduced font size */
   color: #333;
@@ -27,20 +27,20 @@
   background-clip: text;
 }
 
-.welcome-subtitle {
+.dc-welcome-subtitle {
   color: #666;
   font-size: 1.0rem;
   /* Reduced font size */
 }
 
-.user-stats-grid {
+.dc-user-stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2.5rem;
 }
 
-.user-stat-card {
+.dc-user-stat-card {
   background: #fff;
   padding: 1.4rem;
   border-radius: 14px;
@@ -50,12 +50,12 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
-.user-stat-card:hover {
+.dc-user-stat-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.user-stat-icon {
+.dc-user-stat-icon {
   width: 56px;
   height: 56px;
   border-radius: 12px;
@@ -66,21 +66,21 @@
   background: linear-gradient(135deg, #5b4bff, #764ba2);
 }
 
-.user-stat-info h3 {
+.dc-user-stat-info h3 {
   font-size: 2rem;
   color: #333;
   margin: 0;
   font-weight: 700;
 }
 
-.user-stat-info p {
+.dc-user-stat-info p {
   color: #666;
   margin: 0.3rem 0 0 0;
   font-size: 0.9rem;
 }
 
 /* Single column layout for dashboard content */
-.user-dashboard-content {
+.dc-user-dashboard-content {
   display: grid;
   grid-template-columns: 1fr;
   /* Single column for mobile */
@@ -91,8 +91,8 @@
 }
 
 /* Quick Actions and Search Cards */
-.search-card,
-.quick-actions {
+.dc-search-card,
+.dc-quick-actions {
   width: 100%;
   max-width: 600px;
   /* Set a maximum width for the cards */
@@ -101,27 +101,27 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.search-card h3,
-.quick-actions h3 {
+.dc-search-card h3,
+.dc-quick-actions h3 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 0.5rem;
 }
 
-.search-card>p,
-.quick-actions p {
+.dc-search-card>p,
+.dc-quick-actions p {
   color: #666;
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
 }
 
-.action-cards {
+.dc-action-cards {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.action-card {
+.dc-action-card {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -131,14 +131,14 @@
   text-decoration: none;
 }
 
-.action-card:hover {
+.dc-action-card:hover {
   background: white;
   border-color: #5b4bff;
   transform: translateX(5px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.user-stat-icon {
+.dc-user-stat-icon {
   width: 56px;
   height: 56px;
   border-radius: 12px;
@@ -148,7 +148,7 @@
   background: rgba(91, 75, 255, 0.1);
 }
 
-.dashboard-icon {
+.dc-dashboard-icon {
   width: 32px;
   height: 32px;
   object-fit: contain;
@@ -156,7 +156,7 @@
   filter: brightness(0) saturate(100%) invert(32%) sepia(96%) saturate(1637%) hue-rotate(214deg) brightness(93%) contrast(94%);
 }
 
-.dashboard-icon-inline {
+.dc-dashboard-icon-inline {
   width: 24px;
   height: 24px;
   object-fit: contain;
@@ -165,11 +165,11 @@
   filter: brightness(0) saturate(100%) invert(32%) sepia(96%) saturate(1637%) hue-rotate(214deg) brightness(93%) contrast(94%);
 }
 
-.action-card:hover .dashboard-icon {
+.dc-action-card:hover .dc-dashboard-icon {
   /* Keep it blue */
 }
 
-.action-icon {
+.dc-action-icon {
   font-size: 2rem;
   width: 50px;
   height: 50px;
@@ -181,30 +181,30 @@
   border-radius: 10px;
 }
 
-.action-content {
+.dc-action-content {
   flex: 1;
 }
 
-.action-content h4 {
+.dc-action-content h4 {
   color: #333;
   margin: 0 0 0.3rem 0;
   font-size: 1.1rem;
 }
 
-.action-content p {
+.dc-action-content p {
   color: #666;
   margin: 0;
   font-size: 0.9rem;
 }
 
-.action-arrow {
+.dc-action-arrow {
   color: #5b4bff;
   font-size: 1.5rem;
   font-weight: bold;
 }
 
 /* Upcoming Appointments */
-.upcoming-appointments {
+.dc-upcoming-appointments {
   width: 100%;
   max-width: 600px;
   background: white;
@@ -213,19 +213,19 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.upcoming-appointments h3 {
+.dc-upcoming-appointments h3 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 1.5rem;
 }
 
-.appointments-preview {
+.dc-appointments-preview {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.appointment-preview-card {
+.dc-appointment-preview-card {
   padding: 1.2rem;
   background: #f8f9fa;
   border-radius: 12px;
@@ -237,20 +237,20 @@
   align-items: flex-start;
 }
 
-.appointment-preview-card:hover {
+.dc-appointment-preview-card:hover {
   background: white;
   border-color: #5b4bff;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.card-left-content {
+.dc-card-left-content {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 }
 
-.card-right-content {
+.dc-card-right-content {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -258,13 +258,13 @@
   text-align: right;
 }
 
-.preview-doctor-info h4 {
+.dc-preview-doctor-info h4 {
   color: #333;
   margin: 0 0 0.3rem 0;
   font-size: 1.1rem;
 }
 
-.preview-spec {
+.dc-preview-spec {
   color: #5b4bff;
   font-size: 1rem;
   margin: 0;
@@ -275,20 +275,20 @@
   display: inline-block;
 }
 
-.preview-date {
+.dc-preview-date {
   color: #444;
   font-size: 0.95rem;
   font-weight: 500;
   margin: 0;
 }
 
-.preview-time {
+.dc-preview-time {
   color: #666;
   font-size: 0.9rem;
   margin: 0;
 }
 
-.preview-status {
+.dc-preview-status {
   display: inline-block;
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
@@ -298,22 +298,22 @@
   width: fit-content;
 }
 
-.preview-status.pending {
+.dc-preview-status.pending {
   background: #fff3cd;
   color: #856404;
 }
 
-.preview-status.accepted {
+.dc-preview-status.accepted {
   background: #d4edda;
   color: #155724;
 }
 
-.preview-status.completed {
+.dc-preview-status.completed {
   background: #d1ecf1;
   color: #0c5460;
 }
 
-.view-all-link {
+.dc-view-all-link {
   text-align: center;
   color: #5b4bff;
   text-decoration: none;
@@ -323,12 +323,12 @@
   transition: color 0.3s ease;
 }
 
-.view-all-link:hover {
+.dc-view-all-link:hover {
   color: #4a3ae8;
   text-decoration: underline;
 }
 
-.search-select {
+.dc-search-select {
   width: 100%;
   padding: 12px 14px;
   margin-top: 8px;
@@ -340,13 +340,13 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.search-select:focus {
+.dc-search-select:focus {
   outline: none;
   border-color: #4f46e5;
   box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
 }
 
-.search-btn {
+.dc-search-btn {
   width: 100%;
   margin-top: 12px;
   padding: 12px;
@@ -360,47 +360,47 @@
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.search-btn:hover {
+.dc-search-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(79, 70, 229, 0.25);
 }
 
-.search-btn:active {
+.dc-search-btn:active {
   transform: translateY(0);
   box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
 }
 
 
 @media (max-width: 1024px) {
-  .user-dashboard-content {
+  .dc-user-dashboard-content {
     gap: 1rem;
     padding: 2rem;
   }
 }
 
 @media (max-width: 768px) {
-  .user-dashboard {
+  .dc-user-dashboard {
     padding: 1rem;
   }
 
-  .user-dashboard-content {
+  .dc-user-dashboard-content {
     grid-template-columns: 1fr;
     /* Ensures stacking on small screens */
     padding: 0;
   }
 
-  .search-card,
-  .quick-actions,
-  .upcoming-appointments {
+  .dc-search-card,
+  .dc-quick-actions,
+  .dc-upcoming-appointments {
     padding: 1.25rem;
   }
 
-  .search-select {
+  .dc-search-select {
     padding: 10px 12px;
     font-size: 13px;
   }
 
-  .search-btn {
+  .dc-search-btn {
     padding: 11px;
     font-size: 14px;
   }
@@ -408,39 +408,39 @@
 
 /* --- Desktop Layout Adjustments (min-width: 1024px) --- */
 @media (min-width: 1024px) {
-  .user-dashboard-content {
+  .dc-user-dashboard-content {
     grid-template-columns: 1fr 1fr;
     /* Two columns for desktop */
     max-width: 1200px;
   }
 
   /* Force "Quick Actions" and "Upcoming Appointments" to top row */
-  .quick-actions {
+  .dc-quick-actions {
     grid-column: 1;
     grid-row: 1;
   }
 
-  .upcoming-appointments {
+  .dc-upcoming-appointments {
     grid-column: 2;
     grid-row: 1;
   }
 
   /* Force "Find Doctors" and "AI Suggested Doctors" to second row */
-  .search-card {
+  .dc-search-card {
     grid-column: 1;
     grid-row: 2;
   }
 
   /* Targets the SuggestedDoctorCard component */
-  .user-dashboard-content>div:last-child {
+  .dc-user-dashboard-content>div:last-child {
     grid-column: 2;
     grid-row: 2;
   }
 
   /* Remove max-width to let cards fill the grid cells equally */
-  .search-card,
-  .quick-actions,
-  .upcoming-appointments {
+  .dc-search-card,
+  .dc-quick-actions,
+  .dc-upcoming-appointments {
     max-width: 100%;
     height: 100%;
     /* Optional: keeps cards the same height */

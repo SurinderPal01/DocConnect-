@@ -8,8 +8,16 @@ function Sidebar({ open,setOpen}){
     const handleClose = ()=>setOpen(false);
 
     return(
-      <aside className={`sidebar ${open ? "open" : ""}`}>
-        <h2 className="logo">DocConnect</h2>
+      <aside className={`dc-sidebar ${open ? "dc-open" : ""}`}>
+        <h2 className="dc-logo dc-desktop-logo">DocConnect</h2>
+        <div className="dc-mobile-sidebar-header">
+            <button className="dc-mobile-close-btn" onClick={handleClose}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h2 className="dc-logo">DocConnect</h2>
+        </div>
 
         <nav onClick={handleClose}>
         
@@ -33,7 +41,7 @@ function Sidebar({ open,setOpen}){
                 <Link to="/notifications" >Notifications</Link>
               </>
             )}
-            <button className="logout-btn" onClick={logout}>Logout</button>
+            <button className="dc-logout-btn" onClick={logout}>Logout</button>
           </>
         ) : (
           <>
