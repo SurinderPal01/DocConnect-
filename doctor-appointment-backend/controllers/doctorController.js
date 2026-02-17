@@ -251,12 +251,13 @@ exports.getDoctorStats = async(req,res)=>{
 exports.getAllPublicDoctors = async (req, res) => {
   try {
     const { specialization, limit = 20, page = 1 } = req.query;
+    console.log("query is ",req.query);
     const query = { approved: true };
     
     if (specialization) {
       query.specialization = specialization;
     }
-
+    console.log("query :",query);
     const skip = (parseInt(page) - 1) * parseInt(limit);
     
     const doctors = await Doctor.find(query)

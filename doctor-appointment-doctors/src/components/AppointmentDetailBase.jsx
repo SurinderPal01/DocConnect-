@@ -43,7 +43,6 @@ function AppointmentDetailBase({ role, actions }) {
   const getData = useCallback(async () => {
     try {
       const res = await api.get(`/api/appointment/${id}`);
-      console.log("app",res.data);
       setAppointment(res.data);
       // if(res.data.paymentStatus ==="PENDING"){setShowPaymentButton(true)}
     } catch (err) {
@@ -109,7 +108,7 @@ function AppointmentDetailBase({ role, actions }) {
     });
 
     const order = res.data;
-
+    console.log("order:",order);
     // 2. Razorpay options
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY,
@@ -121,6 +120,7 @@ function AppointmentDetailBase({ role, actions }) {
 
       handler: async function (response) {
         // 3. Verify payment
+        console.log("responce is:",response);
         await api.post("/api/payment/verify", {
           razorpay_order_id: response.razorpay_order_id,
           razorpay_payment_id: response.razorpay_payment_id,

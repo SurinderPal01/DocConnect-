@@ -1,3 +1,4 @@
+const razorpay = require("../config/razorpay");
 const Doctor = require("../models/Doctor");
 const Appointment = require("../models/Appointment");
 const Chat = require("../models/Chat");
@@ -225,9 +226,32 @@ exports.cancelAppointment = async (req, res) => {
       return res.status(400).json({ msg: "Already cancelled" });
     }
 
+    const now = new Date();
+    const AppointmentStart = new Date(appointment.start);
+    const diffInMs = AppointmentStart - now;
+    const diffInHours = diffInMs / (1000 * 60 * 60);
+    let ShouldRefund = false;
+
+    if(req.user.role=="user"){
+      appointment.cancelledBy= "USER";
+      if(diffInHours>12){
+        ShouldRefund = true
+      }
+    }else if(req.user.role == "doctor"){
+      appointment.cancelledBy= "DOCTOR";
+      ShouldRefund = true;
+    }
+    // console.log("should refund",ShouldRefund,appointment.paymentStatus,appointment.razorpayPaymentId);
+    //refund logic
+    if(ShouldRefund && appointment.paymentStatus==="PAID" && appointment.razorpayPaymentId){
+      // console.log("do the refund");
+      await razorpay.payments.refund(appointment.razorpayPaymentId);
+      appointment.refundStatus =  "INITIATED";
+    }
+
     appointment.status = "cancelled";
     appointment.cancelReason =req.body.reason;
-    appointment.statusHistory.push({status:"cancel"})
+    appointment.statusHistory.push({status:"cancel"});
     // console.log("appoi.",appointment.statusHistory)
     const doctor = await Doctor.findById(appointment.doctor);
 
@@ -254,7 +278,7 @@ exports.cancelAppointment = async (req, res) => {
           message:`Your Appointment is ${appointment.status}`,
           link:`/apointment/${appointment._id}`
         })
-    res.json({ success: true });
+    res.json({ success: true,  refundInitiated: ShouldRefund, });
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }

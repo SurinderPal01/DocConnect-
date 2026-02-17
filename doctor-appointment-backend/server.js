@@ -29,6 +29,7 @@ const app  = express();
 const server = http.createServer(app);
 connectDB();
 // Middlewares  
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));  
 app.use(cookieParser());
@@ -39,7 +40,7 @@ app.use(
        "https://docconnectapp.vercel.app","https://doc-connect-pz1doe7v2-surinders-projects-ccf2e427.vercel.app"
     ],
     credentials: true,
-  })
+  })  
 );
 
 app.use("/api/doctor",doctorRoute);

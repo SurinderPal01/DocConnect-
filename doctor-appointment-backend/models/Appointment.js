@@ -46,12 +46,12 @@ const AppointmentSchema = mongoose.Schema(
         },
         status:{
             type:String,
-            enum:["pending","accepted","rejected","cancelled","completed"],
+            enum:["pending","accepted","rejected","cancelled","confirmed","completed"],
             default:"pending"
         },
         paymentStatus:{
             type:String, 
-            enum:["NOT_ALLOWED","PENDING","PAID","FALIED"],
+            enum:["NOT_ALLOWED","PENDING","PROCESSING","PAID","FALIED"],
             default:"NOT_ALLOWED",
         },
         statusHistory:{
@@ -63,6 +63,22 @@ const AppointmentSchema = mongoose.Schema(
             ],
             default:[]
         },
+        razorpayOrderId:{
+            type:String,
+            index:true,
+        },
+        razorpayPaymentId :{
+            type:String
+        },
+        refundStatus:{
+            type:String,
+            enum:["NONE" ,"INITIATED","COMPLETED","FAILED"],
+            default:"NONE",
+        },
+        cancelledBy: {
+            type: String,
+            enum: ["USER","DOCTOR","ADMIN"]
+        },
         cancelReason : String,
     },
     {timestamps:true}
@@ -72,5 +88,9 @@ const AppointmentSchema = mongoose.Schema(
 AppointmentSchema.index({ user: 1, createdAt: -1 });
 AppointmentSchema.index({ doctor: 1, createdAt: -1 });
 AppointmentSchema.index({ doctor: 1, date: 1 });
+AppointmentSchema.index(
+  { doctor: 1, date: 1, slotId: 1 },
+  { unique: true }
+);
 
 module.exports = mongoose.model("Appointment",AppointmentSchema)
