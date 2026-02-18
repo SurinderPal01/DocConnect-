@@ -95,15 +95,15 @@ exports.markFailed = async (req,res)=>{
 
 exports.razorpayWebhook = async (req, res) => {
   try {
+
     const signature = req.headers["x-razorpay-signature"];
-    // console.log("signature:",signature);
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_WEBHOOK_SECRET)
       .update(req.body)
       .digest("hex");
-
+    // console.log("expcted signature",expectedSignature);
     if (signature !== expectedSignature) {
-      return res.status(400).send("Invalid Signature");
+      return res.status(400).json("Invalid Signature");
     }
 
     const event = JSON.parse(req.body.toString());
@@ -113,6 +113,7 @@ exports.razorpayWebhook = async (req, res) => {
     // -----------------------
     // console.log("event",event);
     // console.log(event.event);
+    // console.log(event.payload.refund.entity)
     if (event.event === "refund.processed") {
       const refund = event.payload.refund.entity;
 
@@ -137,7 +138,6 @@ exports.razorpayWebhook = async (req, res) => {
         { refundStatus: "FAILED" }
       );
     }
-
     return res.status(200).json({ received: true });
 
   } catch (err) {

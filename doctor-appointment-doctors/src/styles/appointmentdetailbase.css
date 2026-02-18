@@ -51,6 +51,24 @@
   color: #b91c1c;
 }
 
+/* REFUND */
+.refund {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.refund.initiated {
+  color: #3b82f6;
+}
+
+.refund.completed {
+  color: #15803d;
+}
+
+.refund.failed {
+  color: #b91c1c;
+}
+
 /* SECTION HEADINGS */
 .appointment-detail-card h4 {
   margin-top: 20px;
@@ -113,6 +131,7 @@
     gap: 4px;
   }
 }
+
 .timeline {
   margin-top: 20px;
   padding-left: 12px;
@@ -130,7 +149,7 @@
 
 .timeline-item.active .dot {
   background: #22c55e;
-  box-shadow: 0 0 0 4px rgba(34,197,94,0.2);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
 }
 
 .dot {
@@ -206,7 +225,7 @@
 }
 
 .pay-btn {
-    padding: 10px 18px;
+  padding: 10px 18px;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 500;

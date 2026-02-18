@@ -8,8 +8,6 @@ router.post("/mark-failed", paymentController.markFailed);
 // Webhook route
 router.post(
   "/razorpay/webhook",
-  express.raw({ type: "application/json" }),
   paymentController.razorpayWebhook
 );
-
 module.exports = router;

@@ -43,6 +43,7 @@ function AppointmentDetailBase({ role, actions }) {
   const getData = useCallback(async () => {
     try {
       const res = await api.get(`/api/appointment/${id}`);
+      console.log(res.data);
       setAppointment(res.data);
       // if(res.data.paymentStatus ==="PENDING"){setShowPaymentButton(true)}
     } catch (err) {
@@ -213,6 +214,15 @@ function AppointmentDetailBase({ role, actions }) {
       <strong className={`payment ${appointment.paymentStatus}`}>
         Payment:{paymentLabel[appointment.paymentStatus]}
       </strong>
+
+      {appointment.refundStatus && appointment.refundStatus !== "NONE" && (
+        <div className="detail-row">
+          <span>Refund Status:</span>
+          <strong className={`refund ${appointment.refundStatus.toLowerCase()}`}>
+            {appointment.refundStatus}
+          </strong>
+        </div>
+      )}
 
       {/* ACTIONS */}
       <div className="actions-area">

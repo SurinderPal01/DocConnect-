@@ -244,9 +244,13 @@ exports.cancelAppointment = async (req, res) => {
     // console.log("should refund",ShouldRefund,appointment.paymentStatus,appointment.razorpayPaymentId);
     //refund logic
     if(ShouldRefund && appointment.paymentStatus==="PAID" && appointment.razorpayPaymentId){
-      // console.log("do the refund");
-      await razorpay.payments.refund(appointment.razorpayPaymentId);
+     const refund =  await razorpay.payments.refund(appointment.razorpayPaymentId,
+      {
+      amount: appointment.fee * 100, // paisa me
+    }
+     );
       appointment.refundStatus =  "INITIATED";
+
     }
 
     appointment.status = "cancelled";
