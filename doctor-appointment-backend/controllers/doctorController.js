@@ -398,3 +398,11 @@ exports.uploadProfilePhoto = async (req, res) => {
     res.status(500).json({ msg: "Server Error", error: err.message });
   }
 };
+
+exports.okStatus=async (req,res)=>{
+  try{
+    return res.status(200).json("ok");
+  }catch(err){
+    res.status(500).json({message:"server error"})
+  }
+}

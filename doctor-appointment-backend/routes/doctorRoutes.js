@@ -16,12 +16,14 @@ const {
     getSpecializations,
     updateDoctorProfile,
     uploadProfilePhoto,
+    okStatus,
 } = require("../controllers/doctorController");
 const upload = require("../middleware/upload");
 const router = express.Router();
 
 router.get("/public/all", getAllPublicDoctors);
 router.get("/public/featured", getFeaturedDoctors);
+router.get("/public/okstatus", okStatus);
 router.get("/public/specializations", getSpecializations);
 router.get("/public/:id", getPublicDoctor);
 
